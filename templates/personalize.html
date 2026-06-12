@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalize — Memora</title>
-    <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/animations.css">
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='animations.css') }}">
+
 </head>
 
 <body>
@@ -24,8 +26,11 @@
             <div class="auth-form-box personalize-box reveal">
 
                 <span class="hero-badge">🌿 Almost There</span>
-                <h1 class="auth-title">Personalize Memora</h1>
+                <h1 class="auth-title">Personalize</h1>
                 <p class="auth-subtitle">Help us tailor the experience for your loved one</p>
+                {% if error %}
+                    <h1>Error: {{ error }}</h1>
+                {% endif %}
 
                 <form class="auth-form personalize-form" id="personalize-form" action="/api/create_account_st2" method="POST">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -33,12 +38,12 @@
 
                     <div class="form-group full-width">
                         <label for="full_name">Patient's Name</label>
-                        <input type="text" id="full_name" placeholder="Full name of the patient" required>
+                        <input type="text" name="full_name" id="full_name" placeholder="Full name of the patient" required>
                     </div>
 
                     <div class="form-group full-width">
                         <label for="phone_number">Patient's Phone Number</label>
-                        <input type="tel" id="phone_number" placeholder="+91 XXXXXXXXXX" required>
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="+91 XXXXXXXXXX" required>
                     </div>
 
                     <div class="form-group full-width">
@@ -60,7 +65,7 @@
                             Caretaker's Phone Number
                             <span class="optional-tag">Optional</span>
                         </label>
-                        <input type="tel" id="caretaker_phone_number" placeholder="+91 XXXXXXXXXX">
+                        <input type="tel" name="caretaker_phone_number" id="caretaker_phone_number" placeholder="+91 XXXXXXXXXX">
                     </div>
 
                     <button type="submit" class="primary-btn form-btn">Continue →</button>
@@ -77,21 +82,24 @@
         <p>© 2026 Memora. All Rights Reserved.</p>
     </footer>
 
+    <!--
     <script>
         document.getElementById('personalize-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const existing = JSON.parse(localStorage.getItem('memora_user') || '{}');
             const checked = document.querySelector('input[name="dementia_stage"]:checked');
-            existing.patient_name = document.getElementById('patient-name').value;
-            existing.patient_phone = document.getElementById('patient-phone').value;
+            existing.patient_name = document.getElementById('full_name').value;
+            existing.patient_phone = document.getElementById('phone_number').value;
             existing.dementia_stage = checked ? checked.value : '';
-            existing.caretaker_phone = document.getElementById('caretaker-phone').value;
+            existing.caretaker_phone = document.getElementById('caretaker_phone_number').value;
             localStorage.setItem('memora_user', JSON.stringify(existing));
             window.location.href = 'dashboard.html';
         });
     </script>
-    <script src="../static/script.js"></script>
-    <script src="../static/animations.js"></script>
+    -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='animations.js') }}"></script>
 
 </body>
 </html>

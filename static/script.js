@@ -3,8 +3,8 @@ const navbar = document.querySelector('.navbar');
 if (navbar) {
     window.addEventListener('scroll', () => {
         navbar.style.background = window.scrollY > 50
-            ? 'rgba(10,10,15,0.95)'
-            : 'rgba(10,10,15,0.8)';
+            ? 'rgba(245,239,230,0.98)'
+            : 'rgba(245,239,230,0.9)';
     });
 }
 

@@ -48,15 +48,85 @@ except:
 con = sqlite3.connect(f'{working_dir}/database/dementia_users.db',  check_same_thread=False, isolation_level=None)
 cur = con.cursor()
 
+def get_data(params):
+    global con, cur
+    try:
+        cur.execute('SELECT * FROM patient WHERE id=?', (params, ))
+        return cur.fetchall()
+    except Exception:
+        return False
 
 
+@app.before_request
+def check_authentication():
+    cookies = request.cookies
+    if request.path.strip()[:4] != "/api" and request.path.strip()[0:7] != "/static":
+        if 'user_id' in cookies:
+            temp = get_data(cookies['user_id'])
+            if temp != []:
+                checks_l = ['/dashboard', '/dashboard/']
+                if request.path.strip() not in checks_l:
+                    resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+                    return resp
+                
+            else:
+                with open(f"{working_dir}/database/pickled/st1_cleared.db", "rb") as file:
+                    db = pickle.load(file)                    
+
+                matched = False
+                for i in db.users:
+                    if i['user_id'] == cookies['user_id']:
+                        matched = True
+                        break
+                
+                if not matched:
+                    checks = ['/', '', '/login', '/login/']
+                    if request.path.strip() not in checks:            
+                        resp = make_response(render_template('redirect_to.html', url_="/"))
+                        print('shitting here')
+                        resp.set_cookie('user_id', '', expires=0)
+                        return resp
+        else:
+            checks_l = ['/dashboard', '/dashboard/']
+            if request.path.strip() in checks_l:
+                    resp = make_response(render_template('redirect_to.html', url_="/"))
+                    return resp            
+            
 @app.route('/')
-def index():
+def index():   
+    
     return render_template('landing.html')
 
 @app.route('/register')
 def register_page():
-    return render_template('register.html')
+    cookies = request.cookies
+    if 'user_id' not in cookies:
+        return render_template('register.html')
+    
+    with open(f"{working_dir}/database/pickled/st1_cleared.db", "rb") as file:
+        db = pickle.load(file)
+    
+    temp = get_data(cookies['user_id']) # Important nuance here! First we check if account actually exists then we check if stage 1 is cleared or not, because stage 1 accounts are deleted once stage 2 (personalization) is cleared.
+    if temp == []:
+        match = False
+        for i in db.users:
+            if i['user_id'] == cookies['user_id']:
+                match = True
+                break
+        
+        if not match:
+            return render_template('register.html')        
+        else:
+            resp = make_response(render_template('redirect_to.html', url_=f"/personalize"))
+            return resp
+        #return render_template('register.html')
+    
+    else:
+        # redirect_to dashboard
+        resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+        return resp
+    
+
 
 @app.route('/login')
 def login_page():
@@ -81,6 +151,9 @@ def personalize():
 
     return resp
 
+@app.route('/dashboard')
+def dashboard_ssr():
+    return render_template('dashboard.html')
     
 
 port = 8080

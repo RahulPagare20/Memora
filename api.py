@@ -150,7 +150,7 @@ def create_account_st1():
     #return "ACCOUNT SUCCESFULLY CREATED! Awaiting Aakira's /templates/dashboard.html"
     resp = make_response(render_template('redirect_to.html', url_=f"/personalize"))
     resp.set_cookie('user_id', id, expires=datetime.datetime.now() + datetime.timedelta(days=30))
-
+    print('setting cookie user_id as', str(id))
     return resp
     #return render_template('personalize.html')
 
@@ -160,26 +160,48 @@ def create_account_st1():
 @api.route('/create_account_st2', methods=['POST'])
 def create_account_st2():
     # Note, if caretaker does not exist, caretaker_phone_number = "DNE"
-    
     # Bifurcation of code just so that i know where things went wrong, if at they go wrong, which I hope, they don't :)
+
+
+    cookies = request.cookies
+    if 'user_id' not in cookies:
+        resp = make_response(render_template('redirect_to.html', url_=f"/register"))
+        return resp
+    
+    with open(f"{working_dir}/database/pickled/st1_cleared.db", "rb") as file:
+        db = pickle.load(file)
+    
+    match = False
+    for i in db.users:
+        if i['user_id'] == cookies['user_id']:
+            match = True
+            break
+    
+    if not match:
+        resp = make_response(render_template('redirect_to.html', url_="/"))
+        resp.set_cookie('user_id', '', expires=0)
+
+        return resp    
 
     # STAGE 1 Verification for /api/create_account_st2
 
     core =  request.form
     if 'user_id' not in core.keys():
-        return jsonify({'status': 'Failed', "justification": "`User ID` was not given."})
+        #return jsonify({'status': 'Failed', "justification": "`User ID` was not given."})
+        return render_template('personalize.html', error="`User ID` was not given.")
     
     if 'full_name' not in core.keys():
-        return jsonify({'status': 'Failed', "justification": "`Name` was not given."})
+        #return jsonify({'status': 'Failed', "justification": "`Name` was not given."})
+        return render_template('personalize.html', error=f"`Name` was not given. {str(core)}")
 
     if 'phone_number' not in core.keys():
-        return jsonify({'status': 'Failed', "justification": "`Phone Number` was not given."})    
+        return render_template('personalize.html', error="`Phone Number` was not given.")
 
     if 'dementia_stage' not in core.keys():
-        return jsonify({'status': 'Failed', "justification": "`Dementia Stage` was not given."})   
-    
+        return render_template('personalize.html', error="`Dementia Stage` was not given.")
+
     if 'caretaker_phone_number' not in core.keys():
-        return jsonify({'status': 'Failed', "justification": "`Caretaker's Phone Number` was not given."})    
+        return render_template('personalize.html', error="`Caretaker's Phone Number` was not given.")
     
 
     # STAGE 2 Verification for /api/create_account_st2
@@ -194,13 +216,15 @@ def create_account_st2():
         db = pickle.load(file)
         record = db.search_record_by_id(id)
         if not record:
-            return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 2 (search_record_by_id)."})
+            #return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 2 (search_record_by_id)."})
+            return render_template('personalize.html', error="/api/create_account_st2: Error in STAGE 2 (search_record_by_id).")                
         email_id = record['email_id']
         password = record['password']
         stat1 = db.delete_waiting_user_by_id(id)
     
     if not stat1:
-        return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 2."})
+        #return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 2."})
+        return render_template('personalize.html', error="/api/create_account_st2: Error in STAGE 2.")
 
     with open(f"{working_dir}/database/pickled/st1_cleared.db", "wb") as file:
         pickle.dump(db, file)
@@ -214,16 +238,16 @@ def create_account_st2():
 
     stat2 = create_user(id, name, email_id, password, phone_number, dementia_stage, caretaker_phone_number)
 
-    print(f'stat2 = f{stat2}')
-
 
 
     if not stat2:
-        return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 3."})
+        #return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 3."})
+        return render_template('personalize.html', error="/api/create_account_st2: Error in STAGE 3.")
 
 
-    return jsonify({"status": "Account successfully created & initiated! (Stage 2)", "user_id": id})
-
+    #return jsonify({"status": "Account successfully created & initiated! (Stage 2)", "user_id": id})
+    resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+    return resp
 
 @api.route('/check_authentication', methods=['POST'])
 def check_authentication_lll():
@@ -247,10 +271,12 @@ def login_server():
     data = request.form
 
     if 'email_id' not in data.keys():
-        return jsonify({'status': 'Failed', "justification": "`Email ID` was not given."})
+        #return jsonify({'status': 'Failed', "justification": "`Email ID` was not given."})
+        return render_template('login.html', error="`Email ID` was not given.")
 
     if 'password' not in data.keys():
-        return jsonify({'status': 'Failed', "justification": "`password` was not given."})
+        #return jsonify({'status': 'Failed', "justification": "`password` was not given."})
+        return render_template('login.html', error="`password` was not given.")
     
     email_id = data['email_id'].strip()
     password = data['password'].strip()
@@ -259,17 +285,25 @@ def login_server():
     if len(data) > 0:
         data = data[0]
     else:
-        return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+        #return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+        return render_template('login.html', error="Invalid Credentials.")
 
     if not data:
-        return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+        #return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+        return render_template('login.html', error="Invalid Credentials.")
     
     if data == []:
-        return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+        #return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+        return render_template('login.html', error="Invalid Credentials.")
     
     email_id_real = data[2]
     if email_id == email_id_real:
-        return jsonify({'status': 'Success', "justification": "Welcome back to your account!", "user_id": data[0]})
+        #return jsonify({'status': 'Success', "justification": "Welcome back to your account!", "user_id": data[0]})
+        resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+        resp.set_cookie('user_id', data[0], expires=datetime.datetime.now() + datetime.timedelta(days=30))        
+
+        return resp
+
     
     return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
     

@@ -10,7 +10,9 @@
 
     <title>Memora</title>
 
-    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='animation.css') }}">
 
 </head>
 
@@ -74,7 +76,8 @@
 
     </footer>
 
-    <script src="../static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='animations.js') }}"></script>
 
 </body>
 
