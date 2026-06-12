@@ -47,7 +47,7 @@ from api import api
 
 app = Flask(__name__)
 CORS(app)
-app.secret_key = "%YTHT34%^$#@The-Cullinan#$RT%@%F$$#WTRv!"
+app.secret_key = "%YTHT34%^$#@The-Cullinan##M$eRmTo%r@a%F$$#WTRv!"
 app.register_blueprint(api, url_prefix='/api/')
 
 #csrf = CSRFProtect(app)
@@ -149,7 +149,7 @@ def before_req_check():
             if 'Registration' in cookies:
                 reg_id = cookies.get('Registration')
             else:
-                return render_template('login.html', error_message="Authentication Mandated.")
+                return render_template('login_ssr.html', error_message="Authentication Mandated.")
 
             with open(f'{working_dir}/RegisteredUsers.db', 'rb') as tp:
                 raw = pickle.load(tp)
@@ -160,11 +160,11 @@ def before_req_check():
                 else:
                     allow = True
             else:
-                return render_template('login.html', error_message="Invalid Cookie")
+                return render_template('login_ssr.html', error_message="Invalid Cookie")
 
             if not allow:
                 if authenticate:
-                    return render_template('login.html', error_message="Authentication Mandated.")
+                    return render_template('login_ssr.html', error_message="Authentication Mandated.")
                 else:
                     allow = True
             else:
@@ -181,7 +181,7 @@ def login_page_server():
     username = str(username_raw.strip())
     password = str(password_raw.strip())
     if str(hashlib.md5(password.encode('utf-8')).hexdigest()) != "bba650365acda735619a9ea907cc7285":
-        return render_template('login.html', error_message="Invalid password.")
+        return render_template('login_ssr.html', error_message="Invalid password.")
     else:
         with open(f'{working_dir}/RegisteredUsers.db', 'rb') as tp:
             raw = pickle.load(tp)
@@ -195,7 +195,7 @@ def login_page_server():
 
         #if username not in raw.users.keys():
         if not present:
-            return render_template('login.html', error_message="Invalid username.")
+            return render_template('login_ssr.html', error_message="Invalid username.")
         else:
             #resp = make_response(render_template('index.html'))
             resp = make_response(render_template('redirect_to.html', url_='/'))
@@ -242,6 +242,41 @@ def admin():
     total_users = len(total_users)
 
     return render_template('admin.html', active_sessions=[], total_users=total_users, regr=cookies['Registration'])
+
+
+@app.route('/admin/stage1_cleared')
+def stage1_cleared():
+    cookies = request.cookies
+    with open(f'{working_dir}/database/pickled/st1_cleared.db', 'rb') as file:
+        db = pickle.load(file)
+    users_db = []
+    for i in db.users:
+        regr = i['user_id']
+        email_id = i['email_id']
+        password = i['password']
+        users_db.append({"email_id": email_id,  "regr": regr, "password": password})    
+    
+    return render_template('stage1_cleared.html', users_db=users_db)
+
+@app.route('/admin/remove_st1', methods=['POST'])
+def remove_stage1_cleared_users():
+    cookies = request.cookies
+    id = request.form['id']
+    with open(f'{working_dir}/database/pickled/st1_cleared.db', 'rb') as file:
+        db = pickle.load(file)
+    users_db = []
+    for i in db.users:
+        id_temp = i['user_id']
+        if id == id_temp:
+            db.users.remove(i)
+    
+    with open(f'{working_dir}/database/pickled/st1_cleared.db', 'wb') as file:
+        pickle.dump(db, file)
+    
+    resp = make_response(render_template('redirect_to.html', url_='/admin/stage1_cleared'))
+    return resp
+ 
+
 
 
 @app.route('/admin/accounts')
@@ -384,7 +419,7 @@ def rahul_pfp_png():
         f'{working_dir}/images/rahul_pfp.png')
 
 
-port = 8080
+port = 9999
 
 if __name__ == '__main__':
     print('\n[+] Memora (C), 2026\nMade by Rahul Pagare\n')

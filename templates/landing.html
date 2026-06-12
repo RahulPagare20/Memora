@@ -8,9 +8,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Login — Memora</title>
+    <title>Memora</title>
 
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 
 </head>
 
@@ -22,7 +22,7 @@
 }
 
 body{
-    background: #FDFBD4; /* #0a0a0f; */
+    background:#0a0a0f;
     color:white;
     font-family:'Segoe UI', sans-serif;
 }
@@ -35,7 +35,7 @@ body{
     justify-content:space-between;
     align-items:center;
     padding:20px 10%;
-    background: #01075d; /*  #010b8f; /* /* rgba(10,10,15,.8) */
+    background:rgba(10,10,15,.8);
     backdrop-filter:blur(10px);
     z-index:100;
 }
@@ -234,7 +234,6 @@ body{
     font-size:3rem;
     font-weight:900;
     margin:20px 0 10px;
-    color: #3b1e01;
 }
 
 .auth-subtitle{
@@ -385,8 +384,9 @@ body{
     color:white;
 }
 
-
 </style>
+
+
 <body>
 
     <!-- NAVBAR -->
@@ -420,38 +420,98 @@ body{
 
     </nav>
 
+
+    <br>
+    <br>
+
     <!-- PAGE CONTENT -->
 
     <main>
 
-        <section class="auth-page">
+        <section class="hero">
 
-            <div class="auth-form-box">
+            <!-- that cards which float around -->
 
-                <span class="hero-badge">🔑 Welcome Back</span>
+            <div class="floating-card card-1">
 
-                <h1 class="auth-title">Login to Memora</h1>
-                <p class="auth-subtitle">Sign in to continue your journey</p>
+                <h4>📞 Mom Called</h4>
 
-                <form class="auth-form" action="/login" method="POST">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
-                    </div>
+                <p>2 hours ago</p>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
-                    </div>
+            </div>
 
-                    <button type="submit" class="primary-btn form-btn">Login →</button>
+            <div class="floating-card card-2">
 
-                </form>
+                <h4>✨ Memory Score</h4>
 
-                <p class="auth-switch">
-                    Don't have an account? <a href="/register">Create one</a>
+                <p>92%</p>
+
+            </div>
+
+            <div class="floating-card card-3">
+
+                <h4>💊 Medication Due</h4>
+
+                <p>In 30 minutes</p>
+
+            </div>
+
+            <div class="floating-card card-4">
+
+                <h4>👨👩👧 Family Visit</h4>
+
+                <p>Yesterday</p>
+
+            </div>
+
+            <!-- Hero Content -->
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+
+                    ✨ AI Powered Memory Companion
+
+                </span>
+
+                <h1 class="hero-title">
+
+                    MEMORA
+
+                </h1>
+
+                <h2 class="hero-subtitle">
+
+                    When memories fade,
+                    <span class="gradient-text">
+                        relationships shouldn't.
+                    </span>
+
+                </h2>
+
+                <p class="hero-description">
+
+                    Memora helps Dementia and Alzheimer's patients reconnect
+                    with family members, cherished memories, and daily life
+                    through intelligent AI-powered memory recall.
+
                 </p>
+
+                <div class="hero-buttons">
+
+                    <a href="/register" class="primary-btn">
+
+                        Get Started Free →
+
+                    </a>
+
+                    <a href="#features" class="secondary-btn">
+
+                        Learn More
+
+                    </a>
+
+                </div>
 
             </div>
 

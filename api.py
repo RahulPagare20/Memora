@@ -44,6 +44,7 @@ if os.path.exists(f"{working_dir}/database/dementia_users.db"):
 
 
 def create_profiles_for_user(id: str):
+    
     try:
         con = sqlite3.connect(f'{working_dir}/database/{id}/profiles.db',  check_same_thread=False, isolation_level=None)
         cur = con.cursor()
@@ -100,7 +101,8 @@ def get_data_from_password(params):
 def create_account_st1():
     id = get_id()
     extraneous = False
-    brand_new = request.get_json()
+    #brand_new = request.get_json()
+    brand_new = request.form
 
     password_usr = brand_new['password'].strip()
     email_id_usr = brand_new['email_id'].strip()
@@ -108,16 +110,19 @@ def create_account_st1():
     db = get_data_from_password(password_usr, )
     for user in db:
         if user[2] == email_id_usr:
-            return jsonify({'status': 'Failed', "justification": "Another user with the given credentials already exist."})
+            #return jsonify({'status': 'Failed', "justification": "Another user with the given credentials already exist."})
+            return render_template('register.html', error="Another user with the given credentials already exist.")
 
     print('\n\n')
 
 
     if "email_id" not in brand_new.keys():
-        return jsonify({'status': 'Failed', "justification": "Email ID was not provided."})
+        #return jsonify({'status': 'Failed', "justification": "Email ID was not provided."})
+        return render_template('register.html', error="Email ID was not provided.")
     
     if "password" not in brand_new.keys():
-        return jsonify({'status': 'Failed', "justification": "Password was not provided."})
+        #return jsonify({'status': 'Failed', "justification": "Password was not provided."})
+        return render_template('register.html', error="Password was not provided.")
     
     if len(list(brand_new.keys())) > 2:
         extraneous = True
@@ -141,7 +146,9 @@ def create_account_st1():
     #stat = send_email(email_id_usr, "Memora", f"Account has been successfully created! Your user id is: {id}")
     print('[!] Email is not being sent.')
 
-    return jsonify({"status": "Account successfully created! (Stage 1)", "user_id": id, "extraneous_complexity": extraneous, 'email_stat': stat})
+    #return jsonify({"status": "Account successfully created! (Stage 1)", "user_id": id, "extraneous_complexity": extraneous, 'email_stat': stat})
+    return "ACCOUNT SUCCESFULLY CREATED! Awaiting Aakira's /templates/dashboard.html"
+
 
 
 
@@ -153,7 +160,7 @@ def create_account_st2():
 
     # STAGE 1 Verification for /api/create_account_st2
 
-    core = request.get_json()
+    core =  request.form
     if 'user_id' not in core.keys():
         return jsonify({'status': 'Failed', "justification": "`User ID` was not given."})
     
@@ -214,7 +221,8 @@ def create_account_st2():
 
 @api.route('/check_authentication', methods=['POST'])
 def check_authentication_lll():
-    data = request.get_json()
+    #data = request.get_json()
+    data = request.form
 
     if 'user_id' not in data.keys():
         return jsonify({'status': 'Failed', "justification": "`User ID` was not given."})
@@ -229,7 +237,8 @@ def check_authentication_lll():
 
 @api.route('/login', methods=['POST'])
 def login_server():
-    data = request.get_json()
+    #data = request.get_json()
+    data = request.form
 
     if 'email_id' not in data.keys():
         return jsonify({'status': 'Failed', "justification": "`Email ID` was not given."})

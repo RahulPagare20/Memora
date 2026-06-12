@@ -207,17 +207,11 @@
         {% for user in users_db %}
 
         <div class="user-card">
-
-            <div class="username">
-                {{ user['username'] }}
-            </div>
-
             <div class="user-field">
                 <strong>Registration ID: </strong>
                 {{ user['regr'] }}
             </div>
             
-            {% if "[ADMIN]" not in user['username'] %}
             <div class="user-field">
                 <strong>Email ID: </strong>
                 {{ user['email_id'] }}
@@ -228,56 +222,12 @@
                 {{ user['password'] }}
             </div>     
 
-            <div class="user-field">
-                <strong>Patient's Phone Number: </strong>
-                {{ user['phone_number'] }}
-            </div>               
-
-            <div class="user-field">
-                <strong>Patient's Dementia Stage: </strong>
-                {{ user['dementia_stage'] }}
-            </div>              
-            
-            <div class="user-field">
-                <strong>Patient's Care-Taker Phone Number: </strong>
-                {{ user['caretaker_phone_number'] }}
-            </div>              
-            
-            {% endif %}
-
-            <div class="user-field">
-                <strong>Ban Status: </strong>
-                {{ user['ban_status'] }}
-            </div>             
-
-            <form action="/admin/terminate_account" method="post">
+            <form action="/admin/remove_st1" method="post">
                 <input type="hidden" name="id" value="{{ user['regr'] }}">
-
                 <button type="submit" class="terminate-btn">
-                    Terminate Account
+                    Remove instance
                 </button>
-            </form>
-
-            {% if '[ADMIN]' not in user['username'] %}
-                {% if not user['ban_status'] %}
-                    <form action="/admin/ban_account" method="post">
-                        <input type="hidden" name="id" value="{{ user['regr'] }}">
-
-                        <button type="submit" class="terminate-btn">
-                            Ban Account
-                        </button>
-                    </form>    
-                {% else %}  
-                    <form action="/admin/unban_account" method="post">
-                        <input type="hidden" name="id" value="{{ user['regr'] }}">
-
-                        <button type="submit" class="terminate-btn">
-                            Unban Account
-                        </button>
-                    </form>     
-                {% endif %}                  
-            {% endif %}
-
+            </form>                
         </div>
 
         {% endfor %}
@@ -285,11 +235,11 @@
         {% if not users_db %}
         <div class="user-card">
             <div class="username">
-                No Registered Users
+                No one cleared stage 1 sign-up.
             </div>
 
             <div>
-                The registry is currently empty.
+                RegisteredUsers.db is currently empty.
             </div>
         </div>
         {% endif %}
@@ -298,7 +248,7 @@
 
     <div class="footer">
         <p style="font-size:clamp(1rem, 1vw, 0.9rem); opacity:1;">
-            Dementia Users · Memora <br>
+            Stage 1 Sign-Up Cleared Users · Memora <br>
             The Cullinan · Steminate Hacks 2026
         </p>
     </div>
