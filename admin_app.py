@@ -241,7 +241,10 @@ def admin():
     total_users = check_users()
     total_users = len(total_users)
 
-    return render_template('admin.html', active_sessions=[], total_users=total_users, regr=cookies['Registration'])
+    with open(f'{working_dir}/database/pickled/st1_cleared.db', 'rb') as file:
+        db = pickle.load(file)    
+
+    return render_template('admin.html', active_sessions=[], total_users=total_users, regr=cookies['Registration'],  tot_st1_cleared_users=len(db.users))
 
 
 @app.route('/admin/stage1_cleared')
@@ -256,7 +259,7 @@ def stage1_cleared():
         password = i['password']
         users_db.append({"email_id": email_id,  "regr": regr, "password": password})    
     
-    return render_template('stage1_cleared.html', users_db=users_db)
+    return render_template('stage1_cleared.html', users_db=users_db, nof=len(users_db))
 
 @app.route('/admin/remove_st1', methods=['POST'])
 def remove_stage1_cleared_users():
@@ -315,9 +318,15 @@ def admin_accounts():
             'dementia_stage': dementia_stage,
             'caretaker_phone_number': caretaker_phone_number,
             "ban_status": ban_status})
+    
+    
+    with open(f'{working_dir}/database/pickled/st1_cleared.db', 'rb') as file:
+        db = pickle.load(file)
+    
+
         
 
-    return render_template('admin_accounts.html', users_db=users_db, tot_nof_users = len(users_db))
+    return render_template('admin_accounts.html', users_db=users_db, tot_nof_users=len(users_db))
 
 
 

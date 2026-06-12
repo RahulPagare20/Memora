@@ -6,6 +6,8 @@
 
 # Non-flask modules
 import os
+import sqlite3
+import pickle
 
 # Flask modules
 from flask import (
@@ -43,6 +45,11 @@ except:
     print('[+] Bypassed. @api.py')
 
 
+con = sqlite3.connect(f'{working_dir}/database/dementia_users.db',  check_same_thread=False, isolation_level=None)
+cur = con.cursor()
+
+
+
 @app.route('/')
 def index():
     return render_template('landing.html')
@@ -55,16 +62,26 @@ def register_page():
 def login_page():
     return render_template('login.html')
 
+@app.route('/personalize')
+def personalize():
+    cookies = request.cookies
+    if 'user_id' not in cookies:
+        resp = make_response(render_template('redirect_to.html', url_=f"/register"))
+        return resp
+    
+    with open(f"{working_dir}/database/pickled/st1_cleared.db", "rb") as file:
+        db = pickle.load(file)
+    
+    for i in db.users:
+        if i['user_id'] == cookies['user_id']:
+            return render_template('personalize.html', user_id=i['user_id'])
+    
+    resp = make_response(render_template('redirect_to.html', url_="/"))
+    resp.set_cookie('user_id', '', expires=0)
 
+    return resp
 
-@app.route('/static/style.css')
-def style_css():
-    return render_template('/static/style.css')
-
-@app.route('/static/script.js')
-def script():    
-    return render_template('/static/script.js')
-
+    
 
 port = 8080
 

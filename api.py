@@ -1,12 +1,14 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, make_response
 from flask import jsonify, send_file
 import sqlite3
 import os
 import random
 import string
-from classes import *
+import datetime
 import pickle
+
 from send_email import send_email
+from classes import *
 
 first_launch = True
 
@@ -113,8 +115,6 @@ def create_account_st1():
             #return jsonify({'status': 'Failed', "justification": "Another user with the given credentials already exist."})
             return render_template('register.html', error="Another user with the given credentials already exist.")
 
-    print('\n\n')
-
 
     if "email_id" not in brand_new.keys():
         #return jsonify({'status': 'Failed', "justification": "Email ID was not provided."})
@@ -147,7 +147,12 @@ def create_account_st1():
     print('[!] Email is not being sent.')
 
     #return jsonify({"status": "Account successfully created! (Stage 1)", "user_id": id, "extraneous_complexity": extraneous, 'email_stat': stat})
-    return "ACCOUNT SUCCESFULLY CREATED! Awaiting Aakira's /templates/dashboard.html"
+    #return "ACCOUNT SUCCESFULLY CREATED! Awaiting Aakira's /templates/dashboard.html"
+    resp = make_response(render_template('redirect_to.html', url_=f"/personalize"))
+    resp.set_cookie('user_id', id, expires=datetime.datetime.now() + datetime.timedelta(days=30))
+
+    return resp
+    #return render_template('personalize.html')
 
 
 
@@ -170,6 +175,9 @@ def create_account_st2():
     if 'phone_number' not in core.keys():
         return jsonify({'status': 'Failed', "justification": "`Phone Number` was not given."})    
 
+    if 'dementia_stage' not in core.keys():
+        return jsonify({'status': 'Failed', "justification": "`Dementia Stage` was not given."})   
+    
     if 'caretaker_phone_number' not in core.keys():
         return jsonify({'status': 'Failed', "justification": "`Caretaker's Phone Number` was not given."})    
     
@@ -215,8 +223,6 @@ def create_account_st2():
 
 
     return jsonify({"status": "Account successfully created & initiated! (Stage 2)", "user_id": id})
-
-
 
 
 @api.route('/check_authentication', methods=['POST'])
