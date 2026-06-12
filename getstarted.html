@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Get Started — Memora{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+
+    <div class="auth-box">
+
+        <span class="hero-badge">✨ Welcome to Memora</span>
+
+        <h1 class="auth-title">Where would you like to go?</h1>
+        <p class="auth-subtitle">Choose an option to continue</p>
+
+        <div class="auth-options">
+
+            <a href="/login" class="auth-card">
+                <div class="auth-icon">🔑</div>
+                <h3>Login</h3>
+                <p>Already have an account? Sign in and continue your journey.</p>
+                <span class="auth-arrow">→</span>
+            </a>
+
+            <a href="/register" class="auth-card auth-card-highlight">
+                <div class="auth-icon">🌟</div>
+                <h3>Create Account</h3>
+                <p>New here? Join Memora and start reconnecting today.</p>
+                <span class="auth-arrow">→</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
