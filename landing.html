@@ -1,91 +1,171 @@
-{% extends "base.html" %}
-{% block content %}
-<section class="hero">
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- that cards which float around -->
+<head>
 
-    <div class="floating-card card-1">
+    <meta charset="UTF-8">
 
-        <h4>📞 Mom Called</h4>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-        <p>2 hours ago</p>
+    <title>Memora</title>
 
-    </div>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
 
-    <div class="floating-card card-2">
+</head>
 
-        <h4>✨ Memory Score</h4>
+<body>
 
-        <p>92%</p>
+    <!-- NAVBAR -->
 
-    </div>
+    <nav class="navbar">
 
-    <div class="floating-card card-3">
+        <div class="logo">
 
-        <h4>💊 Medication Due</h4>
+            <h2>MEMORA</h2>
 
-        <p>In 30 minutes</p>
+        </div>
 
-    </div>
+        <div class="nav-links">
 
-    <div class="floating-card card-4">
+            <a href="/">Home</a>
 
-        <h4>👨‍👩‍👧 Family Visit</h4>
+            <a href="#features">Features</a>
 
-        <p>Yesterday</p>
+            <a href="#about">About</a>
 
-    </div>
+            <a href="/login">Login</a>
 
-    <!-- Hero Content -->
+            <a href="/register"
+               class="nav-btn">
 
-    <div class="hero-content">
-
-        <span class="hero-badge">
-
-            ✨ AI Powered Memory Companion
-
-        </span>
-
-        <h1 class="hero-title">
-
-            MEMORA
-
-        </h1>
-
-        <h2 class="hero-subtitle">
-
-            When memories fade,
-            <span class="gradient-text">
-                relationships shouldn't.
-            </span>
-
-        </h2>
-
-        <p class="hero-description">
-
-            Memora helps Dementia and Alzheimer's patients reconnect
-            with family members, cherished memories, and daily life
-            through intelligent AI-powered memory recall.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="/register" class="primary-btn">
-
-                Get Started Free →
-
-            </a>
-
-            <a href="#features" class="secondary-btn">
-
-                Learn More
+                Get Started
 
             </a>
 
         </div>
 
-    </div>
+    </nav>
 
-</section>
-{% endblock %}
+    <!-- PAGE CONTENT -->
+
+    <main>
+
+        <section class="hero">
+
+            <!-- that cards which float around -->
+
+            <div class="floating-card card-1">
+
+                <h4>📞 Mom Called</h4>
+
+                <p>2 hours ago</p>
+
+            </div>
+
+            <div class="floating-card card-2">
+
+                <h4>✨ Memory Score</h4>
+
+                <p>92%</p>
+
+            </div>
+
+            <div class="floating-card card-3">
+
+                <h4>💊 Medication Due</h4>
+
+                <p>In 30 minutes</p>
+
+            </div>
+
+            <div class="floating-card card-4">
+
+                <h4>👨👩👧 Family Visit</h4>
+
+                <p>Yesterday</p>
+
+            </div>
+
+            <!-- Hero Content -->
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+
+                    ✨ AI Powered Memory Companion
+
+                </span>
+
+                <h1 class="hero-title">
+
+                    MEMORA
+
+                </h1>
+
+                <h2 class="hero-subtitle">
+
+                    When memories fade,
+                    <span class="gradient-text">
+                        relationships shouldn't.
+                    </span>
+
+                </h2>
+
+                <p class="hero-description">
+
+                    Memora helps Dementia and Alzheimer's patients reconnect
+                    with family members, cherished memories, and daily life
+                    through intelligent AI-powered memory recall.
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="/register" class="primary-btn">
+
+                        Get Started Free →
+
+                    </a>
+
+                    <a href="#features" class="secondary-btn">
+
+                        Learn More
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <h3>MEMORA</h3>
+
+        <p>
+
+            Helping Dementia and Alzheimer's patients
+            reconnect with memories and loved ones.....
+
+        </p>
+
+        <p>
+
+            © 2026 Memora. All Rights Reserved.
+
+        </p>
+
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
