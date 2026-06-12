@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalize — Memora</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/animations.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><h2>MEMORA</h2></div>
+        <div class="nav-links">
+            <a href="landing.html">Home</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="auth-page">
+            <div class="auth-form-box personalize-box reveal">
+
+                <span class="hero-badge">🌿 Almost There</span>
+                <h1 class="auth-title">Personalize Memora</h1>
+                <p class="auth-subtitle">Help us tailor the experience for your loved one</p>
+
+                <form class="auth-form personalize-form" id="personalize-form">
+
+                    <div class="form-group full-width">
+                        <label for="patient-name">Patient's Name</label>
+                        <input type="text" id="patient-name" placeholder="Full name of the patient" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="patient-phone">Patient's Phone Number</label>
+                        <input type="tel" id="patient-phone" placeholder="+91 XXXXXXXXXX" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Dementia Stage</label>
+                        <div class="stage-toggle">
+                            <input type="radio" id="stage1" name="dementia_stage" value="early">
+                            <label for="stage1" class="stage-btn">Early Stage</label>
+
+                            <input type="radio" id="stage2" name="dementia_stage" value="intermediate">
+                            <label for="stage2" class="stage-btn">Intermediate Stage</label>
+
+                            <input type="radio" id="stage3" name="dementia_stage" value="severe">
+                            <label for="stage3" class="stage-btn">Severe Stage</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="caretaker-phone">
+                            Caretaker's Phone Number
+                            <span class="optional-tag">Optional</span>
+                        </label>
+                        <input type="tel" id="caretaker-phone" placeholder="+91 XXXXXXXXXX">
+                    </div>
+
+                    <button type="submit" class="primary-btn form-btn">Continue →</button>
+
+                </form>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <h3>MEMORA</h3>
+        <p>Helping Dementia and Alzheimer's patients reconnect with memories and loved ones.....</p>
+        <p>© 2026 Memora. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('personalize-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const existing = JSON.parse(localStorage.getItem('memora_user') || '{}');
+            const checked = document.querySelector('input[name="dementia_stage"]:checked');
+            existing.patient_name = document.getElementById('patient-name').value;
+            existing.patient_phone = document.getElementById('patient-phone').value;
+            existing.dementia_stage = checked ? checked.value : '';
+            existing.caretaker_phone = document.getElementById('caretaker-phone').value;
+            localStorage.setItem('memora_user', JSON.stringify(existing));
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+    <script src="../static/script.js"></script>
+    <script src="../static/animations.js"></script>
+
+</body>
+</html>
