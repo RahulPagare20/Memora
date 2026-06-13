@@ -13,9 +13,9 @@
     opacity: 0.18;
     animation: auroraShift 12s ease-in-out infinite alternate;
 }
-.aurora-1 { width: 80vw; height: 60vh; background: radial-gradient(ellipse, #7c3aed, transparent 70%); top: -20%; left: -20%; animation-duration: 14s; }
-.aurora-2 { width: 60vw; height: 80vh; background: radial-gradient(ellipse, #3b82f6, transparent 70%); top: 10%; right: -10%; animation-duration: 18s; animation-delay: -4s; }
-.aurora-3 { width: 50vw; height: 50vh; background: radial-gradient(ellipse, #a78bfa, transparent 70%); bottom: -10%; left: 20%; animation-duration: 16s; animation-delay: -8s; }
+.aurora-1 { width: 80vw; height: 60vh; background: radial-gradient(ellipse, #7c3fe4, transparent 70%); top: -20%; left: -20%; animation-duration: 14s; }
+.aurora-2 { width: 60vw; height: 80vh; background: radial-gradient(ellipse, #9c6fea, transparent 70%); top: 10%; right: -10%; animation-duration: 18s; animation-delay: -4s; }
+.aurora-3 { width: 50vw; height: 50vh; background: radial-gradient(ellipse, #9c6fea, transparent 70%); bottom: -10%; left: 20%; animation-duration: 16s; animation-delay: -8s; }
 
 @keyframes auroraShift {
     0%   { transform: translate(0, 0) scale(1); }
@@ -32,8 +32,8 @@
     animation: blobMorph 10s ease-in-out infinite alternate;
     pointer-events: none;
 }
-.blob-1 { width: 35vw; height: 35vw; background: linear-gradient(135deg, #7c3aed, #3b82f6); top: 20%; left: 5%; }
-.blob-2 { width: 25vw; height: 25vw; background: linear-gradient(135deg, #a78bfa, #60a5fa); bottom: 15%; right: 8%; animation-delay: -5s; }
+.blob-1 { width: 35vw; height: 35vw; background: linear-gradient(135deg, #7c3fe4, #9c6fea); top: 20%; left: 5%; }
+.blob-2 { width: 25vw; height: 25vw; background: linear-gradient(135deg, #9c6fea, #c4b5fd); bottom: 15%; right: 8%; animation-delay: -5s; }
 
 @keyframes blobMorph {
     0%   { border-radius: 60% 40% 50% 70% / 50% 60% 40% 50%; transform: rotate(0deg); }
@@ -120,7 +120,7 @@
 .page-transition-overlay {
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #7c3aed, #3b82f6);
+    background: linear-gradient(135deg, #7c3fe4, #9c6fea);
     z-index: 9999;
     transform: scaleX(0);
     transform-origin: left;
@@ -134,7 +134,7 @@
 
 /* ── SKELETON LOADER ── */
 .skeleton {
-    background: linear-gradient(90deg, #e8d5b7 25%, #f5e8d0 50%, #e8d5b7 75%);
+    background: linear-gradient(90deg, #f0ebff 25%, #e5d9fb 50%, #f0ebff 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: 8px;
