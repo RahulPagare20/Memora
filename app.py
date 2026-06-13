@@ -25,6 +25,13 @@ from flask_cors import CORS, cross_origin
 from flask_wtf import CSRFProtect
 from flask_socketio import SocketIO, emit
 
+'''
+import eventlet
+eventlet.monkey_patch()
+
+from gevent import monkey;
+monkey.patch_all()
+'''
 
 # Customized imports 
 from api import api
@@ -383,7 +390,7 @@ def handle_image(data):
     global last_log_time
 
     # --- ADD THIS TEMPORARILY ---
-    print(f"[DEBUG] data type: {type(data)}, keys: {data.keys() if isinstance(data, dict) else 'raw string'}")
+    #print(f"[DEBUG] data type: {type(data)}, keys: {data.keys() if isinstance(data, dict) else 'raw string'}")
     # ----------------------------
 
     # ── 1. Unpack the payload ─────────────────────────────────────────────
@@ -396,13 +403,13 @@ def handle_image(data):
         user_id   = request.args.get("user_id", "")
 
     if not user_id:
-        emit('face_detected', {'status': 'error', 'message': 'user_id missing'})
+        emit('face_detected', {'status': 'error', 'message': 'user_id missing'},  broadcast=True)
         return
 
     # ── 2. Decode the incoming frame ──────────────────────────────────────
     frame_bgr = decode_websocket_frame(raw_frame)
     if frame_bgr is None:
-        emit('face_detected', {'status': 'error', 'message': 'bad frame'})
+        emit('face_detected', {'status': 'error', 'message': 'bad frame'},  broadcast=True)
         return
 
     # ── 3. Dynamically load this user's known faces ───────────────────────
@@ -462,15 +469,16 @@ def handle_image(data):
             print(f"[ALERT] Recognized: {names}")
 
         
+        
         print(f'Face detected: {str(recognized_faces)}')
         emit('face_detected', {
             'status': 'detected',
             'faces':  recognized_faces,
-        })
+        },  broadcast=True)
     elif not recognized_faces:
         # Always emit a 'none' so the frontend can clear its overlay
         print(f'Face detected, but no faces recognized')
-        emit('face_detected', {'status': 'none', 'faces': []})
+        emit('face_detected', {'status': 'none', 'faces': []},  broadcast=True)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -478,3 +486,4 @@ port = 8080
 
 if __name__ == "__main__":
     socketio.run(app, host='0.0.0.0', port=port, log_output=True)
+    #app.run(host="0.0.0.0", port=port)

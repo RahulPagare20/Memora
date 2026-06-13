@@ -168,7 +168,7 @@
     <!-- Bottom prompt -->
     <div class="bottom-label">
         <p class="bottom-prompt">Point the camera at a face</p>
-        <p class="bottom-sub">Identify the person in view</p>
+        <h1 id="name_tag">Initial tag</h1>
     </div>
 
     <!-- Error state -->
@@ -238,12 +238,32 @@
                 const dataURL = canvas.toDataURL('image/jpeg', 0.6);  // this is your base64 frame
                 socket.emit('image', { frame: dataURL, user_id: "{{ user_id }}" });
             }
-        }, 100);
+        }, 10);
 
         // Receive processed frames
-        socket.on('processed_image', function(data) {
-            processedImage.src = data;
+        socket.on('face_detected', function(data) {
+            //processedImage.src = data;
+            // console.log("Data received from app.py: ", data);
+            // var c = document.getElementById("canvas");
+            // var ctx = c.getContext("2d");
+            // ctx.font = "30px Arial";
+            //console.log(data)
+
+            var stat = document.getElementById('name_tag');
+            console.log(data['status'])
+            
+            if (data['status'] == 'error') {
+                stat.innerHTML = "No face was detected."
+            }            
+            if (data['status'] == 'none') {
+                stat.innerHTML = 'No family member detected.';
+            }
+            if (data['status'] == 'detected') {
+                stat.innerHTML = data['faces'][0]['name'];
+            }
         });       
+
+
     </script>
 </body>
 </html>
