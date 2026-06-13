@@ -120,7 +120,7 @@
 .page-transition-overlay {
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #8b5a2b, #c8956c);
+    background: linear-gradient(135deg, #7c3aed, #3b82f6);
     z-index: 9999;
     transform: scaleX(0);
     transform-origin: left;

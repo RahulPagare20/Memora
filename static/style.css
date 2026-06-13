@@ -581,7 +581,7 @@ body{
     gap: 14px;
     padding: 14px 28px;
     text-decoration: none;
-    color: rgba(245,239,230,.55);
+    color: rgba(232,224,240,0.65);
     font-size: .92rem;
     letter-spacing: .3px;
     border-left: 3px solid transparent;
@@ -781,7 +781,7 @@ body{
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 16px;
-    background: #e8d5b7;
+    background: #1e1535;
     display: flex;
     align-items: center;
     justify-content: center;
