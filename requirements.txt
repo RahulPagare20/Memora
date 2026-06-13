@@ -1,0 +1,7 @@
+Flask
+flask-cors
+flask-wtf
+flask-socketio
+face_recognition
+numpy
+opencv-contrib-python
