@@ -1,0 +1,8 @@
+<div class="member-card">
+    <div class="member-photo">
+        <img src="'+m.photo+'"> ': ' <span></span>
+    </div>
+    <h4>Name</h4>
+    <p>m.relation</p>
+    </div>
+</div>

@@ -64,10 +64,11 @@ def check_authentication():
         if 'user_id' in cookies:
             temp = get_data(cookies['user_id'])
             if temp != []:
-                checks_l = ['/dashboard', '/dashboard/']
+                checks_l = ['/dashboard', '/dashboard/', '/whos-this', '/whos-this/']
                 if request.path.strip() not in checks_l:
-                    resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
-                    return resp
+                    if  "/inner/server/" not in request.path.strip():
+                        resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+                        return resp
                 
             else:
                 with open(f"{working_dir}/database/pickled/st1_cleared.db", "rb") as file:
@@ -125,7 +126,8 @@ def register_page():
         # redirect_to dashboard
         resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
         return resp
-    
+
+
 
 
 @app.route('/login')
@@ -153,8 +155,58 @@ def personalize():
 
 @app.route('/dashboard')
 def dashboard_ssr():
-    return render_template('dashboard.html')
+    global working_dir
+    cookies = request.cookies
+    user_id = cookies['user_id']
+    try:
+        all_ids = os.listdir(f'{working_dir}/database/{user_id}')
+        all_ids.remove('ban_status.db')
+    except:
+        error = "Error retrieving family members."
+    family_members = []
+    for id in all_ids:
+        with open(f'{working_dir}/database/{user_id}/{id}/family_member.db', 'rb') as file:
+            db = pickle.load(file)
+        
+        if db.member_relation == "other":
+            relation_temp = db.member_other_relation
+        else:
+            relation_temp = db.member_relation
     
+
+        family_members.append({
+            'member_pfp': f'/inner/server/get-profile-pic/{id}',
+        'member_name': db.member_name,
+        'member_relation': relation_temp,
+        })
+        if db.member_notes != "":
+            family_members[-1]['member_notes'] = db.member_notes
+        if db.member_birthdate != "":
+            family_members[-1]['member_birthdate'] = db.member_birthdate
+        
+
+    #return family_members
+
+    #photo_pfp = f'{working_dir}/database/{user_id}/{id}/{db[0]}'
+    return render_template('dashboard.html', family_members=family_members)
+
+@app.route('/inner/server/get-profile-pic/<id>')
+def get_profile_pic_user(id):
+    cookies = request.cookies
+    user_id = cookies['user_id']
+    if os.path.exists(f'{working_dir}/database/{user_id}/{id}'):
+        try:
+            db = os.listdir(f'{working_dir}/database/{user_id}/{id}')
+            db.remove('family_member.db')
+            return send_file(f'{working_dir}/database/{user_id}/{id}/{db[0]}')
+        except Exception as err:
+            return f"Mission failed: Photo of family member with given id: {id} cannot be retrieved. Error: {str(err)}"
+    else:
+        return f"Mission failed: Family member with given id: {id} wasn't found.s"
+
+@app.route('/whos-this')
+def whos_this_ssr():
+    return render_template('whos-this.html')
 
 port = 8080
 

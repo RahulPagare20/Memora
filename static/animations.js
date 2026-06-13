@@ -178,6 +178,7 @@ document.querySelectorAll('.sidebar-link').forEach((link, i) => {
 });
 
 // ── SKELETON LOADERS — replace empty states temporarily ──
+/*
 (function() {
     const grid = document.getElementById('people-grid');
     if (!grid) return;
@@ -195,6 +196,7 @@ document.querySelectorAll('.sidebar-link').forEach((link, i) => {
         }, 1200);
     }
 })();
+*/
 
 // ── FORM FIELD FOCUS GLOW ──
 document.querySelectorAll('.form-group input, .form-group select').forEach(input => {

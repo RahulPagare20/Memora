@@ -45,7 +45,7 @@ function togglePassword() {
     if (!input) return;
     const show = input.type === 'password';
     input.type = show ? 'text' : 'password';
-    btn.textContent = show ? '🚫' : '👁';
+    btn.style.opacity = show ? '1' : '0.5';
 }
 
 // Country codes

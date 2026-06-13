@@ -34,3 +34,14 @@ class Banned:
     def __init__(self):
         self.version = "v1.0.0=prealpha.1"
         self.banned = False
+    
+class FamilyMember:
+    def __init__(self):
+        self.version = "v1.0.0=prealpha.1"
+        self.member_name = ""
+        self.member_relation = ""
+        self.member_other_relation = ""
+        self.member_notes = ""
+        self.member_birthdate = ""
+        self.edited = False
+    

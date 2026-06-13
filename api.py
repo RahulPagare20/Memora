@@ -249,6 +249,53 @@ def create_account_st2():
     resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
     return resp
 
+
+@api.route('/add_family_member', methods=['POST'])
+def add_family_member_server():
+    cookies = request.cookies
+    id = cookies['user_id']
+    profile_id = get_id()
+    file = request.files['member_photo']
+    if file.filename == '':
+        resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+        return resp
+
+    db = request.form
+    member_name = db['member_name'].strip()
+    member_relation = db['member_relation'].strip()
+    member_other_relation = db['member_other_relation'].strip()
+    member_notes = db['member_notes'].strip()
+    member_birthdate = db['member_birthdate'].strip()
+
+    #return str(db['member_name'].strip())
+
+
+
+    ext = file.filename.rsplit('.', 1)[1].lower()
+
+    if file.filename.strip() != '':
+        os.mkdir(f'{working_dir}/database/{id}/{profile_id}')
+        file.save(f'{working_dir}/database/{id}/{profile_id}/photo.{ext}')
+        temp = FamilyMember()
+        temp.member_name = member_name
+        temp.member_relation = member_relation
+        temp.member_other_relation = member_other_relation
+        temp.member_notes = member_notes
+        temp.member_birthdate = member_birthdate
+        temp.edited = True
+
+        with open(f'{working_dir}/database/{id}/{profile_id}/family_member.db', 'wb') as file:
+            pickle.dump(temp, file)
+    else:
+        return make_response(render_template('redirect_to.html', url_=f"/dashboard", error="Invalid file name."))
+
+    return make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+    
+    #resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+    #return resp
+
+
+
 @api.route('/check_authentication', methods=['POST'])
 def check_authentication_lll():
     #data = request.get_json()

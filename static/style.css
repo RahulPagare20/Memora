@@ -2097,3 +2097,28 @@ body.acc-reduce-motion *::after {
     letter-spacing: 3px;
     font-family: 'Georgia', serif;
 }
+
+/* ── WHO'S THIS BUTTON (navbar) ── */
+.whos-this-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 2px solid #c8956c;
+    color: #8b5a2b;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: 'Georgia', serif;
+    font-size: .88rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: .3px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+.whos-this-btn:hover {
+    background: #8b5a2b;
+    color: #fff8f0;
+    border-color: #8b5a2b;
+}
