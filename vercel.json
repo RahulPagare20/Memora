@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/template/landing.html" },
+    { "source": "/dashboard", "destination": "/template/dashboard.html" },
+    { "source": "/login", "destination": "/template/login.html" },
+    { "source": "/register", "destination": "/template/register.html" },
+    { "source": "/personalize", "destination": "/template/personalize.html" },
+    { "source": "/whos-this", "destination": "/template/whos-this.html" }
+  ]
+}
