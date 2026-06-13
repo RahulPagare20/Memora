@@ -158,14 +158,21 @@ def dashboard_ssr():
     global working_dir
     cookies = request.cookies
     user_id = cookies['user_id']
+    error = None
+
+    # Checking family members
     try:
-        all_ids = os.listdir(f'{working_dir}/database/{user_id}')
-        all_ids.remove('ban_status.db')
+        all_ids = os.listdir(f'{working_dir}/database/{user_id}/Family Members')
+        #all_ids.remove('ban_status.db')
     except:
-        error = "Error retrieving family members."
+        all_ids = []
+        #os.mkdir(f'{working_dir}/database/{user_id}/Family Members')
+        #error = "Error retrieving family members."
+
+
     family_members = []
     for id in all_ids:
-        with open(f'{working_dir}/database/{user_id}/{id}/family_member.db', 'rb') as file:
+        with open(f'{working_dir}/database/{user_id}/Family Members/{id}/family_member.db', 'rb') as file:
             db = pickle.load(file)
         
         if db.member_relation == "other":
@@ -186,19 +193,43 @@ def dashboard_ssr():
         
 
     #return family_members
-
     #photo_pfp = f'{working_dir}/database/{user_id}/{id}/{db[0]}'
-    return render_template('dashboard.html', family_members=family_members)
+
+    # Memories
+    memories = []
+    if os.path.exists(f'{working_dir}/database/{user_id}/Memories'):
+        all_ids = os.listdir(f'{working_dir}/database/{user_id}/Memories')
+        posn = 'left' # While starting out, initially
+
+        for id in all_ids:
+            with open(f'{working_dir}/database/{user_id}/Memories/{id}/memories.db', 'rb') as file:
+                db = pickle.load(file)
+            memories.append({
+                'title': db.title,
+                'description': db.description,
+                'date': db.date,
+                'category': db.category,
+                'posn': posn
+            })
+            if posn == 'left':
+                posn = 'right'
+            elif posn == 'right':
+                posn = 'left'
+
+    if not error:
+        return render_template('dashboard.html', family_members=family_members, memories=memories)
+    else:
+        return render_template('dashboard.html', family_members=[], memories=[])
 
 @app.route('/inner/server/get-profile-pic/<id>')
 def get_profile_pic_user(id):
     cookies = request.cookies
     user_id = cookies['user_id']
-    if os.path.exists(f'{working_dir}/database/{user_id}/{id}'):
+    if os.path.exists(f'{working_dir}/database/{user_id}/Family Members/{id}'):
         try:
-            db = os.listdir(f'{working_dir}/database/{user_id}/{id}')
+            db = os.listdir(f'{working_dir}/database/{user_id}/Family Members/{id}')
             db.remove('family_member.db')
-            return send_file(f'{working_dir}/database/{user_id}/{id}/{db[0]}')
+            return send_file(f'{working_dir}/database/{user_id}/Family Members/{id}/{db[0]}')
         except Exception as err:
             return f"Mission failed: Photo of family member with given id: {id} cannot be retrieved. Error: {str(err)}"
     else:

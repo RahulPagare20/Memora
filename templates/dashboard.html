@@ -81,15 +81,96 @@
             <div class="tl-toolbar">
                 <input type="text" id="tl-search" class="tl-search" placeholder="🔍  Search memories..." oninput="renderTimeline()">
                 <div class="tl-filters">
-                    <button class="tl-filter-btn active" data-cat="All" onclick="setFilter(this)">All</button>
-                    <button class="tl-filter-btn" data-cat="Family" onclick="setFilter(this)">👨‍👩‍👧 Family</button>
-                    <button class="tl-filter-btn" data-cat="Medical" onclick="setFilter(this)">🏥 Medical</button>
-                    <button class="tl-filter-btn" data-cat="Personal" onclick="setFilter(this)">✨ Personal</button>
-                    <button class="tl-filter-btn" data-cat="Events" onclick="setFilter(this)">🎉 Events</button>
+                    <button class="tl-filter-btn active" id="all_btn" data-cat="All" onclick="setFilter(this)">All</button>
+                    <button class="tl-filter-btn" id="family_btn" data-cat="Family" onclick="setFilter(this)">👨‍👩‍👧 Family</button>
+                    <button class="tl-filter-btn" id="medical_btn" data-cat="Medical" onclick="setFilter(this)">🏥 Medical</button>
+                    <button class="tl-filter-btn" id="personal_btn" data-cat="Personal" onclick="setFilter(this)">✨ Personal</button>
+                    <button class="tl-filter-btn" id="events_btn" data-cat="Events" onclick="setFilter(this)">🎉 Events</button>
                 </div>
             </div>
             <div class="tl-wrap" id="tl-wrap">
-                <div class="empty-state"><p>🕐</p><p>No memories yet.</p><p>Click <strong>+ Add Memory</strong> to begin.</p></div>
+                {% if memories == [] %}
+                    <div class="empty-state"><p>🕐</p><p>No memories yet.</p><p>Click <strong>+ Add Memory</strong> to begin.</p></div>
+                {% else %}
+
+                    <div class="tl-wrap" id="tl-wrap">
+                        <div class="tl-line"></div>
+                        {% for memory in memories %}
+                            {% if memory['posn'] == 'left' %}        
+                                <div class="tl-item tl-left tl-entry" style="opacity: 1; transform: translateX(0px); transition: opacity 0.5s, transform 0.5s;">
+                                    {% if memory['category'] == "Family" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">👨‍👩‍👧</div>
+                                    {% elif memory['category'] == "Medical" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🏥</div>
+                                    {% elif memory['category'] == "Personal" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">✨</div>                
+                                    {% elif memory['category'] == "Events" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🎉</div> 
+                                    {% endif %}
+                                    <div class="tl-card"><div class="tl-card-header" style="border-left:4px solid #6c9ec8;">
+                                        <div>
+                                            {% if memory['category'] == "Family" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">👨‍👩‍👧 Family</span>
+                                            {% elif memory['category'] == "Medical" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🏥 Medical</span>                        
+                                            {% elif memory['category'] == "Personal" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">✨ Personal</span>
+                                            {% elif memory['category'] == "Events" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🎉 Events</span>                        
+                                            {% endif %}
+                                            <h4 class="tl-title">{{ memory['title'] }}</h4>
+                                            <p class="tl-date">📅 {{ memory['date'] }}</p>
+                                        </div>
+                                        <div class="tl-actions">
+                                            <button class="tl-btn-edit" onclick="openMemoryModal(1)">✏️</button>
+                                            <button class="tl-btn-delete" onclick="deleteMemory(1)">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <p class="tl-desc">{{ memory['description'] }}</p>
+                                    </div>
+                                </div>
+
+                            {% elif memory['right'] == 'right' %}
+                                <div class="tl-item tl-right tl-entry" style="opacity: 1; transform: translateX(0px); transition: opacity 0.5s, transform 0.5s;">
+                                    {% if memory['category'] == "Family" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">👨‍👩‍👧</div>
+                                    {% elif memory['category'] == "Medical" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🏥</div>
+                                    {% elif memory['category'] == "Personal" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">✨</div>                
+                                    {% elif memory['category'] == "Events" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🎉</div> 
+                                    {% endif %}
+                                    <div class="tl-card"><div class="tl-card-header" style="border-left:4px solid #6c9ec8;">
+                                        <div>
+                                            {% if memory['category'] == "Family" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">👨‍👩‍👧 Family</span>
+                                            {% elif memory['category'] == "Medical" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🏥 Medical</span>                        
+                                            {% elif memory['category'] == "Personal" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">✨ Personal</span>
+                                            {% elif memory['category'] == "Events" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🎉 Events</span>                        
+                                            {% endif %}
+                                            <h4 class="tl-title">{{ memory['title'] }}</h4>
+                                            <p class="tl-date">📅 {{ memory['date'] }}</p>
+                                        </div>
+                                        <div class="tl-actions">
+                                            <button class="tl-btn-edit" onclick="openMemoryModal(1)">✏️</button>
+                                            <button class="tl-btn-delete" onclick="deleteMemory(1)">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <p class="tl-desc">{{ memory['description'] }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </div>                
+
+
+
+                {% endif %}
             </div>
         </div>
 
@@ -474,31 +555,35 @@
     <div class="modal-box" style="max-width:520px;">
         <button type="button" class="modal-close" onclick="closeMemoryModal()">✕</button>
         <h2 class="modal-title" id="memory-modal-title">Add Memory</h2>
-        <div class="form-group" style="margin-bottom:16px;">
-            <label for="mem-title">Title</label>
-            <input type="text" id="mem-title" placeholder="e.g. First birthday party">
-        </div>
-        <div class="form-group" style="margin-bottom:16px;">
-            <label for="mem-desc">Description</label>
-            <textarea id="mem-desc" class="mem-textarea" placeholder="Describe this memory..."></textarea>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-            <div class="form-group">
-                <label for="mem-date">Date</label>
-                <input type="date" id="mem-date">
+
+        <form action="/api/add_memory" method="POST" enctype=multipart/form-data>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group" style="margin-bottom:16px;">
+                <label for="mem-title">Title</label>
+                <input type="text" id="mem-title" name="title" placeholder="e.g. First birthday party">
             </div>
-            <div class="form-group">
-                <label for="mem-cat">Category</label>
-                <select id="mem-cat" class="modal-select">
-                    <option value="Family">👨‍👩‍👧 Family</option>
-                    <option value="Medical">🏥 Medical</option>
-                    <option value="Personal">✨ Personal</option>
-                    <option value="Events">🎉 Events</option>
-                </select>
+            <div class="form-group" style="margin-bottom:16px;">
+                <label for="mem-desc">Description</label>
+                <textarea id="mem-desc" class="mem-textarea" name="description" placeholder="Describe this memory..."></textarea>
             </div>
-        </div>
-        <input type="hidden" id="mem-edit-index" value="-1">
-        <button type="button" class="primary-btn form-btn" style="margin-top:8px;" onclick="saveMemory()">Save Memory</button>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+                <div class="form-group">
+                    <label for="mem-date">Date</label>
+                    <input type="date" id="mem-date" name="date">
+                </div>
+                <div class="form-group">
+                    <label for="mem-cat">Category</label>
+                    <select id="mem-cat" class="modal-select" name="category">
+                        <option value="Family">👨‍👩‍👧 Family</option>
+                        <option value="Medical">🏥 Medical</option>
+                        <option value="Personal">✨ Personal</option>
+                        <option value="Events">🎉 Events</option>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" id="mem-edit-index" value="-1">
+            <input type="submit" class="primary-btn form-btn" style="margin-top:8px;" value="Save Memory">
+        </form>
     </div>
 </div>
 
@@ -618,7 +703,20 @@
    STATE
 ════════════════════════════════════ */
 // var familyMembers = [];
-var memories = [];
+// var memories = [];
+
+var memories = [
+    {% for memory in memories %}
+        {
+            'title': "{{ memory['title'] }}",
+            'description': "{{ memory['description'] }}",            
+            'date': "{{ memory['date'] }}",
+            'category': "{{ memory['category']}}",
+        },
+    {% endfor %}
+
+]
+
 var activeFilter = 'All';
 
 /* progress */
@@ -714,6 +812,7 @@ function renderMembers() {
     var filter = document.getElementById('people-search').value.toLowerCase(); // searching keyword
     var grid = document.getElementById('people-grid');
 
+    // This is awesome. Using jinja, which ia made with python, for programming in javascript!
     var familyMembers = [
         {% for member in family_members %}
             {
@@ -749,14 +848,16 @@ function openMemoryModal(editIndex) {
         var m=memories[idx];
         document.getElementById('memory-modal-title').textContent='Edit Memory';
         document.getElementById('mem-title').value=m.title;
-        document.getElementById('mem-desc').value=m.desc;
+        document.getElementById('mem-desc').value=m.description;
         document.getElementById('mem-date').value=m.date;
-        document.getElementById('mem-cat').value=m.cat;
+        document.getElementById('mem-cat').value=m.category;
+
     } else {
         document.getElementById('memory-modal-title').textContent='Add Memory';
         ['mem-title','mem-desc','mem-date'].forEach(function(id){document.getElementById(id).value='';});
         document.getElementById('mem-cat').value='Family';
     }
+
     document.getElementById('memory-modal').style.display='flex';
 }
 function closeMemoryModal(){ document.getElementById('memory-modal').style.display='none'; }
@@ -770,6 +871,7 @@ function saveMemory() {
     if(idx>=0) memories[idx]=obj; else memories.push(obj);
     closeMemoryModal(); renderTimeline();
 }
+
 function deleteMemory(idx){ if(!confirm('Delete this memory?'))return; memories.splice(idx,1); renderTimeline(); }
 
 /* ════════════════════════════════════
@@ -787,24 +889,25 @@ function renderTimeline() {
     var search=document.getElementById('tl-search').value.toLowerCase();
     var wrap=document.getElementById('tl-wrap');
     var list=memories.slice();
-    if(activeFilter!=='All') list=list.filter(function(m){return m.cat===activeFilter;});
-    if(search) list=list.filter(function(m){return m.title.toLowerCase().indexOf(search)!==-1||m.desc.toLowerCase().indexOf(search)!==-1;});
+    if(activeFilter!=='All') list=list.filter(function(m){return m.category===activeFilter;});
+    if(search) list=list.filter(function(m){return m.title.toLowerCase().indexOf(search)!==-1||m.description.toLowerCase().indexOf(search)!==-1;});
     list.sort(function(a,b){return new Date(b.date)-new Date(a.date);});
     if(!memories.length){wrap.innerHTML='<div class="empty-state"><p>🕐</p><p>No memories yet.</p><p>Click <strong>+ Add Memory</strong> to begin.</p></div>';return;}
     if(!list.length){wrap.innerHTML='<div class="empty-state"><p>🔍</p><p>No memories match your search.</p></div>';return;}
     var html='<div class="tl-line"></div>';
     for(var i=0;i<list.length;i++){
         var m=list[i], origIdx=memories.indexOf(m);
-        var color=CAT_COLORS[m.cat]||'#c8956c', icon=CAT_ICONS[m.cat]||'📌';
+        var color = CAT_COLORS[m.category];
+        var icon=CAT_ICONS[m.category];
         var side=i%2===0?'left':'right';
         var ds=m.date?new Date(m.date+'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):'';
         html+='<div class="tl-item tl-'+side+' tl-entry">';
         html+='<div class="tl-dot" style="background:'+color+';">'+icon+'</div>';
         html+='<div class="tl-card"><div class="tl-card-header" style="border-left:4px solid '+color+';">';
-        html+='<div><span class="tl-cat-badge" style="background:'+color+'22;color:'+color+';">'+icon+' '+m.cat+'</span>';
+        html+='<div><span class="tl-cat-badge" style="background:'+color+'22;color:'+color+';">'+icon+' '+m.category+'</span>';
         html+='<h4 class="tl-title">'+m.title+'</h4><p class="tl-date">📅 '+ds+'</p></div>';
         html+='<div class="tl-actions"><button class="tl-btn-edit" onclick="openMemoryModal('+origIdx+')">✏️</button><button class="tl-btn-delete" onclick="deleteMemory('+origIdx+')">🗑️</button></div>';
-        html+='</div>'+(m.desc?'<p class="tl-desc">'+m.desc+'</p>':'')+'</div></div>';
+        html+='</div>'+(m.description?'<p class="tl-desc">'+m.description+'</p>':'')+'</div></div>';
     }
     wrap.innerHTML=html;
     wrap.querySelectorAll('.tl-entry').forEach(function(el,i){
@@ -880,10 +983,10 @@ function buildCards(type) {
         });
     } else if (type === 'memory') {
         memories.forEach(function(m){
-            var blank = makeBlank(m.desc || m.title);
+            var blank = makeBlank(m.description || m.title);
             cards.push({
                 front:'<div class="mt-card-text-front"><p class="mt-card-hint">Complete this memory:</p><div class="mt-card-memory-q">'+blank.q+'</div>'+(m.date?'<p class="mt-card-sub">📅 '+fmtDate(m.date)+'</p>':'')+'</div>',
-                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+blank.a+'</div><div class="mt-back-rel">'+m.title+'</div>'+(m.desc?'<div class="mt-back-notes">'+m.desc+'</div>':'')+'</div>'
+                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+blank.a+'</div><div class="mt-back-rel">'+m.title+'</div>'+(m.description?'<div class="mt-back-notes">'+m.description+'</div>':'')+'</div>'
             });
         });
         /* date-based cards */
@@ -891,7 +994,7 @@ function buildCards(type) {
             if (!m.date) return;
             cards.push({
                 front:'<div class="mt-card-text-front"><p class="mt-card-hint">What happened on this day?</p><div class="mt-card-big-name">'+fmtDate(m.date)+'</div></div>',
-                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+m.title+'</div>'+(m.desc?'<div class="mt-back-notes">'+m.desc+'</div>':'')+'</div>'
+                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+m.title+'</div>'+(m.description?'<div class="mt-back-notes">'+m.description+'</div>':'')+'</div>'
             });
         });
     } else if (type === 'dates') {
@@ -905,7 +1008,7 @@ function buildCards(type) {
             if (!m.date) return;
             cards.push({
                 front:'<div class="mt-card-text-front"><p class="mt-card-hint">What date was this?</p><div class="mt-card-big-name">'+m.title+'</div></div>',
-                back:'<div class="mt-card-back-info"><div class="mt-back-name">📅 '+fmtDate(m.date)+'</div><div class="mt-back-rel">'+m.cat+'</div>'+(m.desc?'<div class="mt-back-notes">'+m.desc+'</div>':'')+'</div>'
+                back:'<div class="mt-card-back-info"><div class="mt-back-name">📅 '+fmtDate(m.date)+'</div><div class="mt-back-rel">'+m.category+'</div>'+(m.description?'<div class="mt-back-notes">'+m.description+'</div>':'')+'</div>'
             });
         });
     } else if (type === 'whoami') {
@@ -1387,6 +1490,18 @@ function stDeleteAccount() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Call your function here
+    initializePage();
+});
+
+function initializePage() {
+    activeFilter='All';
+    btn = document.getElementById('all_btn');
+    document.querySelectorAll('.tl-filter-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    renderTimeline();
+}
 function toggleNotifications() {}
 </script>
 </body>

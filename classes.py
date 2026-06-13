@@ -45,3 +45,11 @@ class FamilyMember:
         self.member_birthdate = ""
         self.edited = False
     
+class Memory:
+    def __init__(self):
+        self.version = "v1.0.0-alpha.1"
+        self.title = ""
+        self.description = ""
+        self.date = ""
+        self.category = ""
+        self.edited = False

@@ -269,13 +269,18 @@ def add_family_member_server():
 
     #return str(db['member_name'].strip())
 
-
-
     ext = file.filename.rsplit('.', 1)[1].lower()
 
     if file.filename.strip() != '':
-        os.mkdir(f'{working_dir}/database/{id}/{profile_id}')
-        file.save(f'{working_dir}/database/{id}/{profile_id}/photo.{ext}')
+        try:
+            os.mkdir(f'{working_dir}/database/{id}/Family Members')
+        except:
+            pass
+        try:
+            os.mkdir(f'{working_dir}/database/{id}/Family Members/{profile_id}/')
+        except:
+            pass
+        file.save(f'{working_dir}/database/{id}/Family Members/{profile_id}/photo.{ext}')
         temp = FamilyMember()
         temp.member_name = member_name
         temp.member_relation = member_relation
@@ -284,7 +289,7 @@ def add_family_member_server():
         temp.member_birthdate = member_birthdate
         temp.edited = True
 
-        with open(f'{working_dir}/database/{id}/{profile_id}/family_member.db', 'wb') as file:
+        with open(f'{working_dir}/database/{id}/Family Members/{profile_id}/family_member.db', 'wb') as file:
             pickle.dump(temp, file)
     else:
         return make_response(render_template('redirect_to.html', url_=f"/dashboard", error="Invalid file name."))
@@ -295,6 +300,40 @@ def add_family_member_server():
     #return resp
 
 
+@api.route('/add_memory', methods=['POST'])
+def add_memory_server():
+    cookies = request.cookies
+    data = request.form
+
+    id = cookies['user_id']
+
+    memory_id = get_id()
+
+    title = data['title'].strip()
+    description = data['description'].strip()
+    date = data['date'].strip()
+    category = data['category'].strip() # Family, Medical, Personal, Events
+
+    try:
+        os.mkdir(f'{working_dir}/database/{id}/Memories')
+        print(f'{working_dir}/database/{id}/Memories')
+    except Exception as err:
+        print(str(err))
+    try:
+        os.mkdir(f'{working_dir}/database/{id}/Memories/{memory_id}/')
+    except:
+        pass    
+
+    with open(f'{working_dir}/database/{id}/Memories/{memory_id}/memories.db', 'wb') as file:
+        temp = Memory()
+        temp.title = title
+        temp.description = description
+        temp.date = date
+        temp.category = category
+        temp.edited = True
+        pickle.dump(temp, file)
+
+    return make_response(render_template('redirect_to.html', url_=f"/dashboard"))
 
 @api.route('/check_authentication', methods=['POST'])
 def check_authentication_lll():
