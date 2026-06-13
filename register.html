@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — Memora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><h2>MEMORA</h2></div>
+        <div class="nav-links">
+            <a href="landing.html">Home</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="login.html">Login</a>
+            <a href="register.html" class="nav-btn">Get Started</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="auth-page">
+            <div class="auth-form-box">
+
+                <span class="hero-badge">🌟 Join Memora</span>
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Start reconnecting with memories today</p>
+
+                <form class="auth-form" id="register-form">
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Set Password</label>
+                        <div class="input-eye-wrap">
+                            <input type="password" id="password" placeholder="••••••••" required>
+                            <button type="button" class="eye-btn" onclick="togglePassword()">👁</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="primary-btn form-btn">Create Account →</button>
+
+                </form>
+
+                <p class="auth-switch">
+                    Already have an account? <a href="login.html">Login</a>
+                </p>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <h3>MEMORA</h3>
+        <p>Helping Dementia and Alzheimer's patients reconnect with memories and loved ones.....</p>
+        <p>© 2026 Memora. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            localStorage.setItem('memora_user', JSON.stringify({
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            }));
+            window.location.href = 'personalize.html';
+        });
+    </script>
+    <script src="script.js"></script>
+
+</body>
+</html>
