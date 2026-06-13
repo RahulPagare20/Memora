@@ -8,6 +8,7 @@
 import os
 import sqlite3
 import pickle
+import time
 
 # Flask modules
 from flask import (
@@ -22,6 +23,8 @@ from flask import (
 
 from flask_cors import CORS, cross_origin
 from flask_wtf import CSRFProtect
+from flask_socketio import SocketIO, emit
+
 
 # Customized imports 
 from api import api
@@ -237,9 +240,241 @@ def get_profile_pic_user(id):
 
 @app.route('/whos-this')
 def whos_this_ssr():
-    return render_template('whos-this.html')
+    cookies = request.cookies
+    id = cookies['user_id']
+    return render_template('whos-this.html', user_id=id)
 
+######################################################################################################
+# DANGER ABOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
+# DO NOT CHANGE ANYTHING ABOVE THIS LINE
+#
+# DANGER ABOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+######################################################################################################
+
+#############################
+# Image Recognition         #
+# (face_recognition library)#
+#############################
+
+import base64
+import time
+import pickle
+import os
+
+import cv2
+import numpy as np
+import face_recognition
+from flask_socketio import SocketIO, emit
+
+# ── SocketIO setup ────────────────────────────────────────────────────────────
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+
+# ── Cooldown config ───────────────────────────────────────────────────────────
+last_log_time = 0
+LOG_COOLDOWN_SECONDS = 3.0
+
+# ── Frame scale factor (1/4 size → ~16× fewer pixels to process) ─────────────
+FRAME_SCALE = 0.25
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Helper: decode a base64 WebSocket frame → OpenCV BGR image
+# ─────────────────────────────────────────────────────────────────────────────
+def decode_websocket_frame(data: str):
+    try:
+        encoded_data = data.split(',')[1] if ',' in data else data
+        image_bytes  = base64.b64decode(encoded_data)
+        nparr        = np.frombuffer(image_bytes, np.uint8)
+        frame        = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        return frame
+    except Exception as e:
+        print(f"[decode_websocket_frame] Error: {e}")
+        return None
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Helper: load known-face encodings for every family member of a given user.
+#
+# Directory layout expected (matches your existing code):
+#   database/{user_id}/Family Members/{member_id}/family_member.db   ← pickle
+#   database/{user_id}/Family Members/{member_id}/<photo file>       ← image
+#
+# Returns:
+#   known_encodings : list[np.ndarray]   – 128-d face encoding per member
+#   known_metadata  : list[dict]         – {"id": member_id, "name": str}
+# ─────────────────────────────────────────────────────────────────────────────
+def load_known_faces(user_id: str):
+    known_encodings: list = []
+    known_metadata:  list = []
+
+    family_dir = os.path.join(working_dir, "database", user_id, "Family Members")
+    if not os.path.exists(family_dir):
+        print(f"[load_known_faces] No family directory found for user {user_id}")
+        return known_encodings, known_metadata
+
+    for member_id in os.listdir(family_dir):
+        member_dir = os.path.join(family_dir, member_id)
+        db_path    = os.path.join(member_dir, "family_member.db")
+
+        # ── Load the member's name from the pickle ────────────────────────
+        try:
+            with open(db_path, "rb") as f:
+                db = pickle.load(f)
+            member_name = db.member_name
+        except Exception as e:
+            print(f"[load_known_faces] Could not read {db_path}: {e}")
+            continue
+
+        # ── Find the photo file (everything that isn't the pickle) ────────
+        try:
+            files      = os.listdir(member_dir)
+            photo_files = [
+                fn for fn in files
+                if fn != "family_member.db"
+                and fn.lower().endswith((".jpg", ".jpeg", ".png", ".bmp", ".webp"))
+            ]
+            if not photo_files:
+                #print(f"[load_known_faces] No photo for member {member_id} – skipping")
+                continue
+            photo_path = os.path.join(member_dir, photo_files[0])
+        except Exception as e:
+            #print(f"[load_known_faces] Error listing {member_dir}: {e}")
+            continue
+
+        # ── Generate face encoding ────────────────────────────────────────
+        try:
+            img       = face_recognition.load_image_file(photo_path)   # RGB
+            encodings = face_recognition.face_encodings(img)
+            if not encodings:
+                #print(f"[load_known_faces] No face found in photo for {member_name} – skipping")
+                continue
+            known_encodings.append(encodings[0])
+            known_metadata.append({"id": member_id, "name": member_name})
+            with open(f'{os.getcwd()}/database/{user_id}/Family Members/{member_id}/family_member.db', 'rb') as file:
+                db_raw = pickle.load(file)
+            relative_name = db_raw.member_name 
+            #print(db_path)
+            #print(f"[load_known_faces] Loaded encoding for - ({relative_name})")
+        except Exception as e:
+            pass
+            #print(f"[load_known_faces] Encoding error for {member_id}: {e}")
+
+    #print(f"[load_known_faces] Total known faces loaded: {len(known_encodings)}")
+    return known_encodings, known_metadata
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SocketIO event: 'image'
+#
+# Expected payload  – base64 frame string (same as before).
+# The client should also pass the user_id so we know whose family to load.
+# Two options:
+#   A) Read it from the SocketIO auth / query-string (cleanest).
+#   B) Accept it as part of the data dict: {"frame": "...", "user_id": "..."}.
+#
+# We use option B here to stay consistent with your existing cookie approach
+# without requiring session middleware changes.  If you prefer cookies, swap
+# the user_id extraction line for:
+#   user_id = request.cookies.get('user_id')
+# ─────────────────────────────────────────────────────────────────────────────
+@socketio.on('image')
+def handle_image(data):
+    global last_log_time
+
+    # --- ADD THIS TEMPORARILY ---
+    print(f"[DEBUG] data type: {type(data)}, keys: {data.keys() if isinstance(data, dict) else 'raw string'}")
+    # ----------------------------
+
+    # ── 1. Unpack the payload ─────────────────────────────────────────────
+    if isinstance(data, dict):
+        raw_frame = data.get("frame", "")
+        user_id   = data.get("user_id", "")
+    else:
+        # Backwards-compat: plain base64 string (user_id from query string)
+        raw_frame = data
+        user_id   = request.args.get("user_id", "")
+
+    if not user_id:
+        emit('face_detected', {'status': 'error', 'message': 'user_id missing'})
+        return
+
+    # ── 2. Decode the incoming frame ──────────────────────────────────────
+    frame_bgr = decode_websocket_frame(raw_frame)
+    if frame_bgr is None:
+        emit('face_detected', {'status': 'error', 'message': 'bad frame'})
+        return
+
+    # ── 3. Dynamically load this user's known faces ───────────────────────
+    #    For production you'd cache these (e.g. in a dict keyed by user_id)
+    #    and invalidate when a new family member is added.  Kept simple here.
+    known_encodings, known_metadata = load_known_faces(user_id)
+
+    # ── 4. Scale down for speed, convert BGR → RGB (face_recognition needs RGB)
+    small_frame = cv2.resize(frame_bgr, (0, 0), fx=FRAME_SCALE, fy=FRAME_SCALE)
+    rgb_small   = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+
+    # ── 5. Detect + encode faces in the downscaled frame ─────────────────
+    face_locations  = face_recognition.face_locations(rgb_small, model="hog")   # "cnn" is more accurate but slower
+    face_encodings  = face_recognition.face_encodings(rgb_small, face_locations)
+
+    recognized_faces = []
+
+    for face_encoding, (top, right, bottom, left) in zip(face_encodings, face_locations):
+
+        # Scale bounding box back up to original frame coordinates
+        scale = int(1 / FRAME_SCALE)
+        box = {
+            "top":    top    * scale,
+            "right":  right  * scale,
+            "bottom": bottom * scale,
+            "left":   left   * scale,
+        }
+
+        if not known_encodings:
+            # No family members registered yet – still report the bounding box
+            recognized_faces.append({**box, "id": None, "name": "Unknown"})
+            continue
+
+        # ── Compare against every known face ──────────────────────────────
+        matches      = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.55)
+        face_dists   = face_recognition.face_distance(known_encodings, face_encoding)
+        best_idx     = int(np.argmin(face_dists))
+
+        if matches[best_idx]:
+            meta = known_metadata[best_idx]
+            recognized_faces.append({
+                **box,
+                "id":   meta["id"],
+                "name": meta["name"],
+            })
+        else:
+            recognized_faces.append({**box, "id": None, "name": "Unknown"})
+
+    # ── 6. Cooldown gate – only emit & log when the cooldown has elapsed ──
+    current_time = time.time()
+    if recognized_faces and (current_time - last_log_time > LOG_COOLDOWN_SECONDS):
+        last_log_time = current_time
+
+        matched = [f for f in recognized_faces if f["id"] is not None]
+        if matched:
+            names = ", ".join(f["name"] for f in matched)
+            print(f"[ALERT] Recognized: {names}")
+
+        
+        print(f'Face detected: {str(recognized_faces)}')
+        emit('face_detected', {
+            'status': 'detected',
+            'faces':  recognized_faces,
+        })
+    elif not recognized_faces:
+        # Always emit a 'none' so the frontend can clear its overlay
+        print(f'Face detected, but no faces recognized')
+        emit('face_detected', {'status': 'none', 'faces': []})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 port = 8080
 
 if __name__ == "__main__":
-    app.run(port=port)
+    socketio.run(app, host='0.0.0.0', port=port, log_output=True)

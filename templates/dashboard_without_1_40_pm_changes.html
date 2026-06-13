@@ -246,31 +246,15 @@
 
                 <!-- FLIP CARD (photo / name recall / dates / whoami) -->
                 <div id="mt-flip-area" class="mt-flip-area" style="display:none;">
-                    <div class="mt-flip-main">
-                        <div class="mt-flip-card" id="mt-flip-card" onclick="mtFlip()">
-                            <div class="mt-flip-front" id="mt-flip-front"></div>
-                            <div class="mt-flip-back" id="mt-flip-back"></div>
-                        </div>
-                        <div class="mt-score-btns" id="mt-score-btns" style="display:none;">
-                            <button class="mt-score-btn mt-score-correct" onclick="mtScoreAndNext(true)" title="Correct">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                            </button>
-                            <button class="mt-score-btn mt-score-wrong" onclick="mtScoreAndNext(false)" title="Wrong">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                            </button>
-                        </div>
+                    <div class="mt-flip-card" id="mt-flip-card" onclick="mtFlip()">
+                        <div class="mt-flip-front" id="mt-flip-front"></div>
+                        <div class="mt-flip-back" id="mt-flip-back"></div>
                     </div>
                     <p class="mt-flip-hint" id="mt-flip-hint">👆 Tap the card to reveal the answer</p>
                     <div class="mt-flip-nav">
-                        <button class="mt-nav-btn" onclick="mtPrev()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
-                        </button>
-                        <button class="mt-nav-btn mt-nav-shuffle" onclick="mtShuffle()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
-                        </button>
-                        <button class="mt-nav-btn mt-nav-next" onclick="mtNext()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
-                        </button>
+                        <button class="mt-nav-btn" onclick="mtPrev()">← Previous</button>
+                        <button class="mt-nav-btn mt-nav-shuffle" onclick="mtShuffle()">🔀 Shuffle</button>
+                        <button class="mt-nav-btn mt-nav-next" onclick="mtNext()">Next →</button>
                     </div>
                 </div>
 
@@ -1070,7 +1054,6 @@ function showCard() {
         document.getElementById('mt-flip-area').style.display = 'block';
         var fc = document.getElementById('mt-flip-card');
         fc.classList.remove('flipped');
-        document.getElementById('mt-score-btns').style.display = 'none';
         document.getElementById('mt-flip-front').innerHTML = card.front;
         document.getElementById('mt-flip-back').innerHTML = card.back;
         document.getElementById('mt-flip-hint').textContent = '👆 Tap the card to reveal the answer';
@@ -1083,18 +1066,9 @@ function mtFlip() {
     if (!mtFlipped) {
         fc.classList.add('flipped');
         mtFlipped = true;
-        document.getElementById('mt-flip-hint').textContent = 'Did you get it right?';
+        document.getElementById('mt-flip-hint').textContent = '✅ How did you do? Move to the next card.';
         document.getElementById('mt-flip-hint').style.color = '#6a9e5a';
-        document.getElementById('mt-score-btns').style.display = 'flex';
     }
-}
-
-function mtScoreAndNext(correct) {
-    if (correct) mtScore++;
-    updateScoreBadge();
-    mtCardIndex++;
-    document.getElementById('mt-score-btns').style.display = 'none';
-    showCard();
 }
 
 function mtNext() {

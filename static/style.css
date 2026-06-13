@@ -2122,3 +2122,56 @@ body.acc-reduce-motion *::after {
     color: #fff8f0;
     border-color: #8b5a2b;
 }
+
+/* ── FLIP CARD LAYOUT ── */
+.mt-flip-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.mt-score-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.mt-score-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+}
+
+.mt-score-correct {
+    background: #eaf5ea;
+    color: #3a7a3a;
+    border: 2px solid #5a9e5a;
+}
+
+.mt-score-correct:hover {
+    background: #5a9e5a;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.mt-score-wrong {
+    background: #faeaea;
+    color: #c05050;
+    border: 2px solid #c05050;
+}
+
+.mt-score-wrong:hover {
+    background: #c05050;
+    color: #fff;
+    transform: scale(1.1);
+}

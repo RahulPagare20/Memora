@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>    
     <title>Who's This? — Memora</title>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -148,6 +149,9 @@
 
     <!-- Live camera feed -->
     <video id="video" autoplay playsinline muted></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+
+    <img id="processed_image" width="640" height="480" alt="Waiting for video stream..." />
 
     <!-- Top bar -->
     <div class="top-bar">
@@ -216,6 +220,30 @@
         window.addEventListener('beforeunload', stopCamera);
 
         startCamera();
+
+
+        // SocketIO
+        const socket = io();
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => console.error("Camera access denied: ", err));
+
+        setInterval(() => {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataURL = canvas.toDataURL('image/jpeg', 0.6);  // this is your base64 frame
+                socket.emit('image', { frame: dataURL, user_id: "{{ user_id }}" });
+            }
+        }, 100);
+
+        // Receive processed frames
+        socket.on('processed_image', function(data) {
+            processedImage.src = data;
+        });       
     </script>
 </body>
 </html>
