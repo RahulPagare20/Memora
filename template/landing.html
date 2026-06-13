@@ -11,6 +11,7 @@
     <title>Memora</title>
 
     <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/animations.css">
 
 </head>
 
@@ -21,22 +22,23 @@
     <nav class="navbar">
 
         <div class="logo">
-
-            <h2>MEMORA</h2>
-
+            <a href="landing.html" class="logo-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></svg>
+                <span class="logo-wordmark">MEMORA</span>
+            </a>
         </div>
 
         <div class="nav-links">
 
-            <a href="/">Home</a>
+            <a href="landing.html">Home</a>
 
             <a href="#features">Features</a>
 
             <a href="#about">About</a>
 
-            <a href="/login">Login</a>
+            <a href="login.html">Login</a>
 
-            <a href="/register"
+            <a href="register.html"
                class="nav-btn">
 
                 Get Started
@@ -55,7 +57,7 @@
 
             <!-- that cards which float around -->
 
-            <div class="floating-card card-1">
+            <div class="floating-card card-1 reveal-left">
 
                 <h4>📞 Mom Called</h4>
 
@@ -63,7 +65,7 @@
 
             </div>
 
-            <div class="floating-card card-2">
+            <div class="floating-card card-2 reveal-right">
 
                 <h4>✨ Memory Score</h4>
 
@@ -71,7 +73,7 @@
 
             </div>
 
-            <div class="floating-card card-3">
+            <div class="floating-card card-3 reveal-left">
 
                 <h4>💊 Medication Due</h4>
 
@@ -79,7 +81,7 @@
 
             </div>
 
-            <div class="floating-card card-4">
+            <div class="floating-card card-4 reveal-right">
 
                 <h4>👨👩👧 Family Visit</h4>
 
@@ -89,7 +91,7 @@
 
             <!-- Hero Content -->
 
-            <div class="hero-content">
+            <div class="hero-content reveal">
 
                 <span class="hero-badge">
 
@@ -120,15 +122,15 @@
 
                 </p>
 
-                <div class="hero-buttons">
+                <div class="hero-buttons stagger-parent">
 
-                    <a href="/register" class="primary-btn">
+                    <a href="register.html" class="primary-btn stagger-child magnetic">
 
                         Get Started Free →
 
                     </a>
 
-                    <a href="#features" class="secondary-btn">
+                    <a href="#features" class="secondary-btn stagger-child hover-lift">
 
                         Learn More
 
@@ -146,7 +148,10 @@
 
     <footer class="footer">
 
-        <h3>MEMORA</h3>
+        <div class="footer-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></svg>
+            <span>MEMORA</span>
+        </div>
 
         <p>
 
@@ -164,6 +169,7 @@
     </footer>
 
     <script src="../static/script.js"></script>
+    <script src="../static/animations.js"></script>
 
 </body>
 

@@ -34,7 +34,7 @@
         <div class="dash-navbar-right">
             <button class="add-member-btn" id="navbar-action-btn" onclick="openAddMember()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><line x1="12" x2="12" y1="8" y2="16"/><line x1="8" x2="16" y1="12" y2="12"/></svg> Add Family Member</button>
             <a href="whos-this.html" class="whos-this-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M2 13a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1a2 2 0 0 1 2-2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1a2 2 0 0 1-2-2V2a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v1a2 2 0 0 1-2 2H3a2 2 0 0 0-2 2z"/><path d="M12 17v.01"/><path d="M12 13a2 2 0 0 0-2-2 2 2 0 1 1 4 0 2 2 0 0 1-2 2z"/></svg> Who's this?
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> Who's this?
             </a>
             <button class="notif-btn" onclick="toggleNotifications()"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M15 8h6"/><path d="M18 5v6"/><path d="M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332"/></svg><span class="notif-dot"></span></button>
         </div>
@@ -141,15 +141,31 @@
 
                 <!-- FLIP CARD (photo / name recall / dates / whoami) -->
                 <div id="mt-flip-area" class="mt-flip-area" style="display:none;">
-                    <div class="mt-flip-card" id="mt-flip-card" onclick="mtFlip()">
-                        <div class="mt-flip-front" id="mt-flip-front"></div>
-                        <div class="mt-flip-back" id="mt-flip-back"></div>
+                    <div class="mt-flip-main">
+                        <div class="mt-flip-card" id="mt-flip-card" onclick="mtFlip()">
+                            <div class="mt-flip-front" id="mt-flip-front"></div>
+                            <div class="mt-flip-back" id="mt-flip-back"></div>
+                        </div>
+                        <div class="mt-score-btns" id="mt-score-btns" style="display:none;">
+                            <button class="mt-score-btn mt-score-correct" onclick="mtScoreAndNext(true)" title="Correct">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                            </button>
+                            <button class="mt-score-btn mt-score-wrong" onclick="mtScoreAndNext(false)" title="Wrong">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                            </button>
+                        </div>
                     </div>
                     <p class="mt-flip-hint" id="mt-flip-hint">👆 Tap the card to reveal the answer</p>
                     <div class="mt-flip-nav">
-                        <button class="mt-nav-btn" onclick="mtPrev()">← Previous</button>
-                        <button class="mt-nav-btn mt-nav-shuffle" onclick="mtShuffle()">🔀 Shuffle</button>
-                        <button class="mt-nav-btn mt-nav-next" onclick="mtNext()">Next →</button>
+                        <button class="mt-nav-btn" onclick="mtPrev()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+                        </button>
+                        <button class="mt-nav-btn mt-nav-shuffle" onclick="mtShuffle()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                        </button>
+                        <button class="mt-nav-btn mt-nav-next" onclick="mtNext()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                        </button>
                     </div>
                 </div>
 
@@ -480,7 +496,7 @@
     <div class="modal-box" style="max-width:380px; text-align:center;">
         <div style="font-size:2.8rem; margin-bottom:16px;">🚪</div>
         <h2 class="modal-title" style="margin-bottom:10px;">Logout?</h2>
-        <p style="color:#7a5c3a; font-size:.95rem; font-style:italic; margin-bottom:28px;">Are you sure you want to sign out of your account?</p>
+        <p style="color:#5c3d1e; font-size:.95rem; font-style:italic; margin-bottom:28px;">Are you sure you want to sign out of your account?</p>
         <div style="display:flex; gap:12px; justify-content:center;">
             <button type="button" class="mt-btn-primary" onclick="confirmLogout()">Yes, Logout</button>
             <button type="button" class="mt-btn-secondary" onclick="document.getElementById('logout-modal').style.display='none'">Cancel</button>
@@ -730,7 +746,7 @@ function deleteMemory(idx){ if(!confirm('Delete this memory?'))return; memories.
 /* ════════════════════════════════════
    TIMELINE RENDER
 ════════════════════════════════════ */
-var CAT_COLORS={Family:'#c8956c',Medical:'#6c9ec8',Personal:'#9ec86c',Events:'#c86c9e'};
+var CAT_COLORS={Family:'#d4956c',Medical:'#6c9ec8',Personal:'#9ec86c',Events:'#c86c9e'};
 var CAT_ICONS={Family:'👨‍👩‍👧',Medical:'🏥',Personal:'✨',Events:'🎉'};
 
 function setFilter(btn) {
@@ -750,7 +766,7 @@ function renderTimeline() {
     var html='<div class="tl-line"></div>';
     for(var i=0;i<list.length;i++){
         var m=list[i], origIdx=memories.indexOf(m);
-        var color=CAT_COLORS[m.cat]||'#c8956c', icon=CAT_ICONS[m.cat]||'📌';
+        var color=CAT_COLORS[m.cat]||'#d4956c', icon=CAT_ICONS[m.cat]||'📌';
         var side=i%2===0?'left':'right';
         var ds=m.date?new Date(m.date+'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):'';
         html+='<div class="tl-item tl-'+side+' tl-entry">';
@@ -906,6 +922,7 @@ function showCard() {
         document.getElementById('mt-flip-area').style.display = 'block';
         var fc = document.getElementById('mt-flip-card');
         fc.classList.remove('flipped');
+        document.getElementById('mt-score-btns').style.display = 'none';
         document.getElementById('mt-flip-front').innerHTML = card.front;
         document.getElementById('mt-flip-back').innerHTML = card.back;
         document.getElementById('mt-flip-hint').textContent = '👆 Tap the card to reveal the answer';
@@ -918,9 +935,18 @@ function mtFlip() {
     if (!mtFlipped) {
         fc.classList.add('flipped');
         mtFlipped = true;
-        document.getElementById('mt-flip-hint').textContent = '✅ How did you do? Move to the next card.';
+        document.getElementById('mt-flip-hint').textContent = 'Did you get it right?';
         document.getElementById('mt-flip-hint').style.color = '#6a9e5a';
+        document.getElementById('mt-score-btns').style.display = 'flex';
     }
+}
+
+function mtScoreAndNext(correct) {
+    if (correct) mtScore++;
+    updateScoreBadge();
+    mtCardIndex++;
+    document.getElementById('mt-score-btns').style.display = 'none';
+    showCard();
 }
 
 function mtNext() {
@@ -1078,7 +1104,7 @@ function makeBlank(text) {
    PROFILE
 ════════════════════════════════════ */
 var STAGE_LABELS = { early: 'Early Stage', intermediate: 'Intermediate Stage', severe: 'Severe Stage' };
-var STAGE_COLORS = { early: '#6aaa6a', intermediate: '#c8956c', severe: '#c06060' };
+var STAGE_COLORS = { early: '#6aaa6a', intermediate: '#d4956c', severe: '#c06060' };
 
 function loadProfile() {
     var u = {};
