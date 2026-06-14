@@ -264,8 +264,6 @@ def add_patient_photo_ssr():
     id = cookies['user_id']
     profile_id = get_id()
 
-    return str(request.files)
-
     file = request.files['patient_photo']
     if file.filename.strip() == '':    
         resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
@@ -348,6 +346,22 @@ def add_family_member_server():
     #return resp
 
 
+
+
+
+@api.route('/get_patient_pic')
+def get_patient_pic_lll():
+    global working_dir
+    user_id = request.cookies['user_id']
+    try:
+        files_only = [f for f in os.listdir(f'{working_dir}/database/{user_id}')  if os.path.isfile(os.path.join(f'{working_dir}/database/{user_id}', f))]            
+        files_only.remove('ban_status.db')        
+        return send_file(os.path.join(f'{working_dir}/database/{user_id}', files_only[0]))
+    
+    except:
+        return "Your profile photo does not exist."
+
+        
 @api.route('/add_memory', methods=['POST'])
 def add_memory_server():
     cookies = request.cookies

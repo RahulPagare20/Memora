@@ -75,7 +75,7 @@ def check_authentication():
         if 'user_id' in cookies:
             temp = get_data(cookies['user_id'])
             if temp != []:
-                checks_l = ['/dashboard', '/dashboard/', '/whos-this', '/whos-this/', '/delete_account', '/delete_account/']
+                checks_l = ['/dashboard', '/dashboard/', '/whos-this', '/whos-this/', '/delete_account', '/delete_account/', '/get_patient_pic', '/get_patient_pic/']
                 if request.path.strip() not in checks_l:
                     if  "/inner/server/" not in request.path.strip():
                         resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
@@ -99,7 +99,7 @@ def check_authentication():
                         resp.set_cookie('user_id', '', expires=0)
                         return resp
         else:
-            checks_l = ['/dashboard', '/dashboard/']
+            checks_l = ['/dashboard', '/dashboard/', '/whos-this', '/whos-this/', '/delete_account', '/delete_account/', '/get_patient_pic', '/get_patient_pic/']
             if request.path.strip() in checks_l:
                     resp = make_response(render_template('redirect_to.html', url_="/"))
                     return resp            
@@ -282,15 +282,47 @@ def dashboard_ssr():
     if caretaker_phone_number == "DNE":
         caretaker_phone_number = "-"
     
+    
+    
+    files_only = [f for f in os.listdir(f'{working_dir}/database/{user_id}')  if os.path.isfile(os.path.join(f'{working_dir}/database/{user_id}', f))]            
+    files_only.remove('ban_status.db')
+
+    print(len(files_only))
+
+    if len(files_only) == 0:
+        personal_info = {
+            'pfp': '',
+            'name': name,
+            'email_id': email_id,
+            'password': password,
+            'phone_number': phone_number,
+            'dementia_stage': dementia_stage,
+            'caretaker_phone_number': caretaker_phone_number
+        }
+
+    else:
+        personal_info = {
+            'pfp': '/api/get_patient_pic',
+            'name': name,
+            'email_id': email_id,
+            'password': password,
+            'phone_number': phone_number,
+            'dementia_stage': dementia_stage,
+            'caretaker_phone_number': caretaker_phone_number
+        }            
+                       
+
+    '''
     personal_info = {
-        'pfp': '',
+        'pfp': '/something',
         'name': name,
         'email_id': email_id,
         'password': password,
         'phone_number': phone_number,
         'dementia_stage': dementia_stage,
         'caretaker_phone_number': caretaker_phone_number
-    }
+    }'''
+
 
     if not error:
         return render_template('dashboard.html', family_members=family_members, memories=memories, personal_info=personal_info)
@@ -305,6 +337,16 @@ def dashboard_ssr():
             'caretaker_phone_number': ''
         }        
         return render_template('dashboard.html', family_members=[], memories=[], personal_info=personal_info_def)
+
+
+
+
+
+
+
+    
+
+
 
 @app.route('/inner/server/get-profile-pic/<id>')
 def get_profile_pic_user(id):
