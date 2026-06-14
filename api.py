@@ -157,6 +157,13 @@ def create_account_st1():
 
 
 
+@api.route('/notif/daily_challenge/<score>')
+def daily_challenge_notif(score):
+    user_id = request.cookies['user_id']
+    db = get_data(user_id, )[0]
+    email_id_usr = db[2]
+    send_email(email_id_usr, "Memora", f"Your daily challenge score is {score}!")    
+
 
 @api.route('/create_account_st2', methods=['POST'])
 def create_account_st2():

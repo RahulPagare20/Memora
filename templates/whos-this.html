@@ -260,9 +260,10 @@
 
         // ── State ────────────────────────────────────────────────────
         let lastFaces   = [];
-        let globalScanY = 0;
+        // let globalScanY = 0;
 
         // ── Full-view purple scan line (always on) ────────────────────
+        /*
         function drawGlobalScan(vr) {
             globalScanY += 1.8;
             if (globalScanY > vr.height) globalScanY = 0;
@@ -285,6 +286,7 @@
             octx.stroke();
             octx.shadowBlur = 0;
         }
+        */
 
         // ── Cyberpunk card — top-right, no face box ───────────────────
         function drawCyberCard(c, face, faceCX, faceCY, known, idx) {
@@ -370,7 +372,7 @@
             octx.clearRect(0, 0, overlay.width, overlay.height);
 
             const vr = video.getBoundingClientRect();
-            drawGlobalScan(vr);
+            // drawGlobalScan(vr);
 
             if (lastFaces.length > 0) {
                 const scaleX = vr.width  / 640;

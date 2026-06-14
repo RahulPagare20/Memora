@@ -531,7 +531,7 @@
     <div class="modal-box">
         <button type="button" class="modal-close" onclick="closeModal()">✕</button>
         <h2 class="modal-title">Add Family Member</h2>
-        <form action="/api/add_family_member" method="POST" enctype=multipart/form-data>
+        <form action="/api/add_family_member" method="POST" enctype=multipart/form-data id="add_fam_mem_form">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="photo-upload-area" onclick="document.getElementById('photo-input').click()">
                 <img id="photo-preview" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
@@ -542,11 +542,11 @@
             </div>
             <div class="form-group" style="margin-top:20px;">
                 <label for="member-name">Name</label>
-                <input type="text" id="member-name" name="member_name" placeholder="Full name">
+                <input type="text" id="member-name" name="member_name" placeholder="Full name" required>
             </div>
             <div class="form-group" style="margin-top:14px;">
                 <label for="member-relation">Relation</label>
-                <select id="member-relation" name="member_relation" class="modal-select" onchange="toggleOtherRelation()">
+                <select id="member-relation" name="member_relation" class="modal-select" onchange="toggleOtherRelation()" required>
                     <option value="">Select relation</option>
                     <option>Mom</option><option>Dad</option><option>Sister</option><option>Brother</option>
                     <option>Son</option><option>Daughter</option><option>Son in Law</option>
@@ -565,7 +565,7 @@
                 <label for="member-birthday">Birthday <span class="optional-tag">optional</span></label>
                 <input type="date" id="member-birthdate" name="member_birthdate">
             </div>
-            <input type="submit" class="primary-btn form-btn" style="margin-top:24px;" value="Add Member">
+            <input type="button" class="primary-btn form-btn" style="margin-top:24px;" value="Add Member" onclick="submit_add_fam_mem_form()">
         </form>
      </div>
 </div>
@@ -721,6 +721,7 @@
 
 <script>
 
+
 function deleteFamilyMember(id) {
     window.location.href = `/api/delete_family_member/${id}`
 }
@@ -833,7 +834,8 @@ document.querySelectorAll('.sidebar-link').forEach(function(link) {
 /* ════════════════════════════════════
    PEOPLE MODAL
 ════════════════════════════════════ */
-function openAddMember() { 
+function openAddMember() {
+    ['member-name'].forEach(function(id){ document.getElementById(id).value=''; document.getElementById(id).required = true;});
     document.getElementById('modal-overlay').style.display = 'flex';
 }
 function closeModal() {
@@ -914,9 +916,9 @@ function openMemoryModal(editIndex) {
         document.getElementById('mem_id').value=m.id;
         console.log('here? -- openMemoryModal')
     } else {
-         document.getElementById('mem_id').value = ""; 
+        document.getElementById('mem_id').value = ""; 
         document.getElementById('memory-modal-title').textContent='Add Memory';
-        ['mem-title','mem-desc','mem-date'].forEach(function(id){document.getElementById(id).value='';});
+        ['mem-title','mem-desc','mem-date'].forEach(function(id){document.getElementById(id).value=''; document.getElementById(id).required = true;});
         document.getElementById('mem-cat').value='Family';
     }
 
