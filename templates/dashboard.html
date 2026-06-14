@@ -176,7 +176,11 @@
             <div id="mt-home">
                 <div class="mt-welcome">
                     <div class="mt-welcome-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg></div>
-                    <h2 class="mt-welcome-title">Memory Test</h2>
+                    <h2 class="mt-welcome-title">Memory Test </h2>
+                    <span class="coming-soon-tag">★ COMING SOON ★</span>
+                    <br>
+                    <br>
+
                     <p class="mt-welcome-sub">Exercise your memory with fun, gentle challenges built from your own family memories.</p>
                 </div>
 
@@ -304,7 +308,7 @@
                 <div class="ds-box" id="ds-reminders-box">
                     <div class="ds-box-head">
                         <div class="ds-box-title"><span class="ds-box-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344"/><path d="m9 11 3 3L22 4"/></svg></span> Reminders</div>
-                        <button class="ds-add-btn" onclick="openDsModal('reminder')">+ Add</button>
+                        <button class="ds-add-btn" onclick="">+ Add</button>
                     </div>
                     <ul class="ds-list" id="ds-reminders-list">
                         <li class="ds-empty-item">No reminders yet. Click <strong>+ Add</strong> to begin.</li>
@@ -392,7 +396,7 @@
 
             <!-- NOTIFICATIONS -->
             <div class="st-section">
-                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M15 8h6"/><path d="M18 5v6"/><path d="M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332"/></svg> Notifications</div>
+                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M15 8h6"/><path d="M18 5v6"/><path d="M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332"/></svg> Notifications&nbsp;<span class="coming-soon-tag">★ COMING SOON ★</span></div>
                 <div class="st-card">
                     <div class="st-row">
                         <div class="st-row-info">
@@ -403,21 +407,21 @@
                     </div>
                     <div class="st-row">
                         <div class="st-row-info">
-                            <div class="st-row-label">Push Notifications</div>
+                            <div class="st-row-label">Push Notifications <span class="coming-soon-tag" style="display:inline;font-size:.65rem;">★ COMING SOON ★</span></div>
                             <div class="st-row-sub">Browser push notifications</div>
                         </div>
                         <label class="st-toggle"><input type="checkbox" id="st-push-notif" onchange="saveSetting('pushNotif',this.checked)"><span class="st-slider"></span></label>
                     </div>
                     <div class="st-row">
                         <div class="st-row-info">
-                            <div class="st-row-label">Medication Alerts</div>
+                            <div class="st-row-label">Medication Alerts <span class="coming-soon-tag" style="display:inline;font-size:.65rem;">★ COMING SOON ★</span></div>
                             <div class="st-row-sub">Reminders for daily medications</div>
                         </div>
                         <label class="st-toggle"><input type="checkbox" id="st-med-alerts" onchange="saveSetting('medAlerts',this.checked)"><span class="st-slider"></span></label>
                     </div>
                     <div class="st-row">
                         <div class="st-row-info">
-                            <div class="st-row-label">Appointment Reminders</div>
+                            <div class="st-row-label">Appointment Reminders <span class="coming-soon-tag" style="display:inline;font-size:.65rem;">★ COMING SOON ★</span></div>
                             <div class="st-row-sub">Upcoming appointment notifications</div>
                         </div>
                         <label class="st-toggle"><input type="checkbox" id="st-appt-notif" onchange="saveSetting('apptNotif',this.checked)"><span class="st-slider"></span></label>
@@ -899,7 +903,7 @@ function renderMembers() {
     for(var i=0;i<list.length;i++){
         var m=list[i];
         console.log(m)
-        html+='<div class="member-card"><div class="member-photo">'+(m.photo?'<img src="'+m.photo+'" alt="'+m.name+'">':'<span>👤</span>')+'</div><h4>'+m.name+'</h4><p>'+m.relation+'</p><button  onclick="deleteFamilyMember(' + "'" + m.id + "'" + ')">Delete Family Member</button></div>';
+        html+='<div class="member-card"><div class="member-photo">'+(m.photo?'<img src="'+m.photo+'" alt="'+m.name+'">':'<span>👤</span>')+'</div><h4>'+m.name+'</h4><p style="font-size: 1rem;">'+m.relation+'</p><button class="primary-btn" style="margin-top: 8px; padding: 8px 16px; font-size: 0.8rem;" onclick="deleteFamilyMember(' + "'" + m.id + "'" + ')">Delete</button></div>';
     }
     grid.innerHTML=html;
 }
@@ -1439,120 +1443,6 @@ function saveProfEdit() {
     loadProfile();
 }
 
-/* ════════════════════════════════════
-   DAILY SUMMARY
-════════════════════════════════════ */
-var dsReminders = [];
-var dsMedicines = [];
-
-/* Set today's date in the header */
-(function() {
-    var el = document.getElementById('ds-today-date');
-    if (el) el.textContent = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-})();
-
-function openDsModal(type, editIndex) {
-    var idx = typeof editIndex === 'number' ? editIndex : -1;
-    document.getElementById('ds-modal-type').value = type;
-    document.getElementById('ds-edit-index').value = idx;
-    document.getElementById('ds-modal-title').textContent = (idx >= 0 ? 'Edit ' : 'Add ') + (type === 'reminder' ? 'Reminder' : 'Medicine');
-    document.getElementById('ds-reminder-fields').style.display = type === 'reminder' ? 'block' : 'none';
-    document.getElementById('ds-medicine-fields').style.display = type === 'medicine' ? 'block' : 'none';
-
-    /* clear / prefill */
-    if (idx >= 0) {
-        var item = type === 'reminder' ? dsReminders[idx] : dsMedicines[idx];
-        document.getElementById('ds-task').value = item.task;
-        if (type === 'reminder') {
-            document.getElementById('ds-time').value = item.time || '';
-            document.getElementById('ds-note').value = item.note || '';
-        } else {
-            document.getElementById('ds-dosage').value = item.dosage || '';
-            document.getElementById('ds-med-time').value = item.time || '';
-            document.getElementById('ds-freq').value = item.freq || 'Once daily';
-            document.getElementById('ds-med-note').value = item.note || '';
-        }
-    } else {
-        document.getElementById('ds-task').value = '';
-        document.getElementById('ds-time').value = '';
-        document.getElementById('ds-note').value = '';
-        document.getElementById('ds-dosage').value = '';
-        document.getElementById('ds-med-time').value = '';
-        document.getElementById('ds-freq').value = 'Once daily';
-        document.getElementById('ds-med-note').value = '';
-    }
-    document.getElementById('ds-modal').style.display = 'flex';
-}
-function closeDsModal() { document.getElementById('ds-modal').style.display = 'none'; }
-document.getElementById('ds-modal').addEventListener('click', function(e) { if (e.target === this) closeDsModal(); });
-
-function saveDsItem() {
-    var type = document.getElementById('ds-modal-type').value;
-    var idx  = parseInt(document.getElementById('ds-edit-index').value, 10);
-    var task = document.getElementById('ds-task').value.trim();
-    if (!task) { alert('Please enter a name.'); return; }
-
-    if (type === 'reminder') {
-        var item = { task: task, time: document.getElementById('ds-time').value, note: document.getElementById('ds-note').value.trim(), done: false };
-        if (idx >= 0) dsReminders[idx] = item; else dsReminders.push(item);
-        renderDsList('reminder');
-    } else {
-        var item = { task: task, dosage: document.getElementById('ds-dosage').value.trim(), time: document.getElementById('ds-med-time').value, freq: document.getElementById('ds-freq').value, note: document.getElementById('ds-med-note').value.trim(), done: false };
-        if (idx >= 0) dsMedicines[idx] = item; else dsMedicines.push(item);
-        renderDsList('medicine');
-    }
-    closeDsModal();
-}
-
-function deleteDsItem(type, idx) {
-    if (type === 'reminder') dsReminders.splice(idx, 1);
-    else dsMedicines.splice(idx, 1);
-    renderDsList(type);
-}
-
-function toggleDsDone(type, idx) {
-    if (type === 'reminder') dsReminders[idx].done = !dsReminders[idx].done;
-    else dsMedicines[idx].done = !dsMedicines[idx].done;
-    renderDsList(type);
-}
-
-function renderDsList(type) {
-    var list = type === 'reminder' ? dsReminders : dsMedicines;
-    var el   = document.getElementById('ds-' + (type === 'reminder' ? 'reminders' : 'medicines') + '-list');
-    if (!list.length) {
-        el.innerHTML = '<li class="ds-empty-item">No ' + (type === 'reminder' ? 'reminders' : 'medicines') + ' yet. Click <strong>+ Add</strong> to begin.</li>';
-        return;
-    }
-    var html = '';
-    for (var i = 0; i < list.length; i++) {
-        var item = list[i];
-        var meta = [];
-        if (item.time) meta.push('⏰ ' + fmtTime(item.time));
-        if (item.dosage) meta.push('💊 ' + item.dosage);
-        if (item.freq)  meta.push(item.freq);
-        if (item.note)  meta.push(item.note);
-        html += '<li class="ds-item' + (item.done ? ' ds-item-done' : '') + '">';
-        html += '<button class="ds-check" onclick="toggleDsDone(\'' + type + '\',' + i + ')">' + (item.done ? '✅' : '○') + '</button>';
-        html += '<div class="ds-item-body">';
-        html += '<span class="ds-item-task">' + item.task + '</span>';
-        if (meta.length) html += '<span class="ds-item-meta">' + meta.join(' · ') + '</span>';
-        html += '</div>';
-        html += '<div class="ds-item-actions">';
-        html += '<button class="ds-btn-edit" onclick="openDsModal(\'' + type + '\',' + i + ')">✏️</button>';
-        html += '<button class="ds-btn-del" onclick="deleteDsItem(\'' + type + '\',' + i + ')">🗑️</button>';
-        html += '</div></li>';
-    }
-    el.innerHTML = html;
-}
-
-function fmtTime(t) {
-    if (!t) return '';
-    var parts = t.split(':');
-    var h = parseInt(parts[0], 10), m = parts[1];
-    var ampm = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    return h + ':' + m + ' ' + ampm;
-}
 
 /* ════════════════════════════════════
    SETTINGS
