@@ -306,6 +306,7 @@ def admin_accounts():
         dementia_stage = user[5]
         caretaker_phone_number = user[6]
         ban_status = 'undefined'
+        print(username)
         with open(f'{working_dir}/database/{regr}/ban_status.db', 'rb') as file:
             raw_ban_status = pickle.load(file)
             ban_status = raw_ban_status.banned

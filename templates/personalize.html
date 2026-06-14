@@ -82,22 +82,6 @@
         <p>© 2026 Memora. All Rights Reserved.</p>
     </footer>
 
-    <!--
-    <script>
-        document.getElementById('personalize-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const existing = JSON.parse(localStorage.getItem('memora_user') || '{}');
-            const checked = document.querySelector('input[name="dementia_stage"]:checked');
-            existing.patient_name = document.getElementById('full_name').value;
-            existing.patient_phone = document.getElementById('phone_number').value;
-            existing.dementia_stage = checked ? checked.value : '';
-            existing.caretaker_phone = document.getElementById('caretaker_phone_number').value;
-            localStorage.setItem('memora_user', JSON.stringify(existing));
-            window.location.href = 'dashboard.html';
-        });
-    </script>
-    -->
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='animations.js') }}"></script>
 

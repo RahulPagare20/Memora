@@ -338,10 +338,19 @@
                     <img id="prof-avatar-img" src="" alt="" style="display:none;">
                     <div id="prof-avatar-placeholder">👤</div>
                     <div class="prof-avatar-overlay">📷<br><span>Change</span></div>
-                    <input type="file" id="prof-photo-input" accept="image/*" style="display:none;" onchange="handleProfPhoto(event)">
                 </div>
+
+                    {% if personal_info['pfp'] == "" %}
+                        <form action="/api/add_patient_photo" method="POST" id="add_patient_photo_form" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="file" id="prof-photo-input" name="patient_photo" accept="image/*" style="display:none;"  onchange="previewPhoto(event)">
+                            <input type="submit" value="Save photo (Real)">
+                        </form>
+                    {% endif %}
+
                 <div class="prof-hero-info">
-                    <h2 class="prof-hero-name" id="prof-hero-name">—</h2>
+                    <h2 class="prof-hero-name" id="prof-hero-name">{{ personal_info['name'] }}</h2>
+                    <button onclick="SubmitPatientPhoto()">Save photo</button>
                     <span class="prof-stage-badge" id="prof-stage-badge"></span>
                 </div>
             </div>
@@ -353,15 +362,15 @@
                     <div class="prof-card-head">Personal Info</div>
                     <div class="prof-field">
                         <span class="prof-label">📧 Email</span>
-                        <span class="prof-value" id="prof-email">—</span>
+                        <span class="prof-value" id="prof-email">{{ personal_info['email_id'] }}</span>
                     </div>
                     <div class="prof-field">
                         <span class="prof-label">👤 Patient Name</span>
-                        <span class="prof-value" id="prof-name">—</span>
+                        <span class="prof-value" id="prof-name">{{ personal_info['name'] }}</span>
                     </div>
                     <div class="prof-field">
                         <span class="prof-label">📞 Patient Phone</span>
-                        <span class="prof-value" id="prof-phone">—</span>
+                        <span class="prof-value" id="prof-phone">{{ personal_info['phone_number'] }}</span>
                     </div>
                 </div>
 
@@ -369,11 +378,11 @@
                     <div class="prof-card-head">Medical Info</div>
                     <div class="prof-field">
                         <span class="prof-label">🧠 Dementia Stage</span>
-                        <span class="prof-value" id="prof-stage">—</span>
+                        <span class="prof-value" id="prof-stage">{{ personal_info['dementia_stage'] }}</span>
                     </div>
                     <div class="prof-field">
                         <span class="prof-label">🧑‍⚕️ Caretaker Phone</span>
-                        <span class="prof-value" id="prof-caretaker">—</span>
+                        <span class="prof-value" id="prof-caretaker">{{ personal_info['caretaker_phone_number'] }}</span>
                     </div>
                 </div>
 
@@ -715,11 +724,45 @@
 
 
 <script>
+
+const imageInput = document.getElementById('prof-photo-input');
+const profilePic = document.getElementById('prof-avatar-placeholder');
+
+imageInput.addEventListener('change', function(event) {
+  // 3. Get the first file selected by the user
+  const file = event.target.files[0];
+  
+  // 4. Ensure a file was actually selected
+  if (file) {
+    // 5. Create a temporary URL for the local file
+    const imageUrl = URL.createObjectURL(file);
+    
+    // 6. Update the image tag's source to the new URL
+    profilePic.src = imageUrl;
+  }
+});
 /* ════════════════════════════════════
    STATE
 ════════════════════════════════════ */
 // var familyMembers = [];
 // var memories = [];
+
+function SubmitPatientPhoto() {
+    document.getElementById('add_patient_photo_form').submit();
+}
+
+
+    // This is awesome. Using jinja, which ia made with python, for programming in javascript!
+var familyMembers = [
+    {% for member in family_members %}
+        {
+            "name": "{{ member['member_name'] }}",
+            "photo": "{{ member['member_pfp'] }}",
+            "relation": "{{ member['member_relation'] }}"
+        },
+    {% endfor %}
+];
+
 
 var memories = [
     {% for memory in memories %}
@@ -828,16 +871,6 @@ function renderMembers() {
     var filter = document.getElementById('people-search').value.toLowerCase(); // searching keyword
     var grid = document.getElementById('people-grid');
 
-    // This is awesome. Using jinja, which ia made with python, for programming in javascript!
-    var familyMembers = [
-        {% for member in family_members %}
-            {
-                "name": "{{ member['member_name'] }}",
-                "photo": "{{ member['member_pfp'] }}",
-                "relation": "{{ member['member_relation'] }}"
-            },
-        {% endfor %}
-    ];
 
 
     var list = filter ? familyMembers.filter(function(m){ return m.name.toLowerCase().indexOf(filter)!==-1; }) : familyMembers;
@@ -1236,7 +1269,7 @@ function fmtDateShort(d) {
     return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric'});
 }
 function getRelatedMemory(name) {
-    var m = memories.find(function(x){ return x.title.toLowerCase().indexOf(name.toLowerCase())!==-1 || x.desc.toLowerCase().indexOf(name.toLowerCase())!==-1; });
+    var m = memories.find(function(x){ return x.title.toLowerCase().indexOf(name.toLowerCase())!==-1 || x.description.toLowerCase().indexOf(name.toLowerCase())!==-1; });
     return m ? '<em>Memory: '+m.title+'</em>' : '';
 }
 function makeBlank(text) {
@@ -1254,11 +1287,23 @@ function makeBlank(text) {
 var STAGE_LABELS = { early: 'Early Stage', intermediate: 'Intermediate Stage', severe: 'Severe Stage' };
 var STAGE_COLORS = { early: '#6aaa6a', intermediate: '#c8956c', severe: '#c06060' };
 
-function loadProfile() {
-    var u = {};
-    try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
 
-    /* avatar */
+function loadProfile() {
+ 
+    // var u = {};
+    // try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
+    var u = {
+                "profile_photo": "{{ personal_info['pfp'] }}",
+                "patient_name": "{{ personal_info['name'] }}",
+                "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                "email": "{{ personal_info['email_id'] }}",
+                "patient_phone": "{{ personal_info['phone_number'] }}",
+                "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+            }
+
+
     var photo = u.profile_photo || '';
     if (photo) {
         document.getElementById('prof-avatar-img').src = photo;
@@ -1289,13 +1334,23 @@ function loadProfile() {
     } else {
         badge.style.display = 'none';
     }
+        
 }
 
 function handleProfPhoto(e) {
     var file = e.target.files[0]; if (!file) return;
     var reader = new FileReader();
     reader.onload = function(ev) {
-        var u = {};
+        var u = {
+                    "profile_photo": "{{ personal_info['pfp'] }}",
+                    "patient_name": "{{ personal_info['name'] }}",
+                    "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                    "email": "{{ personal_info['email_id'] }}",
+                    "patient_phone": "{{ personal_info['phone_number'] }}",
+                    "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+                }
         try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(err) {}
         u.profile_photo = ev.target.result;
         localStorage.setItem('memora_user', JSON.stringify(u));
@@ -1305,7 +1360,16 @@ function handleProfPhoto(e) {
 }
 
 function openProfEdit() {
-    var u = {};
+    var u = {
+                "profile_photo": "{{ personal_info['pfp'] }}",
+                "patient_name": "{{ personal_info['name'] }}",
+                "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                "email": "{{ personal_info['email_id'] }}",
+                "patient_phone": "{{ personal_info['phone_number'] }}",
+                "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+            }
     try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
     document.getElementById('pedit-email').value    = u.email || '';
     document.getElementById('pedit-name').value     = u.patient_name || '';
@@ -1315,11 +1379,21 @@ function openProfEdit() {
     document.querySelectorAll('input[name="pedit_stage"]').forEach(function(r) { r.checked = r.value === stage; });
     document.getElementById('prof-modal').style.display = 'flex';
 }
+
 function closeProfEdit() { document.getElementById('prof-modal').style.display = 'none'; }
 document.getElementById('prof-modal').addEventListener('click', function(e) { if (e.target === this) closeProfEdit(); });
 
 function saveProfEdit() {
-    var u = {};
+    var u = {
+                "profile_photo": "{{ personal_info['pfp'] }}",
+                "patient_name": "{{ personal_info['name'] }}",
+                "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                "email": "{{ personal_info['email_id'] }}",
+                "patient_phone": "{{ personal_info['phone_number'] }}",
+                "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+            }
     try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
     u.email          = document.getElementById('pedit-email').value.trim();
     u.patient_name   = document.getElementById('pedit-name').value.trim();

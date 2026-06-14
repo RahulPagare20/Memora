@@ -74,6 +74,11 @@
     resize();
     window.addEventListener('resize', resize);
 
+    const COLORS = [
+        `rgba(124,63,228,${0})`,  // placeholder, set per particle
+        `rgba(156,111,234,${0})`,
+        `rgba(103,48,201,${0})`
+    ];
     for (let i = 0; i < 55; i++) {
         particles.push({
             x: Math.random() * window.innerWidth,
@@ -81,16 +86,18 @@
             r: Math.random() * 2.5 + 0.5,
             vx: (Math.random() - 0.5) * 0.3,
             vy: (Math.random() - 0.5) * 0.3,
-            a: Math.random() * 0.5 + 0.1
+            a: Math.random() * 0.45 + 0.12,
+            ci: Math.floor(Math.random() * 3)
         });
     }
 
     function drawParticles() {
         ctx.clearRect(0, 0, W, H);
         particles.forEach(p => {
+            const colors = ['124,63,228', '156,111,234', '103,48,201'];
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(139,90,43,${p.a})`;
+            ctx.fillStyle = `rgba(${colors[p.ci]},${p.a})`;
             ctx.fill();
             p.x += p.vx; p.y += p.vy;
             if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
@@ -178,14 +185,13 @@ document.querySelectorAll('.sidebar-link').forEach((link, i) => {
 });
 
 // ── SKELETON LOADERS — replace empty states temporarily ──
-/*
 (function() {
     const grid = document.getElementById('people-grid');
     if (!grid) return;
     const stored = localStorage.getItem('memora_family');
     if (!stored || JSON.parse(stored).length === 0) {
         grid.innerHTML = Array(3).fill(0).map(() => `
-            <div style="background:#fff8f0;border:1px solid #e2d0b8;border-radius:14px;padding:28px 20px 22px;text-align:center;">
+            <div style="background:#ffffff;border:1px solid #e5e5e5;border-radius:14px;padding:28px 20px 22px;text-align:center;">
                 <div class="skeleton skeleton-circle" style="width:88px;height:88px;margin:0 auto 16px;"></div>
                 <div class="skeleton skeleton-text" style="width:70%;margin:0 auto 8px;"></div>
                 <div class="skeleton skeleton-text" style="width:45%;margin:0 auto;height:.8em;"></div>
@@ -196,7 +202,6 @@ document.querySelectorAll('.sidebar-link').forEach((link, i) => {
         }, 1200);
     }
 })();
-*/
 
 // ── FORM FIELD FOCUS GLOW ──
 document.querySelectorAll('.form-group input, .form-group select').forEach(input => {

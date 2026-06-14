@@ -142,9 +142,9 @@ def create_account_st1():
         pickle.dump(db, file)
     
 
-    stat = False
-    #stat = send_email(email_id_usr, "Memora", f"Account has been successfully created! Your user id is: {id}")
-    print('[!] Email is not being sent.')
+    #stat = False
+    stat = send_email(email_id_usr, "Memora", f"Account has been successfully created! Your user id is: {id}")
+    #print('[!] Email is not being sent.')
 
     #return jsonify({"status": "Account successfully created! (Stage 1)", "user_id": id, "extraneous_complexity": extraneous, 'email_stat': stat})
     #return "ACCOUNT SUCCESFULLY CREATED! Awaiting Aakira's /templates/dashboard.html"
@@ -250,15 +250,40 @@ def create_account_st2():
     return resp
 
 
+@api.route('/add_patient_photo', methods=['POST'])
+def add_patient_photo_ssr():
+    cookies = request.cookies
+    id = cookies['user_id']
+    profile_id = get_id()
+
+    return str(request.files)
+
+    file = request.files['patient_photo']
+    if file.filename.strip() == '':    
+        resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+        return resp
+
+    ext = file.filename.rsplit('.', 1)[1].lower()
+
+    file.save(f'{working_dir}/database/{id}/patient_photo.{ext}')
+
+    resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+    return resp    
+
+
+
+    
+
 @api.route('/add_family_member', methods=['POST'])
 def add_family_member_server():
     cookies = request.cookies
     id = cookies['user_id']
     profile_id = get_id()
     file = request.files['member_photo']
-    if file.filename == '':
+    if file.filename.strip() == '':
         resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
         return resp
+
 
     db = request.form
     member_name = db['member_name'].strip()
@@ -391,7 +416,8 @@ def login_server():
         return resp
 
     
-    return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+    #return jsonify({'status': 'Failed', "justification": "Invalid Credentials."})
+    return render_template('login.html', error="Invalid Credentials.")
     
 
 

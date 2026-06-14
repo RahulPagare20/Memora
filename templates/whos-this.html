@@ -109,9 +109,19 @@
             letter-spacing: .4px;
         }
         .bottom-sub {
-            font-size: .82rem;
+            font-size: .95rem;
             color: rgba(255,255,255,0.55);
             font-style: italic;
+        }
+
+        /* ── OVERLAY CANVAS ── */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
         }
 
         /* ── ERROR STATE ── */
@@ -149,9 +159,10 @@
 
     <!-- Live camera feed -->
     <video id="video" autoplay playsinline muted></video>
+    <!-- Hidden capture canvas (sends frames to server) -->
     <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-
-    <img id="processed_image" width="640" height="480" alt="Waiting for video stream..." />
+    <!-- Visible overlay canvas (draws bounding boxes) -->
+    <canvas id="overlay"></canvas>
 
     <!-- Top bar -->
     <div class="top-bar">
@@ -167,8 +178,8 @@
 
     <!-- Bottom prompt -->
     <div class="bottom-label">
-        <p class="bottom-prompt">Point the camera at a face</p>
-        <h1 id="name_tag">Initial tag</h1>
+        <p class="bottom-sub">Point the camera at a face to identify.</p>
+        <p class="bottom-prompt" id="message_ls">Waiting for server to connect ...</p>
     </div>
 
     <!-- Error state -->
@@ -222,48 +233,181 @@
         startCamera();
 
 
-        // SocketIO
-        const socket = io();
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
+        // ── SocketIO + canvas overlay ─────────────────────────────────────
+        const socket  = io();
+        const video   = document.getElementById('video');
+        const canvas  = document.getElementById('canvas');   // hidden capture
+        const ctx     = canvas.getContext('2d');
+        const overlay = document.getElementById('overlay');  // visible overlay
+        const octx    = overlay.getContext('2d');
 
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => { video.srcObject = stream; })
-            .catch(err => console.error("Camera access denied: ", err));
+        // Keep overlay canvas sized to the viewport
+        function resizeOverlay() {
+            overlay.width  = window.innerWidth;
+            overlay.height = window.innerHeight;
+        }
+        resizeOverlay();
+        window.addEventListener('resize', resizeOverlay);
 
+        // Send frames to server
         setInterval(() => {
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const dataURL = canvas.toDataURL('image/jpeg', 0.6);  // this is your base64 frame
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataURL = canvas.toDataURL('image/jpeg', 0.6);
                 socket.emit('image', { frame: dataURL, user_id: "{{ user_id }}" });
             }
-        }, 10);
+        }, 100);
 
-        // Receive processed frames
+        // ── State ────────────────────────────────────────────────────
+        let lastFaces   = [];
+        let globalScanY = 0;
+
+        // ── Full-view purple scan line (always on) ────────────────────
+        function drawGlobalScan(vr) {
+            globalScanY += 1.8;
+            if (globalScanY > vr.height) globalScanY = 0;
+
+            const absY = vr.top + globalScanY;
+            const grad = octx.createLinearGradient(vr.left, absY - 28, vr.left, absY + 28);
+            grad.addColorStop(0,   'rgba(160,80,255,0)');
+            grad.addColorStop(0.5, 'rgba(160,80,255,0.22)');
+            grad.addColorStop(1,   'rgba(160,80,255,0)');
+            octx.fillStyle = grad;
+            octx.fillRect(vr.left, absY - 28, vr.width, 56);
+
+            octx.strokeStyle = 'rgba(190,120,255,0.75)';
+            octx.lineWidth   = 1.5;
+            octx.shadowColor = 'rgba(190,120,255,1)';
+            octx.shadowBlur  = 12;
+            octx.beginPath();
+            octx.moveTo(vr.left, absY);
+            octx.lineTo(vr.left + vr.width, absY);
+            octx.stroke();
+            octx.shadowBlur = 0;
+        }
+
+        // ── Cyberpunk card — top-right, no face box ───────────────────
+        function drawCyberCard(c, face, faceCX, faceCY, known, idx) {
+            const name     = face.name     || 'Unknown';
+            const relation = face.relation || '';
+
+            const MARGIN = 24;
+            const cardW  = 260;
+            const cardH  = known && relation ? 90 : 62;
+            const cardX  = overlay.width - cardW - MARGIN;
+            const cardY  = 80 + idx * (cardH + 18);
+
+            const neon    = known ? '#bf7fff' : '#ff4da6';
+            const neonDim = known ? 'rgba(191,127,255,0.4)' : 'rgba(255,77,166,0.4)';
+            const bg      = known ? 'rgba(18,5,35,0.92)'    : 'rgba(35,5,20,0.92)';
+
+            // card shape — bottom-left corner cut
+            const cut = 18;
+            c.beginPath();
+            c.moveTo(cardX,             cardY);
+            c.lineTo(cardX + cardW,     cardY);
+            c.lineTo(cardX + cardW,     cardY + cardH);
+            c.lineTo(cardX + cut,       cardY + cardH);
+            c.lineTo(cardX,             cardY + cardH - cut);
+            c.closePath();
+
+            c.fillStyle   = bg;
+            c.shadowColor = neon;
+            c.shadowBlur  = 24;
+            c.fill();
+
+            c.strokeStyle = neon;
+            c.lineWidth   = 2;
+            c.shadowBlur  = 14;
+            c.stroke();
+            c.shadowBlur  = 0;
+
+            // left accent bar
+            c.fillStyle   = neon;
+            c.shadowColor = neon;
+            c.shadowBlur  = 10;
+            c.fillRect(cardX, cardY + 10, 4, cardH - 20);
+            c.shadowBlur  = 0;
+
+            // text
+            c.textBaseline = 'middle';
+            c.textAlign    = 'left';
+
+            if (known && relation) {
+                c.font        = 'bold 17px "Courier New", monospace';
+                c.fillStyle   = '#ffffff';
+                c.shadowColor = 'rgba(255,255,255,0.4)';
+                c.shadowBlur  = 6;
+                c.fillText(name, cardX + 18, cardY + 28);
+                c.shadowBlur  = 0;
+
+                c.strokeStyle = neonDim;
+                c.lineWidth   = 1;
+                c.beginPath();
+                c.moveTo(cardX + 18,         cardY + 48);
+                c.lineTo(cardX + cardW - 14, cardY + 48);
+                c.stroke();
+
+                c.font        = '14px "Courier New", monospace';
+                c.fillStyle   = neon;
+                c.shadowColor = neon;
+                c.shadowBlur  = 8;
+                c.fillText('REL: ' + relation.toUpperCase(), cardX + 18, cardY + 68);
+                c.shadowBlur  = 0;
+            } else {
+                c.font        = 'bold 17px "Courier New", monospace';
+                c.fillStyle   = known ? '#ffffff' : neon;
+                c.shadowColor = known ? 'rgba(255,255,255,0.3)' : neon;
+                c.shadowBlur  = 6;
+                c.fillText(name, cardX + 18, cardY + cardH / 2);
+                c.shadowBlur  = 0;
+            }
+            c.textAlign = 'left';
+        }
+
+        // ── Main render loop ──────────────────────────────────────────
+        function renderFrame() {
+            octx.clearRect(0, 0, overlay.width, overlay.height);
+
+            const vr = video.getBoundingClientRect();
+            drawGlobalScan(vr);
+
+            if (lastFaces.length > 0) {
+                const scaleX = vr.width  / 640;
+                const scaleY = vr.height / 480;
+
+                lastFaces.forEach(function(face, idx) {
+                    const x  = vr.left + face.left * scaleX;
+                    const y  = vr.top  + face.top  * scaleY;
+                    const w  = (face.right  - face.left) * scaleX;
+                    const h  = (face.bottom - face.top)  * scaleY;
+                    const cx = x + w / 2;
+                    const cy = y + h / 2;
+                    drawCyberCard(octx, face, cx, cy, face.id !== null, idx);
+                });
+            }
+
+            requestAnimationFrame(renderFrame);
+        }
+
+        requestAnimationFrame(renderFrame);
+
         socket.on('face_detected', function(data) {
-            //processedImage.src = data;
-            // console.log("Data received from app.py: ", data);
-            // var c = document.getElementById("canvas");
-            // var ctx = c.getContext("2d");
-            // ctx.font = "30px Arial";
-            //console.log(data)
-
-            var stat = document.getElementById('name_tag');
-            console.log(data['status'])
-            
-            if (data['status'] == 'error') {
-                stat.innerHTML = "No face was detected."
-            }            
-            if (data['status'] == 'none') {
-                stat.innerHTML = 'No family member detected.';
+            if (data.status == 'detected') {
+                lastFaces = (data.status === 'none' || !data.faces) ? [] : data.faces;
+                document.getElementById('message_ls').innerHTML = "Success! Face detected and identified!"
             }
-            if (data['status'] == 'detected') {
-                stat.innerHTML = data['faces'][0]['name'];
+
+            else if (data.status == "none") {
+                document.getElementById('message_ls').innerHTML = "No family member recognised."
             }
-        });       
-
-
+            else if (data.status == 'error') {
+                document.getElementById('message_ls').innerHTML = "Error from flask-socketio."
+            }
+            else {
+                document.getElementById('message_ls').innerHTML = "No face detected."
+            }
+        });
     </script>
 </body>
 </html>

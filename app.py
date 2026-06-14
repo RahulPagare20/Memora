@@ -163,6 +163,13 @@ def personalize():
 
     return resp
 
+
+@app.route('/logout')
+def logout():
+    resp = make_response(render_template('redirect_to.html', url_="/"))
+    resp.set_cookie('user_id', '', expires=0)
+    return resp
+
 @app.route('/dashboard')
 def dashboard_ssr():
     global working_dir
@@ -226,10 +233,39 @@ def dashboard_ssr():
             elif posn == 'right':
                 posn = 'left'
 
+    db = get_data(user_id,)[0]
+    name = db[1]
+    email_id = db[2]
+    password = db[3]
+    phone_number = db[4]
+    dementia_stage = db[5]
+    caretaker_phone_number = db[6]
+    if caretaker_phone_number == "DNE":
+        caretaker_phone_number = "-"
+    
+    personal_info = {
+        'pfp': '',
+        'name': name,
+        'email_id': email_id,
+        'password': password,
+        'phone_number': phone_number,
+        'dementia_stage': dementia_stage,
+        'caretaker_phone_number': caretaker_phone_number
+    }
+
     if not error:
-        return render_template('dashboard.html', family_members=family_members, memories=memories)
+        return render_template('dashboard.html', family_members=family_members, memories=memories, personal_info=personal_info)
     else:
-        return render_template('dashboard.html', family_members=[], memories=[])
+        personal_info_def = {
+            'pfp': '',
+            'name': '',
+            'email_id': '',
+            'password': '',
+            'phone_number': '',
+            'dementia_stage': '',
+            'caretaker_phone_number': ''
+        }        
+        return render_template('dashboard.html', family_members=[], memories=[], personal_info=personal_info_def)
 
 @app.route('/inner/server/get-profile-pic/<id>')
 def get_profile_pic_user(id):
