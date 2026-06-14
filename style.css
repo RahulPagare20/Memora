@@ -2310,3 +2310,176 @@ body.acc-reduce-motion *::after {
 }
 
 
+
+/* ════════════════════════════════════
+   LANDING PAGE — SECTIONS
+════════════════════════════════════ */
+
+.lp-section {
+    padding: 90px 40px;
+    background: #ffffff;
+}
+
+.lp-section-alt {
+    background: #f8f4ff;
+}
+
+.lp-section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.lp-section-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #2d2d2d;
+    margin: 12px 0 10px;
+    font-family: 'Georgia', serif;
+    letter-spacing: 1px;
+}
+
+.lp-section-sub {
+    font-size: .97rem;
+    color: #6b6b6b;
+    margin-bottom: 50px;
+    font-style: italic;
+}
+
+/* ── FEATURES GRID ── */
+.lp-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: left;
+}
+
+.lp-feature-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 14px rgba(124,63,228,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lp-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(124,63,228,0.13);
+}
+
+.lp-feature-icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+}
+
+.lp-feature-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2d2d2d;
+    margin-bottom: 8px;
+    font-family: 'Georgia', serif;
+}
+
+.lp-feature-card p {
+    font-size: .88rem;
+    color: #6b6b6b;
+    line-height: 1.6;
+}
+
+/* ── HOW IT WORKS STEPS ── */
+.lp-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.lp-step {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px;
+    padding: 32px 28px;
+    max-width: 280px;
+    text-align: left;
+    box-shadow: 0 2px 14px rgba(124,63,228,0.07);
+}
+
+.lp-step-num {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3fe4, #9c6fea);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.lp-step h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2d2d2d;
+    margin-bottom: 8px;
+    font-family: 'Georgia', serif;
+}
+
+.lp-step p {
+    font-size: .88rem;
+    color: #6b6b6b;
+    line-height: 1.6;
+}
+
+.lp-step-arrow {
+    font-size: 2rem;
+    color: #c4a8f5;
+    align-self: center;
+    font-weight: 300;
+}
+
+/* ── ABOUT SECTION ── */
+.lp-about-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    text-align: left;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.lp-about-text p {
+    font-size: .97rem;
+    color: #4a4a4a;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.lp-about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.lp-stat {
+    background: #f8f4ff;
+    border-left: 4px solid #7c3fe4;
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+}
+
+.lp-stat-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #7c3fe4;
+    font-family: 'Georgia', serif;
+}
+
+.lp-stat-label {
+    font-size: .82rem;
+    color: #6b6b6b;
+    margin-top: 4px;
+}

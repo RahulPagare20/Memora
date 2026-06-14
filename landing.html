@@ -10,10 +10,12 @@
 
     <title>Memora</title>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='animations.css') }}">
+
 
 </head>
+
 
 <body>
 
@@ -30,15 +32,15 @@
 
         <div class="nav-links">
 
-            <a href="landing.html">Home</a>
+            <a href="/">Home</a>
 
             <a href="#features">Features</a>
 
             <a href="#about">About</a>
 
-            <a href="login.html">Login</a>
+            <a href="/login">Login</a>
 
-            <a href="register.html"
+            <a href="/register"
                class="nav-btn">
 
                 Get Started
@@ -49,6 +51,10 @@
 
     </nav>
 
+
+    <br>
+    <br>
+
     <!-- PAGE CONTENT -->
 
     <main>
@@ -57,7 +63,7 @@
 
             <!-- that cards which float around -->
 
-            <div class="floating-card card-1 reveal-left">
+            <div class="floating-card card-1">
 
                 <h4>📞 Mom Called</h4>
 
@@ -65,7 +71,7 @@
 
             </div>
 
-            <div class="floating-card card-2 reveal-right">
+            <div class="floating-card card-2">
 
                 <h4>✨ Memory Score</h4>
 
@@ -73,7 +79,7 @@
 
             </div>
 
-            <div class="floating-card card-3 reveal-left">
+            <div class="floating-card card-3">
 
                 <h4>💊 Medication Due</h4>
 
@@ -81,7 +87,7 @@
 
             </div>
 
-            <div class="floating-card card-4 reveal-right">
+            <div class="floating-card card-4">
 
                 <h4>👨👩👧 Family Visit</h4>
 
@@ -91,7 +97,7 @@
 
             <!-- Hero Content -->
 
-            <div class="hero-content reveal">
+            <div class="hero-content">
 
                 <span class="hero-badge">
 
@@ -122,15 +128,15 @@
 
                 </p>
 
-                <div class="hero-buttons stagger-parent">
+                <div class="hero-buttons">
 
-                    <a href="register.html" class="primary-btn stagger-child magnetic">
+                    <a href="/register" class="primary-btn">
 
                         Get Started Free →
 
                     </a>
 
-                    <a href="#features" class="secondary-btn stagger-child hover-lift">
+                    <a href="#features" class="secondary-btn">
 
                         Learn More
 
@@ -144,19 +150,115 @@
 
     </main>
 
+    <!-- FEATURES SECTION -->
+    <section class="lp-section" id="features">
+        <div class="lp-section-inner">
+            <span class="hero-badge">✨ What Memora Offers</span>
+            <h2 class="lp-section-title">Everything your loved one needs</h2>
+            <p class="lp-section-sub">Built specifically for Dementia and Alzheimer's patients and their families</p>
+            <div class="lp-features-grid">
+                <div class="lp-feature-card">
+                    <div class="lp-feature-icon">👨‍👩‍👧</div>
+                    <h3>People I Know</h3>
+                    <p>Store photos, names, relationships and notes about every family member so they're never forgotten.</p>
+                </div>
+                <div class="lp-feature-card">
+                    <div class="lp-feature-icon">🕐</div>
+                    <h3>Memory Timeline</h3>
+                    <p>A beautiful visual timeline of cherished memories — family events, medical history, personal moments.</p>
+                </div>
+                <div class="lp-feature-card">
+                    <div class="lp-feature-icon">🧠</div>
+                    <h3>Memory Test</h3>
+                    <p>Fun, gentle exercises built from real family memories to keep the mind sharp and engaged every day.</p>
+                </div>
+                <div class="lp-feature-card">
+                    <div class="lp-feature-icon">📋</div>
+                    <h3>Daily Summary</h3>
+                    <p>Reminders and medicine schedules laid out clearly so every day starts with a plan.</p>
+                </div>
+                <div class="lp-feature-card">
+                    <div class="lp-feature-icon">🤔</div>
+                    <h3>Who's This?</h3>
+                    <p>Point the camera at a face and instantly get a reminder of who that person is and your relationship.</p>
+                </div>
+                <div class="lp-feature-card">
+                    <div class="lp-feature-icon">🔒</div>
+                    <h3>Safe & Private</h3>
+                    <p>All data is stored securely. Only you and your family have access to your memories.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section class="lp-section lp-section-alt">
+        <div class="lp-section-inner">
+            <span class="hero-badge">🚀 Simple Setup</span>
+            <h2 class="lp-section-title">Get started in minutes</h2>
+            <p class="lp-section-sub">Three simple steps to bring peace of mind to your family</p>
+            <div class="lp-steps">
+                <div class="lp-step">
+                    <div class="lp-step-num">1</div>
+                    <h3>Create an Account</h3>
+                    <p>Sign up and personalize the experience for the patient — name, dementia stage, and preferences.</p>
+                </div>
+                <div class="lp-step-arrow">→</div>
+                <div class="lp-step">
+                    <div class="lp-step-num">2</div>
+                    <h3>Add Family Members</h3>
+                    <p>Upload photos and add details about each family member — their name, relation, birthday and notes.</p>
+                </div>
+                <div class="lp-step-arrow">→</div>
+                <div class="lp-step">
+                    <div class="lp-step-num">3</div>
+                    <h3>Start Remembering</h3>
+                    <p>Use the timeline, memory tests and daily summary every day to stay connected with loved ones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="lp-section" id="about">
+        <div class="lp-section-inner">
+            <span class="hero-badge">🌿 Our Mission</span>
+            <h2 class="lp-section-title">About Memora</h2>
+            <div class="lp-about-wrap">
+                <div class="lp-about-text">
+                    <p>Memora was built with one simple belief — that every person deserves to hold on to the people and moments that matter most, no matter what.</p>
+                    <p>Dementia and Alzheimer's affect millions of families worldwide. Watching a loved one struggle to recognise faces or recall precious memories is heartbreaking. Memora exists to bridge that gap.</p>
+                    <p>We combine gentle AI-powered tools with a warm, easy-to-use interface designed specifically for patients and their caregivers — because technology should feel like a helping hand, not a hurdle.</p>
+                    <a href="/register" class="primary-btn" style="display:inline-block; margin-top:24px;">Join Memora Free →</a>
+                </div>
+                <div class="lp-about-stats">
+                    <div class="lp-stat">
+                        <div class="lp-stat-num">55M+</div>
+                        <div class="lp-stat-label">People living with dementia worldwide</div>
+                    </div>
+                    <div class="lp-stat">
+                        <div class="lp-stat-num">1 in 3</div>
+                        <div class="lp-stat-label">Seniors die with Alzheimer's or dementia</div>
+                    </div>
+                    <div class="lp-stat">
+                        <div class="lp-stat-num">∞</div>
+                        <div class="lp-stat-label">Memories worth preserving</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
 
     <footer class="footer">
 
-        <div class="footer-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></svg>
-            <span>MEMORA</span>
-        </div>
+        <h3>MEMORA</h3>
 
         <p>
 
             Helping Dementia and Alzheimer's patients
-            reconnect with memories and loved ones.....
+            reconnect with memories and loved ones.
 
         </p>
 
@@ -168,9 +270,11 @@
 
     </footer>
 
-    <script src="script.js"></script>
-    <script src="animations.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='animations.js') }}"></script>
 
+
+    
 </body>
 
 </html>
