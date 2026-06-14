@@ -169,7 +169,8 @@ def daily_challenge_notif(score):
 def create_account_st2():
     # Note, if caretaker does not exist, caretaker_phone_number = "DNE"
     # Bifurcation of code just so that i know where things went wrong, if at they go wrong, which I hope, they don't :)
-
+    banned_words = ["[ADMIN]", "[admin]", "'", '"', "/", "\\", "$", "#", "@", ""] # ik not needed but i mean the admin website distinguishes between admin and normie users from just this. quite a big security breach I know but it'll do the job for this hack ig.
+    banned_words += string.punctuation
 
     cookies = request.cookies
     if 'user_id' not in cookies:
@@ -214,11 +215,16 @@ def create_account_st2():
 
     # STAGE 2 Verification for /api/create_account_st2
     
-    id = core['user_id']
-    name = core['full_name']
-    phone_number = core['phone_number']
-    dementia_stage = core['dementia_stage']
-    caretaker_phone_number = core['caretaker_phone_number']
+    id = core['user_id'].strip()
+    name = core['full_name'].strip()
+    phone_number = core['phone_number'].strip()
+    dementia_stage = core['dementia_stage'].strip()
+    caretaker_phone_number = core['caretaker_phone_number'].strip()
+
+    for i in banned_words:
+        if i in name:
+            return render_template('personalize.html', error=f"You cannot use the word: {i} in your name.")                
+
 
     with open(f"{working_dir}/database/pickled/st1_cleared.db", "rb") as file:
         db = pickle.load(file)
@@ -226,8 +232,8 @@ def create_account_st2():
         if not record:
             #return jsonify({'status': 'Failed', "justification": "/api/create_account_st2: Error in STAGE 2 (search_record_by_id)."})
             return render_template('personalize.html', error="/api/create_account_st2: Error in STAGE 2 (search_record_by_id).")                
-        email_id = record['email_id']
-        password = record['password']
+        email_id = record['email_id'].strip()
+        password = record['password'].strip()
         stat1 = db.delete_waiting_user_by_id(id)
     
     if not stat1:
@@ -328,6 +334,17 @@ def add_family_member_server():
 
     #return str(db['member_name'].strip())
 
+    banned_words = ["[ADMIN]", "[admin]"] # ik not needed but i mean the admin website distinguishes between admin and normie users from just this. quite a big security breach I know but it'll do the job for this hack ig.
+    banned_words += string.punctuation
+
+    for i in banned_words:
+        if i in member_name:
+            return make_response(render_template('redirect_to.html', url_=f"/dashboard", error=f"Member name cannot contain the letter/word: {i}."))
+    
+    if len(member_name) > 20:
+        return make_response(render_template('redirect_to.html', url_=f"/dashboard", error=f"Member name is too long."))
+
+            
     ext = file.filename.rsplit('.', 1)[1].lower()
 
     if file.filename.strip() != '':

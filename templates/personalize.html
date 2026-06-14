@@ -29,7 +29,7 @@
                 <h1 class="auth-title">Personalize</h1>
                 <p class="auth-subtitle">Help us tailor the experience for your loved one</p>
                 {% if error %}
-                    <h1>Error: {{ error }}</h1>
+                    <h1 style="color: red;">Error: {{ error }}</h1>
                 {% endif %}
 
                 <form class="auth-form personalize-form" id="personalize-form" action="/api/create_account_st2" method="POST">
