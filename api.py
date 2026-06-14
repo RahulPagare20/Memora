@@ -169,7 +169,7 @@ def daily_challenge_notif(score):
 def create_account_st2():
     # Note, if caretaker does not exist, caretaker_phone_number = "DNE"
     # Bifurcation of code just so that i know where things went wrong, if at they go wrong, which I hope, they don't :)
-    banned_words = ["[ADMIN]", "[admin]", "'", '"', "/", "\\", "$", "#", "@", ""] # ik not needed but i mean the admin website distinguishes between admin and normie users from just this. quite a big security breach I know but it'll do the job for this hack ig.
+    banned_words = ["[ADMIN]", "[admin]"] # ik not needed but i mean the admin website distinguishes between admin and normie users from just this. quite a big security breach I know but it'll do the job for this hack ig.
     banned_words += string.punctuation
 
     cookies = request.cookies

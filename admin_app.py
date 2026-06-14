@@ -120,9 +120,13 @@ class AllowedUsers:
 
 if not os.path.exists(f'{working_dir}/RegisteredUsers.db'):
     lll = AllowedUsers()
-    lll.register_user(gen_reg_id(), 'RahulPagare20')
-    lll.register_user(gen_reg_id(), 'Aakira14')
-    lll.register_user(gen_reg_id(), 'Kanakk020')
+    rahul_id = gen_reg_id()
+    lll.register_user(rahul_id, 'RahulPagare20')
+    print(f"[+] Rahul's id: {rahul_id}")
+    aakira_id = gen_reg_id()
+    print(f"[+] Aakira's id: {aakira_id}")
+
+    lll.register_user(aakira_id, 'Aakira14')
     with open(f'{working_dir}/RegisteredUsers.db', 'wb') as tp:
         pickle.dump(lll, tp)
 
@@ -210,13 +214,12 @@ def hello_world():
     cookies = request.cookies
     username = "ADMIN"
 
+    #return str(cookies['Registration'] == "CreBCrwrOgxrKHvSYFtR609792964421439429100658975140730088068639851861078")
 
-    if str(cookies['Registration']) == "ELgLXMLNaCoKy7645586300090355500179894643862957384206":
+    if str(cookies['Registration']) == "BymsufmfLjAjn05283528011098257850637032710778671":
         username = "Rahul Pagare"
-    elif str(cookies['Registration']) == "CYugiwfkspJkkGC80791262675970651296362946670957009848962482":
+    elif str(cookies['Registration']) == "CreBCrwrOgxrKHvSYFtR609792964421439429100658975140730088068639851861078":
         username = "Aakira Khot"
-    elif str(cookies['Registration']) == "BrmdVkFsRgnArQWbb667298677443133714564152727123853573296743612147061764":
-        username = "Kanak Saini"
     else:
         return f"Invalid cookie configuration, Registration: `{cookies['Registration']}`"
 
