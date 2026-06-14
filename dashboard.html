@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard — Memora</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/animations.css">
 </head>
 <body class="dashboard-body">
 
@@ -13,17 +13,17 @@
 <aside class="sidebar">
     <div class="sidebar-logo">
         <div class="sidebar-logo-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-logo-icon"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-logo-icon"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M9 13a4.5 4.5 0 0 0 3-4"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M12 13h4"/><path d="M12 18h6a2 2 0 0 1 2 2v1"/><path d="M12 8h8"/><path d="M16 8V5a2 2 0 0 1 2-2"/><circle cx="16" cy="13" r=".5"/><circle cx="18" cy="3" r=".5"/><circle cx="20" cy="21" r=".5"/><circle cx="20" cy="8" r=".5"/></svg>
             <h2>MEMORA</h2>
         </div>
     </div>
     <nav class="sidebar-nav">
-        <a href="#" class="sidebar-link active" data-tab="people"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></span> People I Know</a>
-        <a href="#" class="sidebar-link" data-tab="timeline"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg></span> Timeline</a>
-        <a href="#" class="sidebar-link" data-tab="memory-test"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg></span> Memory Test</a>
-        <a href="#" class="sidebar-link" data-tab="daily-summary"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span> Daily Summary</a>
-        <a href="#" class="sidebar-link" data-tab="profile"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 15H7a4 4 0 0 0-4 4v2"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="7" r="4"/></svg></span> Profile</a>
-        <a href="#" class="sidebar-link" data-tab="settings"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg></span> Settings</a>
+        <a href="#" class="sidebar-link active" data-tab="people"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></span> People I Know</a>
+        <a href="#" class="sidebar-link" data-tab="timeline"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg></span> Timeline</a>
+        <a href="#" class="sidebar-link" data-tab="memory-test"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg></span> Memory Test</a>
+        <a href="#" class="sidebar-link" data-tab="daily-summary"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span> Daily Summary</a>
+        <a href="#" class="sidebar-link" data-tab="profile"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 15H7a4 4 0 0 0-4 4v2"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="7" r="4"/></svg></span> Profile</a>
+        <a href="#" class="sidebar-link" data-tab="settings"><span class="sidebar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg></span> Settings</a>
     </nav>
 </aside>
 
@@ -33,10 +33,10 @@
         <div class="dash-navbar-left"><h3 class="dash-page-title">People I Know</h3></div>
         <div class="dash-navbar-right">
             <button class="add-member-btn" id="navbar-action-btn" onclick="openAddMember()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><line x1="12" x2="12" y1="8" y2="16"/><line x1="8" x2="16" y1="12" y2="12"/></svg> Add Family Member</button>
-            <a href="whos-this.html" class="whos-this-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg> Who's this?
+            <a href="/whos-this" class="whos-this-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M2 13a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1a2 2 0 0 1 2-2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1a2 2 0 0 1-2-2V2a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v1a2 2 0 0 1-2 2H3a2 2 0 0 0-2 2z"/><path d="M12 17v.01"/><path d="M12 13a2 2 0 0 0-2-2 2 2 0 1 1 4 0 2 2 0 0 1-2 2z"/></svg> Who's this?
             </a>
-            <button class="notif-btn" onclick="toggleNotifications()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M15 8h6"/><path d="M18 5v6"/><path d="M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332"/></svg><span class="notif-dot"></span></button>
+            <button class="notif-btn" onclick="toggleNotifications()"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M15 8h6"/><path d="M18 5v6"/><path d="M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332"/></svg><span class="notif-dot"></span></button>
         </div>
     </header>
 
@@ -47,8 +47,27 @@
             <div class="people-search-wrap">
                 <input type="text" id="people-search" placeholder="🔍  Search by name..." oninput="renderMembers()">
             </div>
+            
+            {% if error %}
+                <h1>Error: {{ error }}</h1>
+            {% endif %}
+
+            
             <div class="people-grid" id="people-grid">
-                <div class="empty-state"><p>👥</p><p>No family members added yet.</p><p>Click <strong>+ Add Family Member</strong> to get started.</p></div>
+                {% if family_members == [] %}
+                    <div class="empty-state"><p>👥</p><p>No family members added yet.</p><p>Click <strong>+ Add Family Member</strong> to get started.</p></div>
+                {% else %}
+                    {% for member in family_members %}
+                        <div class="member-card">
+                            <div class="member-photo">
+                                <img src="{{ member['member_pfp'] }}" width=50>
+                            </div>
+                            <h4>{{ member['member_name'] }}</h4>
+                            <p>{{ member['member_relation'] }}</p>                         
+                            <button onclick="deleteFamilyMember({{ member['id'] }})">Delete Family Member</button>
+                        </div>
+                    {% endfor %}                
+                {% endif %}
             </div>
         </div>
 
@@ -57,15 +76,96 @@
             <div class="tl-toolbar">
                 <input type="text" id="tl-search" class="tl-search" placeholder="🔍  Search memories..." oninput="renderTimeline()">
                 <div class="tl-filters">
-                    <button class="tl-filter-btn active" data-cat="All" onclick="setFilter(this)">All</button>
-                    <button class="tl-filter-btn" data-cat="Family" onclick="setFilter(this)">👨‍👩‍👧 Family</button>
-                    <button class="tl-filter-btn" data-cat="Medical" onclick="setFilter(this)">🏥 Medical</button>
-                    <button class="tl-filter-btn" data-cat="Personal" onclick="setFilter(this)">✨ Personal</button>
-                    <button class="tl-filter-btn" data-cat="Events" onclick="setFilter(this)">🎉 Events</button>
+                    <button class="tl-filter-btn active" id="all_btn" data-cat="All" onclick="setFilter(this)">All</button>
+                    <button class="tl-filter-btn" id="family_btn" data-cat="Family" onclick="setFilter(this)">👨‍👩‍👧 Family</button>
+                    <button class="tl-filter-btn" id="medical_btn" data-cat="Medical" onclick="setFilter(this)">🏥 Medical</button>
+                    <button class="tl-filter-btn" id="personal_btn" data-cat="Personal" onclick="setFilter(this)">✨ Personal</button>
+                    <button class="tl-filter-btn" id="events_btn" data-cat="Events" onclick="setFilter(this)">🎉 Events</button>
                 </div>
             </div>
             <div class="tl-wrap" id="tl-wrap">
-                <div class="empty-state"><p>🕐</p><p>No memories yet.</p><p>Click <strong>+ Add Memory</strong> to begin.</p></div>
+                {% if memories == [] %}
+                    <div class="empty-state"><p>🕐</p><p>No memories yet.</p><p>Click <strong>+ Add Memory</strong> to begin.</p></div>
+                {% else %}
+
+                    <div class="tl-wrap" id="tl-wrap">
+                        <div class="tl-line"></div>
+                        {% for memory in memories %}
+                            {% if memory['posn'] == 'left' %}        
+                                <div class="tl-item tl-left tl-entry" style="opacity: 1; transform: translateX(0px); transition: opacity 0.5s, transform 0.5s;">
+                                    {% if memory['category'] == "Family" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">👨‍👩‍👧</div>
+                                    {% elif memory['category'] == "Medical" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🏥</div>
+                                    {% elif memory['category'] == "Personal" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">✨</div>                
+                                    {% elif memory['category'] == "Events" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🎉</div> 
+                                    {% endif %}
+                                    <div class="tl-card"><div class="tl-card-header" style="border-left:4px solid #6c9ec8;">
+                                        <div>
+                                            {% if memory['category'] == "Family" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">👨‍👩‍👧 Family</span>
+                                            {% elif memory['category'] == "Medical" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🏥 Medical</span>                        
+                                            {% elif memory['category'] == "Personal" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">✨ Personal</span>
+                                            {% elif memory['category'] == "Events" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🎉 Events</span>                        
+                                            {% endif %}
+                                            <h4 class="tl-title">{{ memory['title'] }}</h4>
+                                            <p class="tl-date">📅 {{ memory['date'] }}</p>
+                                        </div>
+                                        <div class="tl-actions">
+                                            <button class="tl-btn-edit" onclick="openMemoryModal(1)">✏️</button>
+                                            <button class="tl-btn-delete" onclick="deleteMemory(1)">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <p class="tl-desc">{{ memory['description'] }}</p>
+                                    </div>
+                                </div>
+
+                            {% elif memory['right'] == 'right' %}
+                                <div class="tl-item tl-right tl-entry" style="opacity: 1; transform: translateX(0px); transition: opacity 0.5s, transform 0.5s;">
+                                    {% if memory['category'] == "Family" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">👨‍👩‍👧</div>
+                                    {% elif memory['category'] == "Medical" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🏥</div>
+                                    {% elif memory['category'] == "Personal" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">✨</div>                
+                                    {% elif memory['category'] == "Events" %}
+                                        <div class="tl-dot" style="background:#6c9ec8;">🎉</div> 
+                                    {% endif %}
+                                    <div class="tl-card"><div class="tl-card-header" style="border-left:4px solid #6c9ec8;">
+                                        <div>
+                                            {% if memory['category'] == "Family" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">👨‍👩‍👧 Family</span>
+                                            {% elif memory['category'] == "Medical" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🏥 Medical</span>                        
+                                            {% elif memory['category'] == "Personal" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">✨ Personal</span>
+                                            {% elif memory['category'] == "Events" %}
+                                                <span class="tl-cat-badge" style="background:#6c9ec822;color:#6c9ec8;">🎉 Events</span>                        
+                                            {% endif %}
+                                            <h4 class="tl-title">{{ memory['title'] }}</h4>
+                                            <p class="tl-date">📅 {{ memory['date'] }}</p>
+                                        </div>
+                                        <div class="tl-actions">
+                                            <button class="tl-btn-edit" onclick="openMemoryModal(1)">✏️</button>
+                                            <button class="tl-btn-delete" onclick="deleteMemory(1)">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <p class="tl-desc">{{ memory['description'] }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </div>                
+
+
+
+                {% endif %}
             </div>
         </div>
 
@@ -111,7 +211,7 @@
                         <div class="mt-sec-desc">Complete a memory from your timeline</div>
                     </button>
                     <button class="mt-section-card" onclick="startTest('dates')">
-                        <div class="mt-sec-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="20" height="20" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg></div>
+                        <div class="mt-sec-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg></div>
                         <div class="mt-sec-title">Important Dates</div>
                         <div class="mt-sec-desc">Recall birthdays and special events</div>
                     </button>
@@ -121,7 +221,7 @@
                         <div class="mt-sec-desc">Answer questions about your loved ones</div>
                     </button>
                     <button class="mt-section-card mt-sec-challenge" onclick="startTest('challenge')">
-                        <div class="mt-sec-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.035 7.69a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.866l-1.156-1.153a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/><rect x="3" y="3" width="20" height="20" rx="2"/></svg></div>
+                        <div class="mt-sec-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.035 7.69a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.866l-1.156-1.153a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
                         <div class="mt-sec-title">Daily Challenge</div>
                         <div class="mt-sec-desc">5 mixed questions — new every day!</div>
                     </button>
@@ -203,23 +303,25 @@
                 <!-- REMINDERS BOX -->
                 <div class="ds-box" id="ds-reminders-box">
                     <div class="ds-box-head">
-                        <div class="ds-box-title"><span class="ds-box-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344"/><path d="m9 11 3 3L22 4"/></svg></span> Reminders</div>
+                        <div class="ds-box-title"><span class="ds-box-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344"/><path d="m9 11 3 3L22 4"/></svg></span> Reminders</div>
                         <button class="ds-add-btn" onclick="openDsModal('reminder')">+ Add</button>
                     </div>
                     <ul class="ds-list" id="ds-reminders-list">
                         <li class="ds-empty-item">No reminders yet. Click <strong>+ Add</strong> to begin.</li>
                     </ul>
+                    <span class="coming-soon-tag">★ COMING SOON ★</span>
                 </div>
 
                 <!-- MEDICINES BOX -->
                 <div class="ds-box" id="ds-medicines-box">
                     <div class="ds-box-head">
-                        <div class="ds-box-title"><span class="ds-box-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span> Medicines</div>
+                        <div class="ds-box-title"><span class="ds-box-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span> Medicines</div>
                         <button class="ds-add-btn" onclick="openDsModal('medicine')">+ Add</button>
                     </div>
                     <ul class="ds-list" id="ds-medicines-list">
                         <li class="ds-empty-item">No medicines yet. Click <strong>+ Add</strong> to begin.</li>
                     </ul>
+                    <span class="coming-soon-tag">★ COMING SOON ★</span>
                 </div>
 
             </div>
@@ -233,10 +335,17 @@
                     <img id="prof-avatar-img" src="" alt="" style="display:none;">
                     <div id="prof-avatar-placeholder">👤</div>
                     <div class="prof-avatar-overlay">📷<br><span>Change</span></div>
-                    <input type="file" id="prof-photo-input" accept="image/*" style="display:none;" onchange="handleProfPhoto(event)">
                 </div>
+                    
+
+                        <form action="/api/add_patient_photo" method="POST" id="add_patient_photo_form" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="file" id="prof-photo-input" name="patient_photo" accept="image/*" style="display:none;"  onchange="previewPhoto(event)">
+                        </form>
+
                 <div class="prof-hero-info">
-                    <h2 class="prof-hero-name" id="prof-hero-name">—</h2>
+                    <h2 class="prof-hero-name" id="prof-hero-name">{{ personal_info['name'] }}</h2>
+                    <button class="primary-btn" onclick="SubmitPatientPhoto()">Save photo</button>
                     <span class="prof-stage-badge" id="prof-stage-badge"></span>
                 </div>
             </div>
@@ -248,15 +357,15 @@
                     <div class="prof-card-head">Personal Info</div>
                     <div class="prof-field">
                         <span class="prof-label">📧 Email</span>
-                        <span class="prof-value" id="prof-email">—</span>
+                        <span class="prof-value" id="prof-email">{{ personal_info['email_id'] }}</span>
                     </div>
                     <div class="prof-field">
                         <span class="prof-label">👤 Patient Name</span>
-                        <span class="prof-value" id="prof-name">—</span>
+                        <span class="prof-value" id="prof-name">{{ personal_info['name'] }}</span>
                     </div>
                     <div class="prof-field">
                         <span class="prof-label">📞 Patient Phone</span>
-                        <span class="prof-value" id="prof-phone">—</span>
+                        <span class="prof-value" id="prof-phone">{{ personal_info['phone_number'] }}</span>
                     </div>
                 </div>
 
@@ -264,17 +373,18 @@
                     <div class="prof-card-head">Medical Info</div>
                     <div class="prof-field">
                         <span class="prof-label">🧠 Dementia Stage</span>
-                        <span class="prof-value" id="prof-stage">—</span>
+                        <span class="prof-value" id="prof-stage">{{ personal_info['dementia_stage'] }}</span>
                     </div>
                     <div class="prof-field">
                         <span class="prof-label">🧑‍⚕️ Caretaker Phone</span>
-                        <span class="prof-value" id="prof-caretaker">—</span>
+                        <span class="prof-value" id="prof-caretaker">{{ personal_info['caretaker_phone_number'] }}</span>
                     </div>
                 </div>
 
             </div>
 
             <button class="prof-edit-btn" onclick="openProfEdit()">✏️ Edit Profile</button>
+            <span class="coming-soon-tag" style="margin-top:8px;">★ COMING SOON ★</span>
 
         </div>
         <!-- ── SETTINGS TAB ── -->
@@ -286,7 +396,7 @@
                 <div class="st-card">
                     <div class="st-row">
                         <div class="st-row-info">
-                            <div class="st-row-label">Email Notifications</div>
+                            <div class="st-row-label">Email Notifications <span class="coming-soon-tag" style="display:inline;font-size:.65rem;">COMING SOON</span></div>
                             <div class="st-row-sub">Receive summaries and alerts via email</div>
                         </div>
                         <label class="st-toggle"><input type="checkbox" id="st-email-notif" onchange="saveSetting('emailNotif',this.checked)"><span class="st-slider"></span></label>
@@ -317,7 +427,7 @@
 
             <!-- SECURITY -->
             <div class="st-section">
-                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M20 11v6"/><path d="M20 13h2"/><path d="M3 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 2.072.578"/><circle cx="10" cy="7" r="4"/><circle cx="20" cy="19" r="2"/></svg> Security</div>
+                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M20 11v6"/><path d="M20 13h2"/><path d="M3 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 2.072.578"/><circle cx="10" cy="7" r="4"/><circle cx="20" cy="19" r="2"/></svg> Security <span class="coming-soon-tag" style="display:inline;font-size:.65rem;">COMING SOON</span></div>
                 <div class="st-card">
                     <div class="st-row">
                         <div class="st-row-info">
@@ -331,7 +441,7 @@
 
             <!-- ACCESSIBILITY -->
             <div class="st-section">
-                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect width="20" height="20" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8.5 14 7-4"/><path d="m8.5 10 7 4"/></svg> Accessibility</div>
+                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8.5 14 7-4"/><path d="m8.5 10 7 4"/></svg> Accessibility</div>
                 <div class="st-card">
                     <div class="st-row">
                         <div class="st-row-info">
@@ -366,11 +476,11 @@
 
             <!-- ACCOUNT -->
             <div class="st-section">
-                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect width="20" height="20" x="3" y="3" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg> Account</div>
+                <div class="st-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg> Account</div>
                 <div class="st-card">
                     <div class="st-row st-row-btn" onclick="stChangePassword()">
                         <div class="st-row-info">
-                            <div class="st-row-label">Change Password</div>
+                            <div class="st-row-label">Change Password <span class="coming-soon-tag" style="display:inline;font-size:.65rem;">COMING SOON</span></div>
                             <div class="st-row-sub">Update your account password</div>
                         </div>
                         <span class="st-arrow">›</span>
@@ -422,40 +532,43 @@
     <div class="modal-box">
         <button type="button" class="modal-close" onclick="closeModal()">✕</button>
         <h2 class="modal-title">Add Family Member</h2>
-        <div class="photo-upload-area" onclick="document.getElementById('photo-input').click()">
-            <img id="photo-preview" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
-            <div id="photo-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.72rem;">
-                <p style="font-size:1.6rem;">📷</p><p>Upload photo</p>
+        <form action="/api/add_family_member" method="POST" enctype=multipart/form-data id="add_fam_mem_form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="photo-upload-area" onclick="document.getElementById('photo-input').click()">
+                <img id="photo-preview" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
+                <div id="photo-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.72rem;">
+                    <p style="font-size:1.6rem;">📷</p><p>Upload photo</p>
+                </div>
+                <input type="file" id="photo-input" name="member_photo" accept="image/*" style="display:none;" onchange="previewPhoto(event)">
             </div>
-            <input type="file" id="photo-input" accept="image/*" style="display:none;" onchange="previewPhoto(event)">
-        </div>
-        <div class="form-group" style="margin-top:20px;">
-            <label for="member-name">Name</label>
-            <input type="text" id="member-name" placeholder="Full name">
-        </div>
-        <div class="form-group" style="margin-top:14px;">
-            <label for="member-relation">Relation</label>
-            <select id="member-relation" class="modal-select" onchange="toggleOtherRelation()">
-                <option value="">Select relation</option>
-                <option>Mom</option><option>Dad</option><option>Sister</option><option>Brother</option>
-                <option>Son</option><option>Daughter</option><option>Son in Law</option>
-                <option>Daughter in Law</option><option>Nephew</option><option value="other">Other</option>
-            </select>
-        </div>
-        <div class="form-group" id="other-relation-group" style="display:none;margin-top:14px;">
-            <label for="other-relation">Specify Relation</label>
-            <input type="text" id="other-relation" placeholder="e.g. Cousin, Uncle...">
-        </div>
-        <div class="form-group" style="margin-top:14px;">
-            <label for="member-notes">Notes <span class="optional-tag">optional</span></label>
-            <input type="text" id="member-notes" placeholder="e.g. Loves painting, visits every Sunday">
-        </div>
-        <div class="form-group" style="margin-top:14px;">
-            <label for="member-birthday">Birthday <span class="optional-tag">optional</span></label>
-            <input type="date" id="member-birthday">
-        </div>
-        <button type="button" class="primary-btn form-btn" style="margin-top:24px;" onclick="saveMember()">Add Member</button>
-    </div>
+            <div class="form-group" style="margin-top:20px;">
+                <label for="member-name">Name</label>
+                <input type="text" id="member-name" name="member_name" placeholder="Full name" required>
+            </div>
+            <div class="form-group" style="margin-top:14px;">
+                <label for="member-relation">Relation</label>
+                <select id="member-relation" name="member_relation" class="modal-select" onchange="toggleOtherRelation()" required>
+                    <option value="">Select relation</option>
+                    <option>Mom</option><option>Dad</option><option>Sister</option><option>Brother</option>
+                    <option>Son</option><option>Daughter</option><option>Son in Law</option>
+                    <option>Daughter in Law</option><option>Nephew</option><option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group" id="other-relation-group" style="display:none;margin-top:14px;">
+                <label for="other-relation">Specify Relation</label>
+                <input type="text" id="other-relation" name="member_other_relation" placeholder="e.g. Cousin, Uncle...">
+            </div>
+            <div class="form-group" style="margin-top:14px;">
+                <label for="member-notes">Notes <span class="optional-tag">optional</span></label>
+                <input type="text" id="member-notes" name="member_notes" placeholder="e.g. Loves painting, visits every Sunday">
+            </div>
+            <div class="form-group" style="margin-top:14px;">
+                <label for="member-birthday">Birthday <span class="optional-tag">optional</span></label>
+                <input type="date" id="member-birthdate" name="member_birthdate">
+            </div>
+            <input type="submit" class="primary-btn form-btn" style="margin-top:24px;" value="Add Member">
+        </form>
+     </div>
 </div>
 
 <!-- ADD / EDIT MEMORY MODAL -->
@@ -463,31 +576,36 @@
     <div class="modal-box" style="max-width:520px;">
         <button type="button" class="modal-close" onclick="closeMemoryModal()">✕</button>
         <h2 class="modal-title" id="memory-modal-title">Add Memory</h2>
-        <div class="form-group" style="margin-bottom:16px;">
-            <label for="mem-title">Title</label>
-            <input type="text" id="mem-title" placeholder="e.g. First birthday party">
-        </div>
-        <div class="form-group" style="margin-bottom:16px;">
-            <label for="mem-desc">Description</label>
-            <textarea id="mem-desc" class="mem-textarea" placeholder="Describe this memory..."></textarea>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-            <div class="form-group">
-                <label for="mem-date">Date</label>
-                <input type="date" id="mem-date">
+
+        <form action="/api/add_memory" method="POST" enctype=multipart/form-data>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group" style="margin-bottom:16px;">
+                <label for="mem-title">Title</label>
+                <input type="text" id="mem-title" name="title" placeholder="e.g. First birthday party">
             </div>
-            <div class="form-group">
-                <label for="mem-cat">Category</label>
-                <select id="mem-cat" class="modal-select">
-                    <option value="Family">👨‍👩‍👧 Family</option>
-                    <option value="Medical">🏥 Medical</option>
-                    <option value="Personal">✨ Personal</option>
-                    <option value="Events">🎉 Events</option>
-                </select>
+            <div class="form-group" style="margin-bottom:16px;">
+                <label for="mem-desc">Description</label>
+                <textarea id="mem-desc" class="mem-textarea" name="description" placeholder="Describe this memory..."></textarea>
             </div>
-        </div>
-        <input type="hidden" id="mem-edit-index" value="-1">
-        <button type="button" class="primary-btn form-btn" style="margin-top:8px;" onclick="saveMemory()">Save Memory</button>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+                <div class="form-group">
+                    <label for="mem-date">Date</label>
+                    <input type="date" id="mem-date" name="date">
+                </div>
+                <div class="form-group">
+                    <label for="mem-cat">Category</label>
+                    <select id="mem-cat" class="modal-select" name="category">
+                        <option value="Family">👨‍👩‍👧 Family</option>
+                        <option value="Medical">🏥 Medical</option>
+                        <option value="Personal">✨ Personal</option>
+                        <option value="Events">🎉 Events</option>
+                    </select>
+                <input type="hidden" id="mem_id" name="mem_id" value="">
+                </div>
+            </div>
+            <input type="hidden" id="mem-edit-index" value="-1">
+            <input type="submit" class="primary-btn form-btn" style="margin-top:8px;" value="Save Memory">
+        </form>
     </div>
 </div>
 
@@ -496,7 +614,7 @@
     <div class="modal-box" style="max-width:380px; text-align:center;">
         <div style="font-size:2.8rem; margin-bottom:16px;">🚪</div>
         <h2 class="modal-title" style="margin-bottom:10px;">Logout?</h2>
-        <p style="color:#6b6b6b; font-size:.95rem; font-style:italic; margin-bottom:28px;">Are you sure you want to sign out of your account?</p>
+        <p style="color:#7a5c3a; font-size:.95rem; font-style:italic; margin-bottom:28px;">Are you sure you want to sign out of your account?</p>
         <div style="display:flex; gap:12px; justify-content:center;">
             <button type="button" class="mt-btn-primary" onclick="confirmLogout()">Yes, Logout</button>
             <button type="button" class="mt-btn-secondary" onclick="document.getElementById('logout-modal').style.display='none'">Cancel</button>
@@ -598,13 +716,79 @@
     </div>
 </div>
 
-<script src="animations.js"></script>
+<script src="static/animations.js"></script>
+<script src="static/script.js"></script>
+
+
 <script>
+
+
+function SubmitPatientPhoto() {
+    document.getElementById('add_patient_photo_form').submit();
+}
+
+function deleteFamilyMember(id) {
+    window.location.href = `/api/delete_family_member/${id}`
+}
+
+const imageInput = document.getElementById('prof-photo-input');
+const profilePic = document.getElementById('prof-avatar-placeholder');
+
+imageInput.addEventListener('change', function(event) {
+  // 3. Get the first file selected by the user
+  const file = event.target.files[0];
+  
+  // 4. Ensure a file was actually selected
+  if (file) {
+    // 5. Create a temporary URL for the local file
+    const imageUrl = URL.createObjectURL(file);
+    
+    // 6. Update the image tag's source to the new URL
+    profilePic.src = imageUrl;
+  }
+});
 /* ════════════════════════════════════
    STATE
 ════════════════════════════════════ */
-var familyMembers = [];
-var memories = [];
+// var familyMembers = [];
+// var memories = [];
+
+// This is awesome. Using jinja, which is made with python, for programming in javascript!
+{% if family_members != [] %}
+var familyMembers = [
+    {% for member in family_members %}
+        {  
+            "id": "{{member['id'] }}",
+            "name": "{{ member['member_name'] }}",
+            "photo": "{{ member['member_pfp'] }}",
+            "relation": "{{ member['member_relation'] }}",
+            {% if member['member_notes'] %}
+            "notes": "{{ member['member_notes'] }}",
+            {% endif %}
+            {% if member['member_birthdate'] %}
+            "birthday": "{{ member['member_birthdate'] }}"
+            {% endif %}            
+        },
+    {% endfor %}
+];
+{% else %}
+    var familyMembers = [];
+{% endif %}
+
+
+var memories = [
+    {% for memory in memories %}
+        {
+            'id': "{{ memory['id'] }}",
+            'title': "{{ memory['title'] }}",
+            'description': "{{ memory['description'] }}",            
+            'date': "{{ memory['date'] }}",
+            'category': "{{ memory['category']}}",
+        },
+    {% endfor %}
+
+]
+
 var activeFilter = 'All';
 
 /* progress */
@@ -654,7 +838,10 @@ document.querySelectorAll('.sidebar-link').forEach(function(link) {
 /* ════════════════════════════════════
    PEOPLE MODAL
 ════════════════════════════════════ */
-function openAddMember() { document.getElementById('modal-overlay').style.display = 'flex'; }
+function openAddMember() {
+    ['member-name'].forEach(function(id){ document.getElementById(id).value=''; document.getElementById(id).required = true;});
+    document.getElementById('modal-overlay').style.display = 'flex';
+}
 function closeModal() {
     document.getElementById('modal-overlay').style.display = 'none';
     ['member-name','member-notes','member-birthday','other-relation'].forEach(function(id){ document.getElementById(id).value=''; });
@@ -697,15 +884,22 @@ function saveMember() {
     renderMembers();
 }
 function renderMembers() {
-    var filter = document.getElementById('people-search').value.toLowerCase();
+    var filter = document.getElementById('people-search').value.toLowerCase(); // searching keyword
     var grid = document.getElementById('people-grid');
+
+
+
     var list = filter ? familyMembers.filter(function(m){ return m.name.toLowerCase().indexOf(filter)!==-1; }) : familyMembers;
+
+
+
     if (!familyMembers.length) { grid.innerHTML='<div class="empty-state"><p>👥</p><p>No family members added yet.</p><p>Click <strong>+ Add Family Member</strong> to get started.</p></div>'; return; }
     if (!list.length) { grid.innerHTML='<div class="empty-state"><p>🔍</p><p>No members match your search.</p></div>'; return; }
     var html='';
     for(var i=0;i<list.length;i++){
         var m=list[i];
-        html+='<div class="member-card"><div class="member-photo">'+(m.photo?'<img src="'+m.photo+'" alt="'+m.name+'">':'<span>👤</span>')+'</div><h4>'+m.name+'</h4><p>'+m.relation+'</p></div>';
+        console.log(m)
+        html+='<div class="member-card"><div class="member-photo">'+(m.photo?'<img src="'+m.photo+'" alt="'+m.name+'">':'<span>👤</span>')+'</div><h4>'+m.name+'</h4><p>'+m.relation+'</p><button  onclick="deleteFamilyMember(' + "'" + m.id + "'" + ')">Delete Family Member</button></div>';
     }
     grid.innerHTML=html;
 }
@@ -720,14 +914,18 @@ function openMemoryModal(editIndex) {
         var m=memories[idx];
         document.getElementById('memory-modal-title').textContent='Edit Memory';
         document.getElementById('mem-title').value=m.title;
-        document.getElementById('mem-desc').value=m.desc;
+        document.getElementById('mem-desc').value=m.description;
         document.getElementById('mem-date').value=m.date;
-        document.getElementById('mem-cat').value=m.cat;
+        document.getElementById('mem-cat').value=m.category;
+        document.getElementById('mem_id').value=m.id;
+        console.log('here? -- openMemoryModal')
     } else {
+        document.getElementById('mem_id').value = ""; 
         document.getElementById('memory-modal-title').textContent='Add Memory';
-        ['mem-title','mem-desc','mem-date'].forEach(function(id){document.getElementById(id).value='';});
+        ['mem-title','mem-desc','mem-date'].forEach(function(id){document.getElementById(id).value=''; document.getElementById(id).required = true;});
         document.getElementById('mem-cat').value='Family';
     }
+
     document.getElementById('memory-modal').style.display='flex';
 }
 function closeMemoryModal(){ document.getElementById('memory-modal').style.display='none'; }
@@ -741,12 +939,18 @@ function saveMemory() {
     if(idx>=0) memories[idx]=obj; else memories.push(obj);
     closeMemoryModal(); renderTimeline();
 }
-function deleteMemory(idx){ if(!confirm('Delete this memory?'))return; memories.splice(idx,1); renderTimeline(); }
+
+function deleteMemory(idx) {
+    // if(!confirm('Delete this memory?')) return; memories.splice(idx,1); renderTimeline(); 
+    if (confirm('Do you really want to delete this memory?')) {
+        window.location.href = "/api/delete_memory/" + idx;
+    }
+}
 
 /* ════════════════════════════════════
    TIMELINE RENDER
 ════════════════════════════════════ */
-var CAT_COLORS={Family:'#d4956c',Medical:'#6c9ec8',Personal:'#9ec86c',Events:'#c86c9e'};
+var CAT_COLORS={Family:'#c8956c',Medical:'#6c9ec8',Personal:'#9ec86c',Events:'#c86c9e'};
 var CAT_ICONS={Family:'👨‍👩‍👧',Medical:'🏥',Personal:'✨',Events:'🎉'};
 
 function setFilter(btn) {
@@ -754,28 +958,38 @@ function setFilter(btn) {
     document.querySelectorAll('.tl-filter-btn').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active'); renderTimeline();
 }
+
+
+
+function deleteMemoryssr(id) {
+    window.location.href = "/api/delete_memory/" + id;
+}
+
+// renders memories
+
 function renderTimeline() {
     var search=document.getElementById('tl-search').value.toLowerCase();
     var wrap=document.getElementById('tl-wrap');
     var list=memories.slice();
-    if(activeFilter!=='All') list=list.filter(function(m){return m.cat===activeFilter;});
-    if(search) list=list.filter(function(m){return m.title.toLowerCase().indexOf(search)!==-1||m.desc.toLowerCase().indexOf(search)!==-1;});
+    if(activeFilter!=='All') list=list.filter(function(m){return m.category===activeFilter;});
+    if(search) list=list.filter(function(m){return m.title.toLowerCase().indexOf(search)!==-1||m.description.toLowerCase().indexOf(search)!==-1;});
     list.sort(function(a,b){return new Date(b.date)-new Date(a.date);});
     if(!memories.length){wrap.innerHTML='<div class="empty-state"><p>🕐</p><p>No memories yet.</p><p>Click <strong>+ Add Memory</strong> to begin.</p></div>';return;}
     if(!list.length){wrap.innerHTML='<div class="empty-state"><p>🔍</p><p>No memories match your search.</p></div>';return;}
     var html='<div class="tl-line"></div>';
     for(var i=0;i<list.length;i++){
         var m=list[i], origIdx=memories.indexOf(m);
-        var color=CAT_COLORS[m.cat]||'#d4956c', icon=CAT_ICONS[m.cat]||'📌';
+        var color = CAT_COLORS[m.category];
+        var icon=CAT_ICONS[m.category];
         var side=i%2===0?'left':'right';
         var ds=m.date?new Date(m.date+'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):'';
         html+='<div class="tl-item tl-'+side+' tl-entry">';
         html+='<div class="tl-dot" style="background:'+color+';">'+icon+'</div>';
         html+='<div class="tl-card"><div class="tl-card-header" style="border-left:4px solid '+color+';">';
-        html+='<div><span class="tl-cat-badge" style="background:'+color+'22;color:'+color+';">'+icon+' '+m.cat+'</span>';
+        html+='<div><span class="tl-cat-badge" style="background:'+color+'22;color:'+color+';">'+icon+' '+m.category+'</span>';
         html+='<h4 class="tl-title">'+m.title+'</h4><p class="tl-date">📅 '+ds+'</p></div>';
-        html+='<div class="tl-actions"><button class="tl-btn-edit" onclick="openMemoryModal('+origIdx+')">✏️</button><button class="tl-btn-delete" onclick="deleteMemory('+origIdx+')">🗑️</button></div>';
-        html+='</div>'+(m.desc?'<p class="tl-desc">'+m.desc+'</p>':'')+'</div></div>';
+        html+='<div class="tl-actions"><button class="tl-btn-edit" onclick="openMemoryModal('+origIdx+')">✏️</button><button class="tl-btn-delete" onclick="deleteMemory(' + "'" + m.id + "'" + ')">🗑️</button></div>';
+        html+='</div>'+(m.description?'<p class="tl-desc">'+m.description+'</p>':'')+'</div></div>';
     }
     wrap.innerHTML=html;
     wrap.querySelectorAll('.tl-entry').forEach(function(el,i){
@@ -851,10 +1065,10 @@ function buildCards(type) {
         });
     } else if (type === 'memory') {
         memories.forEach(function(m){
-            var blank = makeBlank(m.desc || m.title);
+            var blank = makeBlank(m.description || m.title);
             cards.push({
                 front:'<div class="mt-card-text-front"><p class="mt-card-hint">Complete this memory:</p><div class="mt-card-memory-q">'+blank.q+'</div>'+(m.date?'<p class="mt-card-sub">📅 '+fmtDate(m.date)+'</p>':'')+'</div>',
-                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+blank.a+'</div><div class="mt-back-rel">'+m.title+'</div>'+(m.desc?'<div class="mt-back-notes">'+m.desc+'</div>':'')+'</div>'
+                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+blank.a+'</div><div class="mt-back-rel">'+m.title+'</div>'+(m.description?'<div class="mt-back-notes">'+m.description+'</div>':'')+'</div>'
             });
         });
         /* date-based cards */
@@ -862,7 +1076,7 @@ function buildCards(type) {
             if (!m.date) return;
             cards.push({
                 front:'<div class="mt-card-text-front"><p class="mt-card-hint">What happened on this day?</p><div class="mt-card-big-name">'+fmtDate(m.date)+'</div></div>',
-                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+m.title+'</div>'+(m.desc?'<div class="mt-back-notes">'+m.desc+'</div>':'')+'</div>'
+                back:'<div class="mt-card-back-info"><div class="mt-back-name">'+m.title+'</div>'+(m.description?'<div class="mt-back-notes">'+m.description+'</div>':'')+'</div>'
             });
         });
     } else if (type === 'dates') {
@@ -876,7 +1090,7 @@ function buildCards(type) {
             if (!m.date) return;
             cards.push({
                 front:'<div class="mt-card-text-front"><p class="mt-card-hint">What date was this?</p><div class="mt-card-big-name">'+m.title+'</div></div>',
-                back:'<div class="mt-card-back-info"><div class="mt-back-name">📅 '+fmtDate(m.date)+'</div><div class="mt-back-rel">'+m.cat+'</div>'+(m.desc?'<div class="mt-back-notes">'+m.desc+'</div>':'')+'</div>'
+                back:'<div class="mt-card-back-info"><div class="mt-back-name">📅 '+fmtDate(m.date)+'</div><div class="mt-back-rel">'+m.category+'</div>'+(m.description?'<div class="mt-back-notes">'+m.description+'</div>':'')+'</div>'
             });
         });
     } else if (type === 'whoami') {
@@ -1088,7 +1302,7 @@ function fmtDateShort(d) {
     return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric'});
 }
 function getRelatedMemory(name) {
-    var m = memories.find(function(x){ return x.title.toLowerCase().indexOf(name.toLowerCase())!==-1 || x.desc.toLowerCase().indexOf(name.toLowerCase())!==-1; });
+    var m = memories.find(function(x){ return x.title.toLowerCase().indexOf(name.toLowerCase())!==-1 || x.description.toLowerCase().indexOf(name.toLowerCase())!==-1; });
     return m ? '<em>Memory: '+m.title+'</em>' : '';
 }
 function makeBlank(text) {
@@ -1104,13 +1318,25 @@ function makeBlank(text) {
    PROFILE
 ════════════════════════════════════ */
 var STAGE_LABELS = { early: 'Early Stage', intermediate: 'Intermediate Stage', severe: 'Severe Stage' };
-var STAGE_COLORS = { early: '#6aaa6a', intermediate: '#d4956c', severe: '#c06060' };
+var STAGE_COLORS = { early: '#6aaa6a', intermediate: '#c8956c', severe: '#c06060' };
+
 
 function loadProfile() {
-    var u = {};
-    try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
+ 
+    // var u = {};
+    // try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
+    var u = {
+                "profile_photo": "{{ personal_info['pfp'] }}",
+                "patient_name": "{{ personal_info['name'] }}",
+                "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                "email": "{{ personal_info['email_id'] }}",
+                "patient_phone": "{{ personal_info['phone_number'] }}",
+                "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
 
-    /* avatar */
+
+            }
+
+
     var photo = u.profile_photo || '';
     if (photo) {
         document.getElementById('prof-avatar-img').src = photo;
@@ -1141,13 +1367,23 @@ function loadProfile() {
     } else {
         badge.style.display = 'none';
     }
+        
 }
 
 function handleProfPhoto(e) {
     var file = e.target.files[0]; if (!file) return;
     var reader = new FileReader();
     reader.onload = function(ev) {
-        var u = {};
+        var u = {
+                    "profile_photo": "{{ personal_info['pfp'] }}",
+                    "patient_name": "{{ personal_info['name'] }}",
+                    "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                    "email": "{{ personal_info['email_id'] }}",
+                    "patient_phone": "{{ personal_info['phone_number'] }}",
+                    "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+                }
         try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(err) {}
         u.profile_photo = ev.target.result;
         localStorage.setItem('memora_user', JSON.stringify(u));
@@ -1157,7 +1393,16 @@ function handleProfPhoto(e) {
 }
 
 function openProfEdit() {
-    var u = {};
+    var u = {
+                "profile_photo": "{{ personal_info['pfp'] }}",
+                "patient_name": "{{ personal_info['name'] }}",
+                "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                "email": "{{ personal_info['email_id'] }}",
+                "patient_phone": "{{ personal_info['phone_number'] }}",
+                "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+            }
     try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
     document.getElementById('pedit-email').value    = u.email || '';
     document.getElementById('pedit-name').value     = u.patient_name || '';
@@ -1167,11 +1412,21 @@ function openProfEdit() {
     document.querySelectorAll('input[name="pedit_stage"]').forEach(function(r) { r.checked = r.value === stage; });
     document.getElementById('prof-modal').style.display = 'flex';
 }
+
 function closeProfEdit() { document.getElementById('prof-modal').style.display = 'none'; }
 document.getElementById('prof-modal').addEventListener('click', function(e) { if (e.target === this) closeProfEdit(); });
 
 function saveProfEdit() {
-    var u = {};
+    var u = {
+                "profile_photo": "{{ personal_info['pfp'] }}",
+                "patient_name": "{{ personal_info['name'] }}",
+                "dementia_stage": "{{ personal_info['dementia_stage'] }}",
+                "email": "{{ personal_info['email_id'] }}",
+                "patient_phone": "{{ personal_info['phone_number'] }}",
+                "caretaker_phone": "{{ personal_info['caretaker_phone_number'] }}"
+
+
+            }
     try { u = JSON.parse(localStorage.getItem('memora_user') || '{}'); } catch(e) {}
     u.email          = document.getElementById('pedit-email').value.trim();
     u.patient_name   = document.getElementById('pedit-name').value.trim();
@@ -1346,7 +1601,7 @@ function applyAccessibility(key, val) {
 }
 
 function stLogout()        { document.getElementById('logout-modal').style.display = 'flex'; }
-function confirmLogout()   { localStorage.removeItem('memora_user'); window.location.href = 'login.html'; }
+function confirmLogout()   { document.cookie = "user_id=; expires=Thu, 15 Aug 1947 00:00:00 UTC; path=/;";window.location.href = "/";} // India got independence on 15th august 1947! (ie, date is long done)
 function stChangePassword(){ alert('Change password feature coming soon.'); }
 function stPrivacyPolicy() { alert('Privacy Policy coming soon.'); }
 function stExportData() {
@@ -1364,10 +1619,22 @@ function stExportData() {
 function stDeleteAccount() {
     if (confirm('This will permanently delete your account and all data. This cannot be undone. Continue?')) {
         localStorage.clear();
-        window.location.href = 'register.html';
+        window.location.href = "/delete_account";
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Call your function here
+    initializePage();
+});
+
+function initializePage() {
+    activeFilter='All';
+    btn = document.getElementById('all_btn');
+    document.querySelectorAll('.tl-filter-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    renderTimeline();
+}
 function toggleNotifications() {}
 </script>
 </body>

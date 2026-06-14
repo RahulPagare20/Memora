@@ -2245,3 +2245,67 @@ body.acc-reduce-motion *::after {
     color: #fff;
     transform: scale(1.1);
 }
+
+/* ── 3-DOT CARD MENU ── */
+.card-dots-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #6b6b6b;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 6px;
+    z-index: 10;
+    transition: background 0.15s;
+}
+.card-dots-btn:hover { background: #f0ebff; color: #7c3fe4; }
+
+.tl-dots-btn { top: 14px; right: 14px; }
+
+.card-dots-menu {
+    display: none;
+    position: absolute;
+    top: 34px;
+    right: 10px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    z-index: 100;
+    min-width: 130px;
+    overflow: hidden;
+}
+.card-dots-menu button {
+    display: block;
+    width: 100%;
+    padding: 11px 16px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: 'Georgia', serif;
+    font-size: .88rem;
+    color: #2d2d2d;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.card-dots-menu button:hover { background: #f0ebff; }
+.card-dots-menu button.danger { color: #ef4444; }
+.card-dots-menu button.danger:hover { background: #fef2f2; }
+
+/* ── COMING SOON TAG ── */
+.coming-soon-tag {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: .75rem;
+    font-weight: 700;
+    color: #7c3fe4;
+    letter-spacing: 2px;
+}
+
+
