@@ -6,6 +6,7 @@ import random
 import string
 import datetime
 import pickle
+import shutil
 
 from send_email import send_email
 from classes import *
@@ -271,7 +272,13 @@ def add_patient_photo_ssr():
     return resp    
 
 
-
+@api.route('/delete_family_member/<id>')
+def remove_family_member(id):
+    user_id = request.cookies['user_id']
+    print(f'{working_dir}/database/{user_id}/Family Members/{id}/')
+    shutil.rmtree(f'{working_dir}/database/{user_id}/Family Members/{id}/', ignore_errors=True)
+    resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+    return resp
     
 
 @api.route('/add_family_member', methods=['POST'])

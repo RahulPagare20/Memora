@@ -236,6 +236,7 @@ def dashboard_ssr():
     
 
         family_members.append({
+            'id': id,
             'member_pfp': f'/inner/server/get-profile-pic/{id}',
         'member_name': db.member_name,
         'member_relation': relation_temp,

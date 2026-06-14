@@ -63,7 +63,8 @@
                                 <img src="{{ member['member_pfp'] }}" width=50>
                             </div>
                             <h4>{{ member['member_name'] }}</h4>
-                            <p>{{ member['member_relation'] }}</p>                          
+                            <p>{{ member['member_relation'] }}</p>                         
+                            <button onclick="deleteFamilyMember({{ member['id'] }})">Delete Family Member</button>
                         </div>
                     {% endfor %}                
                 {% endif %}
@@ -719,6 +720,10 @@
 
 <script>
 
+function deleteFamilyMember(id) {
+    window.location.href = `/delete_family_member/${id}`
+}
+
 const imageInput = document.getElementById('prof-photo-input');
 const profilePic = document.getElementById('prof-avatar-placeholder');
 
@@ -749,7 +754,8 @@ function SubmitPatientPhoto() {
     // This is awesome. Using jinja, which ia made with python, for programming in javascript!
 var familyMembers = [
     {% for member in family_members %}
-        {
+        {  
+            "id": "{{member['id'] }}",
             "name": "{{ member['member_name'] }}",
             "photo": "{{ member['member_pfp'] }}",
             "relation": "{{ member['member_relation'] }}",
@@ -882,7 +888,8 @@ function renderMembers() {
     var html='';
     for(var i=0;i<list.length;i++){
         var m=list[i];
-        html+='<div class="member-card"><div class="member-photo">'+(m.photo?'<img src="'+m.photo+'" alt="'+m.name+'">':'<span>👤</span>')+'</div><h4>'+m.name+'</h4><p>'+m.relation+'</p></div>';
+        console.log(m)
+        html+='<div class="member-card"><div class="member-photo">'+(m.photo?'<img src="'+m.photo+'" alt="'+m.name+'">':'<span>👤</span>')+'</div><h4>'+m.name+'</h4><p>'+m.relation+'</p><button  onclick="deleteFamilyMember(' + "'" + m.id + "'" + ')">Delete Family Member</button></div>';
     }
     grid.innerHTML=html;
 }
