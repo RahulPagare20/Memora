@@ -599,6 +599,7 @@
                         <option value="Personal">✨ Personal</option>
                         <option value="Events">🎉 Events</option>
                     </select>
+                <input type="hidden" id="mem_id" name="mem_id" value="">
                 </div>
             </div>
             <input type="hidden" id="mem-edit-index" value="-1">
@@ -721,7 +722,7 @@
 <script>
 
 function deleteFamilyMember(id) {
-    window.location.href = `/delete_family_member/${id}`
+    window.location.href = `/api/delete_family_member/${id}`
 }
 
 const imageInput = document.getElementById('prof-photo-input');
@@ -773,6 +774,7 @@ var familyMembers = [
 var memories = [
     {% for memory in memories %}
         {
+            'id': "{{ memory['id'] }}",
             'title': "{{ memory['title'] }}",
             'description': "{{ memory['description'] }}",            
             'date': "{{ memory['date'] }}",
@@ -831,7 +833,9 @@ document.querySelectorAll('.sidebar-link').forEach(function(link) {
 /* ════════════════════════════════════
    PEOPLE MODAL
 ════════════════════════════════════ */
-function openAddMember() { document.getElementById('modal-overlay').style.display = 'flex'; }
+function openAddMember() { 
+    document.getElementById('modal-overlay').style.display = 'flex';
+}
 function closeModal() {
     document.getElementById('modal-overlay').style.display = 'none';
     ['member-name','member-notes','member-birthday','other-relation'].forEach(function(id){ document.getElementById(id).value=''; });
@@ -907,8 +911,10 @@ function openMemoryModal(editIndex) {
         document.getElementById('mem-desc').value=m.description;
         document.getElementById('mem-date').value=m.date;
         document.getElementById('mem-cat').value=m.category;
-
+        document.getElementById('mem_id').value=m.id;
+        console.log('here? -- openMemoryModal')
     } else {
+         document.getElementById('mem_id').value = ""; 
         document.getElementById('memory-modal-title').textContent='Add Memory';
         ['mem-title','mem-desc','mem-date'].forEach(function(id){document.getElementById(id).value='';});
         document.getElementById('mem-cat').value='Family';
@@ -928,7 +934,12 @@ function saveMemory() {
     closeMemoryModal(); renderTimeline();
 }
 
-function deleteMemory(idx){ if(!confirm('Delete this memory?'))return; memories.splice(idx,1); renderTimeline(); }
+function deleteMemory(idx) {
+    // if(!confirm('Delete this memory?')) return; memories.splice(idx,1); renderTimeline(); 
+    if (confirm('Do you really want to delete this memory?')) {
+        window.location.href = "/api/delete_memory/" + idx;
+    }
+}
 
 /* ════════════════════════════════════
    TIMELINE RENDER
@@ -941,6 +952,15 @@ function setFilter(btn) {
     document.querySelectorAll('.tl-filter-btn').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active'); renderTimeline();
 }
+
+
+
+function deleteMemoryssr(id) {
+    window.location.href = "/api/delete_memory/" + id;
+}
+
+// renders memories
+
 function renderTimeline() {
     var search=document.getElementById('tl-search').value.toLowerCase();
     var wrap=document.getElementById('tl-wrap');
@@ -962,7 +982,7 @@ function renderTimeline() {
         html+='<div class="tl-card"><div class="tl-card-header" style="border-left:4px solid '+color+';">';
         html+='<div><span class="tl-cat-badge" style="background:'+color+'22;color:'+color+';">'+icon+' '+m.category+'</span>';
         html+='<h4 class="tl-title">'+m.title+'</h4><p class="tl-date">📅 '+ds+'</p></div>';
-        html+='<div class="tl-actions"><button class="tl-btn-edit" onclick="openMemoryModal('+origIdx+')">✏️</button><button class="tl-btn-delete" onclick="deleteMemory('+origIdx+')">🗑️</button></div>';
+        html+='<div class="tl-actions"><button class="tl-btn-edit" onclick="openMemoryModal('+origIdx+')">✏️</button><button class="tl-btn-delete" onclick="deleteMemory(' + "'" + m.id + "'" + ')">🗑️</button></div>';
         html+='</div>'+(m.description?'<p class="tl-desc">'+m.description+'</p>':'')+'</div></div>';
     }
     wrap.innerHTML=html;

@@ -280,6 +280,15 @@ def remove_family_member(id):
     resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
     return resp
     
+@api.route('/delete_memory/<id>')
+def remove_memory(id):
+    user_id = request.cookies['user_id']
+    shutil.rmtree(f'{working_dir}/database/{user_id}/Memories/{id}/', ignore_errors=True)
+    resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
+    return resp    
+
+    
+#    f'{working_dir}/database/{user_id}/Memories/{id}/
 
 @api.route('/add_family_member', methods=['POST'])
 def add_family_member_server():
@@ -346,24 +355,35 @@ def add_memory_server():
     date = data['date'].strip()
     category = data['category'].strip() # Family, Medical, Personal, Events
 
-    try:
-        os.mkdir(f'{working_dir}/database/{id}/Memories')
-        print(f'{working_dir}/database/{id}/Memories')
-    except Exception as err:
-        print(str(err))
-    try:
-        os.mkdir(f'{working_dir}/database/{id}/Memories/{memory_id}/')
-    except:
-        pass    
+    if data['mem_id'].strip() == "":
+        try:
+            os.mkdir(f'{working_dir}/database/{id}/Memories')
+            print(f'{working_dir}/database/{id}/Memories')
+        except Exception as err:
+            print(str(err))
+        try:
+            os.mkdir(f'{working_dir}/database/{id}/Memories/{memory_id}/')
+        except:
+            pass    
 
-    with open(f'{working_dir}/database/{id}/Memories/{memory_id}/memories.db', 'wb') as file:
-        temp = Memory()
-        temp.title = title
-        temp.description = description
-        temp.date = date
-        temp.category = category
-        temp.edited = True
-        pickle.dump(temp, file)
+        with open(f'{working_dir}/database/{id}/Memories/{memory_id}/memories.db', 'wb') as file:
+            temp = Memory()
+            temp.title = title
+            temp.description = description
+            temp.date = date
+            temp.category = category
+            temp.edited = True
+            pickle.dump(temp, file)
+    else:
+        memory_id = data['mem_id'].strip()
+        with open(f'{working_dir}/database/{id}/Memories/{memory_id}/memories.db', 'wb') as file:
+            temp = Memory()
+            temp.title = title
+            temp.description = description
+            temp.date = date
+            temp.category = category
+            temp.edited = True
+            pickle.dump(temp, file)        
 
     return make_response(render_template('redirect_to.html', url_=f"/dashboard"))
 

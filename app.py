@@ -260,6 +260,7 @@ def dashboard_ssr():
             with open(f'{working_dir}/database/{user_id}/Memories/{id}/memories.db', 'rb') as file:
                 db = pickle.load(file)
             memories.append({
+                'id': id,
                 'title': db.title,
                 'description': db.description,
                 'date': db.date,
