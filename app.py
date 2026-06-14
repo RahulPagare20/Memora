@@ -9,6 +9,7 @@ import os
 import sqlite3
 import pickle
 import time
+import shutil
 
 # Flask modules
 from flask import (
@@ -74,7 +75,7 @@ def check_authentication():
         if 'user_id' in cookies:
             temp = get_data(cookies['user_id'])
             if temp != []:
-                checks_l = ['/dashboard', '/dashboard/', '/whos-this', '/whos-this/']
+                checks_l = ['/dashboard', '/dashboard/', '/whos-this', '/whos-this/', '/delete_account', '/delete_account/']
                 if request.path.strip() not in checks_l:
                     if  "/inner/server/" not in request.path.strip():
                         resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
@@ -163,13 +164,49 @@ def personalize():
 
     return resp
 
+'''
+def delete_acc(params):
+    global con, cur
+    try:
+        cur.execute('DELETE FROM patient WHERE id=?', (params, ))
+        con.commit()
+    except Exception as err:
+        print(str(err))
+        return False
+'''
+def delete_account_with_hash(params):
+    try:
+        con = sqlite3.connect(f'{working_dir}/database/dementia_users.db',  check_same_thread=False, isolation_level=None);
+        cur = con.cursor()         
+        cur.execute('DELETE FROM patient WHERE id=?', (params, ))
+        con.commit()
+        return f'Deleted account with hash `{params}` successfully.'
+    except Exception as err:
+        print(f'func delete_accout_with_hash err: {str(err)}')
+        return False
 
-@app.route('/logout')
-def logout():
-    resp = make_response(render_template('redirect_to.html', url_="/"))
-    resp.set_cookie('user_id', '', expires=0)
-    return resp
 
+@app.route('/delete_account')
+def deelte_accout_perm():
+    user_id = request.cookies['user_id']
+
+    shutil.rmtree(f'{working_dir}/database/{user_id}', ignore_errors=True)
+    stat = delete_account_with_hash(user_id, )
+    if stat:
+        resp = make_response(render_template('redirect_to.html', url_="/"))
+        resp.set_cookie('user_id', '', expires=0)
+        return resp
+    else:
+        personal_info_def = {
+            'pfp': '',
+            'name': '',
+            'email_id': '',
+            'password': '',
+            'phone_number': '',
+            'dementia_stage': '',
+            'caretaker_phone_number': ''
+        }        
+        return render_template('dashboard.html', family_members=[], memories=[], personal_info=personal_info_def, error="db error while deleting your account.")
 @app.route('/dashboard')
 def dashboard_ssr():
     global working_dir

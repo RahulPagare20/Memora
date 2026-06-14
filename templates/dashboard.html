@@ -63,13 +63,7 @@
                                 <img src="{{ member['member_pfp'] }}" width=50>
                             </div>
                             <h4>{{ member['member_name'] }}</h4>
-                            <p>{{ member['member_relation'] }}</p>
-                            {% if member['member_notes'] %}
-                                <p>{{ member['member_notes'] }}</p>
-                            {% endif %}
-                            {% if member['member_birthdate'] %}
-                                <p>{{ member['member_birthdate'] }}</p>
-                            {% endif %}                            
+                            <p>{{ member['member_relation'] }}</p>                          
                         </div>
                     {% endfor %}                
                 {% endif %}
@@ -758,7 +752,13 @@ var familyMembers = [
         {
             "name": "{{ member['member_name'] }}",
             "photo": "{{ member['member_pfp'] }}",
-            "relation": "{{ member['member_relation'] }}"
+            "relation": "{{ member['member_relation'] }}",
+            {% if member['member_notes'] %}
+            "notes": "{{ member['member_notes'] }}",
+            {% endif %}
+            {% if member['member_birthdate'] %}
+            "birthday": "{{ member['member_birthdate'] }}"
+            {% endif %}            
         },
     {% endfor %}
 ];
@@ -1568,7 +1568,7 @@ function applyAccessibility(key, val) {
 }
 
 function stLogout()        { document.getElementById('logout-modal').style.display = 'flex'; }
-function confirmLogout()   { localStorage.removeItem('memora_user'); window.location.href = 'login.html'; }
+function confirmLogout()   { document.cookie = "user_id=; expires=Thu, 15 Aug 1947 00:00:00 UTC; path=/;";window.location.href = "/";} // India got independence on 15th august 1947! (ie, date is long done)
 function stChangePassword(){ alert('Change password feature coming soon.'); }
 function stPrivacyPolicy() { alert('Privacy Policy coming soon.'); }
 function stExportData() {
@@ -1586,7 +1586,7 @@ function stExportData() {
 function stDeleteAccount() {
     if (confirm('This will permanently delete your account and all data. This cannot be undone. Continue?')) {
         localStorage.clear();
-        window.location.href = 'register.html';
+        window.location.href = "/delete_account";
     }
 }
 

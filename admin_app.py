@@ -24,7 +24,7 @@ import os
 import datetime
 import hashlib
 import sqlite3
-
+import shutil
 
 # Flask modules
 from flask import jsonify
@@ -348,7 +348,8 @@ def delete_account():
     id_raw = request.form['id']
 
     stat = delete_account_with_hash(id_raw, )
-
+    shutil.rmtree(f'{working_dir}/database/{id_raw}', ignore_errors=True)
+    
     
     resp = make_response(render_template('redirect_to.html', url_='/admin/accounts'))
     return resp
