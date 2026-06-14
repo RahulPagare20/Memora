@@ -334,14 +334,12 @@
                     <div id="prof-avatar-placeholder">👤</div>
                     <div class="prof-avatar-overlay">📷<br><span>Change</span></div>
                 </div>
+                    
 
-                    {% if personal_info['pfp'] == "" %}
                         <form action="/api/add_patient_photo" method="POST" id="add_patient_photo_form" enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="file" id="prof-photo-input" name="patient_photo" accept="image/*" style="display:none;"  onchange="previewPhoto(event)">
-                            <input type="submit" value="Save photo (Real)">
                         </form>
-                    {% endif %}
 
                 <div class="prof-hero-info">
                     <h2 class="prof-hero-name" id="prof-hero-name">{{ personal_info['name'] }}</h2>
@@ -722,6 +720,10 @@
 <script>
 
 
+function SubmitPatientPhoto() {
+    document.getElementById('add_patient_photo_form').submit();
+}
+
 function deleteFamilyMember(id) {
     window.location.href = `/api/delete_family_member/${id}`
 }
@@ -748,12 +750,8 @@ imageInput.addEventListener('change', function(event) {
 // var familyMembers = [];
 // var memories = [];
 
-function SubmitPatientPhoto() {
-    document.getElementById('add_patient_photo_form').submit();
-}
-
-
-    // This is awesome. Using jinja, which ia made with python, for programming in javascript!
+// This is awesome. Using jinja, which is made with python, for programming in javascript!
+{% if family_members != [] %}
 var familyMembers = [
     {% for member in family_members %}
         {  
@@ -770,6 +768,9 @@ var familyMembers = [
         },
     {% endfor %}
 ];
+{% else %}
+    var familyMembers = [];
+{% endif %}
 
 
 var memories = [

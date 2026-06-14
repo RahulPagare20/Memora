@@ -288,7 +288,7 @@ def dashboard_ssr():
     files_only.remove('ban_status.db')
 
     print(len(files_only))
-
+    
     if len(files_only) == 0:
         personal_info = {
             'pfp': '',
@@ -310,11 +310,12 @@ def dashboard_ssr():
             'dementia_stage': dementia_stage,
             'caretaker_phone_number': caretaker_phone_number
         }            
-                       
+
+        
 
     '''
     personal_info = {
-        'pfp': '/something',
+        'pfp': '',
         'name': name,
         'email_id': email_id,
         'password': password,

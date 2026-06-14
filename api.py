@@ -268,6 +268,19 @@ def add_patient_photo_ssr():
     if file.filename.strip() == '':    
         resp = make_response(render_template('redirect_to.html', url_=f"/dashboard"))
         return resp
+    
+    files_only = [f for f in os.listdir(f'{working_dir}/database/{id}')  if os.path.isfile(os.path.join(f'{working_dir}/database/{id}', f))]            
+    files_only.remove('ban_status.db')   
+    if len(files_only) != 0:
+        file_ = files_only[0] # Only one permissible file allowed other than folders and ban_status.db in /database/{id}
+    
+    try:
+        os.remove(os.path.join(f'{working_dir}/database/{id}', file_))
+    except:
+        pass # Escaping for now
+
+
+    
 
     ext = file.filename.rsplit('.', 1)[1].lower()
 
@@ -361,7 +374,7 @@ def get_patient_pic_lll():
     except:
         return "Your profile photo does not exist."
 
-        
+
 @api.route('/add_memory', methods=['POST'])
 def add_memory_server():
     cookies = request.cookies
