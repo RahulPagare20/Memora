@@ -444,15 +444,16 @@ body{
 /* Personalize Page */
 
 .personalize-box{
-    max-width:620px;
+    max-width:860px;
 }
 
 .personalize-form{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
 }
 
 .full-width{
     width:100%;
+    grid-column: 1 / -1;
 }
 
 /* Phone wrap */
