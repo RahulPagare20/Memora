@@ -2456,6 +2456,7 @@ body.acc-reduce-motion *::after {
     line-height: 1.8;
     margin-bottom: 16px;
     text-align: center;
+    font-family: 'Playfair Display', serif;
 }
 
 .lp-about-stats {
