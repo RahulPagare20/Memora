@@ -88,8 +88,8 @@ memora/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/memora.git -b main
-cd memora
+git clone https://github.com/RahulPagare20/memora.git -b main
+cd Memora
 ```
 
 
