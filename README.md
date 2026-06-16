@@ -130,7 +130,7 @@ Visit `http://localhost:8080` or [Memora](https://rahulp.pythonanywhere.com) in 
 
 | Method | Route | Description |
 |---|---|---|
-| `GET` | `/` | Landing screen if user is logged in, if not, redirects to /dashboard |
+| `GET` | `/` | Landing screen: if user is not logged in, if otherwise - redirects to /dashboard |
 | `GET` | `/register` |  Stage 1 account creation page. Sends an email too! |
 | `GET` | `/personalize` | Stage 2 account (final) createion page |
 | `GET` | `/login` | Displays Login page |
